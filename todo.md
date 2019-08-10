@@ -1,4 +1,5 @@
 
+[ ] Add support to IOS. (add google-services file and camera permissions)
 [ ] Handle when connection is not available.
 [ ] Better solution to MOBX and form field
 [X] Remove contract abi from dart and use the original json file.\

@@ -1,4 +1,4 @@
-## Ethereum Wallet for [ERC20](https://en.wikipedia.org/wiki/ERC-20) smart contracts - PREVIEW.
+## Ethereum Wallet for [ERC20](https://en.wikipedia.org/wiki/ERC-20) smart contracts.
 
 A digital wallet app, developed in dart language and flutter framework. The idea is to have a boiler plate to transfer tokens from one address to another based on smart contracts.
 
