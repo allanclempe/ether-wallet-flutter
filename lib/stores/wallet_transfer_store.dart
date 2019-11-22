@@ -63,21 +63,19 @@ abstract class WalletTransferStoreBase with Store {
 
     isLoading(true);
 
-    try {
-      _contractService.send(
+    _contractService.send(
         walletStore.privateKey,
         EthereumAddress.fromHex(this.to),
         BigInt.from(double.parse(this.amount) * pow(10, 18)),
         onTransfer: (from, to, value) {
-          controller.add(transactionEvent.confirmed(from, to, value));
-          controller.close();
-          isLoading(false);
-        },
-      ).then((id) => controller.add(transactionEvent.setId(id)));
-    } catch (ex) {
+      controller.add(transactionEvent.confirmed(from, to, value));
+      controller.close();
+      isLoading(false);
+    }, onError: (ex) {
       controller.addError(ex);
       isLoading(false);
-    }
+    }).then(
+        (id) => {if (id != null) controller.add(transactionEvent.setId(id))});
 
     return controller.stream;
   }
