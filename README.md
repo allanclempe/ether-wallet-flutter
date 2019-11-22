@@ -23,3 +23,6 @@ Watch - `flutter packages pub run build_runner watch`
 ### Smart contract
 
 Feel free to check out the smart contract used by this project [https://github.com/allanclempe/ether-wallet-contract](https://github.com/allanclempe/ether-wallet-contract)
+
+---
+dart wallet cryto flutter eth smart contracts - by Allan Clempe
