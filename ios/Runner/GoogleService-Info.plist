@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1087248227022-2uj4vchfbud4tdaoekte9got3h7bpcea.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1087248227022-2uj4vchfbud4tdaoekte9got3h7bpcea</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCiOJ99AgB3hM5N7ZxS2dG7SV3G7ER9goQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1087248227022</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>dev.clempe.etherwallet</string>
+	<key>PROJECT_ID</key>
+	<string>etherwallet-18c58</string>
+	<key>STORAGE_BUCKET</key>
+	<string>etherwallet-18c58.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1087248227022:ios:333c89b3229394831a4e9f</string>
+	<key>DATABASE_URL</key>
+	<string>https://etherwallet-18c58.firebaseio.com</string>
+</dict>
+</plist>
