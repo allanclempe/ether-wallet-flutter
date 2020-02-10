@@ -31,7 +31,7 @@ dependencies:
   bip39: ^1.0.3
   ed25519_hd_key: ^1.0.1
   shared_preferences: ^0.4.2
-  camera: ^0.5.2+2
+  camera: ^0.5.7+2
   firebase_ml_vision: 0.9.3+3
   web_socket_channel: ^1.1.0
   intl: ^0.16.0
