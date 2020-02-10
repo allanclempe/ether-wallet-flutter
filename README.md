@@ -24,5 +24,15 @@ Watch - `flutter packages pub run build_runner watch`
 
 Feel free to check out the smart contract used by this project [https://github.com/allanclempe/ether-wallet-contract](https://github.com/allanclempe/ether-wallet-contract)
 
+### Transfer TOKENS to your wallet
+
+[https://go.aws/2w6AnY7](https://go.aws/2w6AnY7)
+
+
+### Transfer ETH to your wallet
+
+[https://faucet.ropsten.be/](https://faucet.ropsten.be/)
+
+
 ---
 dart wallet cryto flutter eth smart contracts - by Allan Clempe
