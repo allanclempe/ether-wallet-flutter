@@ -1,3 +1,4 @@
+import 'package:etherwallet/components/copyButton/copyButton.dart';
 import 'package:etherwallet/components/form/paper_form.dart';
 import 'package:etherwallet/components/form/paper_input.dart';
 import 'package:etherwallet/components/form/paper_validation_summary.dart';
@@ -60,11 +61,20 @@ class _WalletCreatePage extends State<WalletCreatePage> {
                   ),
                 ),
               ),
-              RaisedButton(
-                child: const Text('Next'),
-                onPressed: () {
-                  widget.store.goto(WalletCreateSteps.confirm);
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  CopyButton(
+                    text: const Text('Copy'),
+                    value: widget.store.mnemonic,
+                  ),
+                  RaisedButton(
+                    child: const Text('Next'),
+                    onPressed: () {
+                      widget.store.goto(WalletCreateSteps.confirm);
+                    },
+                  )
+                ],
               )
             ],
           ),

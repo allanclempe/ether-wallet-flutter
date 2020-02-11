@@ -7,7 +7,7 @@ class AppConfig {
 
     params['ropsten'] = AppConfigParams(
         "https://ropsten.infura.io/v3/628074215a2449eb960b4fe9e95feb09",
-        "wss://ropsten.infura.io/ws",
+        "wss://ropsten.infura.io/ws/v3/628074215a2449eb960b4fe9e95feb09",
         "0x5060b60cb8Bd1C94B7ADEF4134555CDa7B45c461");
   }
 

@@ -6,7 +6,7 @@ part of 'wallet_create_store.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars
+// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$WalletCreateStore on WalletCreateStoreBase, Store {
   final _$mnemonicAtom = Atom(name: 'WalletCreateStoreBase.mnemonic');
