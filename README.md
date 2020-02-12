@@ -51,7 +51,7 @@ Also to process transactions on the network, you will also need ETH to pay trans
 
 just be patient, the transaction might take a while to be processed. 
 
-## The smart contract
+### The smart contract
 
 Feel free to check out the smart contract used in this project [https://github.com/allanclempe/ether-wallet-contract](https://github.com/allanclempe/ether-wallet-contract)
 
