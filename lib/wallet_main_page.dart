@@ -26,7 +26,8 @@ class _WalletMainPageState extends State<WalletMainPage> {
               subtitle: Text("Receive some test tokens"),
               trailing: Icon(Icons.attach_money),
               onTap: () async {
-                const url = 'https://go.aws/2w6AnY7';
+                var url =
+                    'http://ec2-54-213-50-23.us-west-2.compute.amazonaws.com/transfer?address=${widget.walletStore.address}';
                 if (await canLaunch(url)) {
                   await launch(url);
                 } else {
@@ -37,7 +38,7 @@ class _WalletMainPageState extends State<WalletMainPage> {
             ListTile(
               title: Text("Reset wallet"),
               subtitle: Text(
-                  "warning: without your mnemonic you cannot restore your wallet"),
+                  "warning: without your seed phrase you cannot restore your wallet"),
               trailing: Icon(Icons.warning),
               onTap: () async {
                 await widget.walletStore.resetWallet();
