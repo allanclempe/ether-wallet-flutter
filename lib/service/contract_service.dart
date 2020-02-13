@@ -36,7 +36,7 @@ class ContractService implements IContractService {
     final networkId = await client.getNetworkId();
 
     StreamSubscription event;
-    // Work around once sendTransacton doesn't return a Promise containing confirmation / receipt
+    // Workaround once sendTransacton doesn't return a Promise containing confirmation / receipt
     if (onTransfer != null) {
       event = listenTransfer((from, to, value) async {
         onTransfer(from, to, value);
@@ -95,6 +95,10 @@ class ContractService implements IContractService {
       final from = decoded[0] as EthereumAddress;
       final to = decoded[1] as EthereumAddress;
       final value = decoded[2] as BigInt;
+
+      print('$from}');
+      print('$to}');
+      print('$value}');
 
       onTransfer(from, to, value);
     });

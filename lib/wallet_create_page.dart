@@ -1,3 +1,4 @@
+import 'package:etherwallet/components/copyButton/copy_button.dart';
 import 'package:etherwallet/components/form/paper_form.dart';
 import 'package:etherwallet/components/form/paper_input.dart';
 import 'package:etherwallet/components/form/paper_validation_summary.dart';
@@ -46,7 +47,7 @@ class _WalletCreatePage extends State<WalletCreatePage> {
           child: Column(
             children: <Widget>[
               Text(
-                "Get a piece of papper, write down your mnemonic and keep it safe. This is the only way to recover your funds.",
+                "Get a piece of papper, write down your seed phrase and keep it safe. This is the only way to recover your funds.",
                 textAlign: TextAlign.center,
               ),
               Container(
@@ -60,11 +61,20 @@ class _WalletCreatePage extends State<WalletCreatePage> {
                   ),
                 ),
               ),
-              RaisedButton(
-                child: const Text('Next'),
-                onPressed: () {
-                  widget.store.goto(WalletCreateSteps.confirm);
-                },
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  CopyButton(
+                    text: const Text('Copy'),
+                    value: widget.store.mnemonic,
+                  ),
+                  RaisedButton(
+                    child: const Text('Next'),
+                    onPressed: () {
+                      widget.store.goto(WalletCreateSteps.confirm);
+                    },
+                  )
+                ],
               )
             ],
           ),
@@ -99,8 +109,8 @@ class _WalletCreatePage extends State<WalletCreatePage> {
             children: <Widget>[
               PaperValidationSummary(widget.store.errors),
               PaperInput(
-                labelText: 'Confirm mnemonic',
-                hintText: 'Please type mnemonic again',
+                labelText: 'Confirm your seed',
+                hintText: 'Please type your seed phrase again',
                 maxLines: 2,
                 onChanged: widget.store.setMnemonicConfirmation,
               ),

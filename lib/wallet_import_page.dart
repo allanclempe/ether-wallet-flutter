@@ -62,7 +62,7 @@ class _WalletImportPage extends State<WalletImportPage> {
               Row(
                 children: <Widget>[
                   PaperRadio(
-                    "Mnemonic",
+                    "Seed",
                     groupValue: widget.store.type,
                     value: WalletImportType.mnemonic,
                     onChanged: (value) => widget.store.setType(value),
@@ -114,8 +114,8 @@ class _WalletImportPage extends State<WalletImportPage> {
           builder: (context) => PaperValidationSummary(widget.store.errors),
         ),
         PaperInput(
-          labelText: 'Mnemonic',
-          hintText: 'Type mnemonic',
+          labelText: 'Seed phrase',
+          hintText: 'Type your seed phrase',
           maxLines: 3,
           onChanged: widget.store.setMnemonic,
         ),

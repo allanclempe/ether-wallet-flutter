@@ -59,8 +59,10 @@
 **/ios/Flutter/app.flx
 **/ios/Flutter/app.zip
 **/ios/Flutter/flutter_assets/
+**/ios/Flutter/flutter_export_environment.sh
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
+
 
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3

@@ -2,6 +2,7 @@ import 'package:etherwallet/components/wallet/balance.dart';
 import 'package:etherwallet/stores/wallet_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class WalletMainPage extends StatefulWidget {
   WalletMainPage(this.walletStore, {Key key, this.title}) : super(key: key);
@@ -21,8 +22,23 @@ class _WalletMainPageState extends State<WalletMainPage> {
         child: ListView(
           children: <Widget>[
             ListTile(
-              title: Text("Change mnemonic"),
-              subtitle: Text("will reset your account"),
+              title: Text("Get tokens "),
+              subtitle: Text("Receive some test tokens"),
+              trailing: Icon(Icons.attach_money),
+              onTap: () async {
+                var url =
+                    'http://ec2-54-213-50-23.us-west-2.compute.amazonaws.com/transfer?address=${widget.walletStore.address}';
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  throw 'Could not launch $url';
+                }
+              },
+            ),
+            ListTile(
+              title: Text("Reset wallet"),
+              subtitle: Text(
+                  "warning: without your seed phrase you cannot restore your wallet"),
               trailing: Icon(Icons.warning),
               onTap: () async {
                 await widget.walletStore.resetWallet();
