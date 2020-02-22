@@ -12,7 +12,7 @@ A digital wallet app, developed in dart language and flutter framework. The idea
 
 Wallet |  Send tokens | Processing 
 :-----:|:------------:|:------------:|
-![Your wallet](http://ec2-54-213-50-23.us-west-2.compute.amazonaws.com/images/your-wallet.jpg)  |  ![Your wallet](http://ec2-54-213-50-23.us-west-2.compute.amazonaws.com/images/transfer-address.jpg) | ![Your wallet](http://ec2-54-213-50-23.us-west-2.compute.amazonaws.com/images/transfer-processing.jpg)
+![Your wallet](https://faucet.clempe.dev/images/your-wallet.jpg)  |  ![Your wallet](https://faucet.clempe.dev/images/transfer-address.jpg) | ![Your wallet](https://faucet.clempe.dev/images/transfer-processing.jpg)
 
 
 
@@ -40,7 +40,7 @@ For those who don't want to play with smart contracts yet, you can claim some te
 
 After setting up your wallet, you will need some tokens to play with. Use the link below to transfer some tokens to your wallet.
 
-[https://go.aws/2w6AnY7](https://go.aws/2w6AnY7)
+[https://faucet.clempe.dev](https://faucet.clempe.dev)
 
 
 ***Transfer test Ether to your wallet***
