@@ -22,12 +22,25 @@ class _WalletMainPageState extends State<WalletMainPage> {
         child: ListView(
           children: <Widget>[
             ListTile(
-              title: Text("Get tokens "),
+              title: Text("Get tokens"),
               subtitle: Text("Receive some test tokens"),
               trailing: Icon(Icons.attach_money),
               onTap: () async {
                 var url =
-                    'http://ec2-54-213-50-23.us-west-2.compute.amazonaws.com/transfer?address=${widget.walletStore.address}';
+                    'https://faucet.clempe.dev?address=${widget.walletStore.address}';
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  throw 'Could not launch $url';
+                }
+              },
+            ),
+            ListTile(
+              title: Text("Get ETH"),
+              subtitle: Text("Receive some test ether"),
+              trailing: Icon(Icons.attach_money),
+              onTap: () async {
+                var url = 'https://faucet.ropsten.be';
                 if (await canLaunch(url)) {
                   await launch(url);
                 } else {
