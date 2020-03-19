@@ -1,8 +1,10 @@
 import 'package:etherwallet/components/wallet/balance.dart';
 import 'package:etherwallet/stores/wallet_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+import 'components/menu/main_menu.dart';
 
 class WalletMainPage extends StatefulWidget {
   WalletMainPage(this.walletStore, {Key key, this.title}) : super(key: key);
@@ -18,69 +20,37 @@ class _WalletMainPageState extends State<WalletMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            ListTile(
-              title: Text("Get tokens"),
-              subtitle: Text("Receive some test tokens"),
-              trailing: Icon(Icons.attach_money),
-              onTap: () async {
-                var url =
-                    'https://faucet.clempe.dev?address=${widget.walletStore.address}';
-                if (await canLaunch(url)) {
-                  await launch(url);
-                } else {
-                  throw 'Could not launch $url';
-                }
+        drawer: MainMenu(
+          address: widget.walletStore.address,
+          onReset: () async {
+            await widget.walletStore.resetWallet();
+            Navigator.popAndPushNamed(context, "/");
+          },
+        ),
+        appBar: AppBar(
+          title: Text(widget.title),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: () async {
+                await widget.walletStore.fetchOwnBalance();
               },
             ),
-            ListTile(
-              title: Text("Get ETH"),
-              subtitle: Text("Receive some test ether"),
-              trailing: Icon(Icons.attach_money),
-              onTap: () async {
-                var url = 'https://faucet.ropsten.be';
-                if (await canLaunch(url)) {
-                  await launch(url);
-                } else {
-                  throw 'Could not launch $url';
-                }
-              },
-            ),
-            ListTile(
-              title: Text("Reset wallet"),
-              subtitle: Text(
-                  "warning: without your seed phrase you cannot restore your wallet"),
-              trailing: Icon(Icons.warning),
-              onTap: () async {
-                await widget.walletStore.resetWallet();
-                Navigator.popAndPushNamed(context, "/");
+            IconButton(
+              icon: Icon(Icons.send),
+              onPressed: () {
+                Navigator.of(context).pushNamed("/transfer");
               },
             ),
           ],
         ),
-      ),
-      appBar: AppBar(
-        title: Text(widget.title),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: () async {
-              await widget.walletStore.fetchOwnBalance();
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.send),
-            onPressed: () {
-              Navigator.of(context).pushNamed("/transfer");
-            },
-          ),
-        ],
-      ),
-      body: Consumer<WalletStore>(
-        builder: (context, walletStore, _) => Balance(walletStore),
-      ),
-    );
+        body: Consumer<WalletStore>(
+          builder: (context, walletStore, _) => Observer(
+              builder: (_) => Balance(
+                    address: walletStore.address,
+                    ethBalance: walletStore.ethBalance,
+                    tokenBalance: walletStore.tokenBalance,
+                  )),
+        ));
   }
 }
