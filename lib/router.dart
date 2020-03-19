@@ -1,9 +1,8 @@
 import 'package:etherwallet/processing_transaction_page.dart';
 import 'package:etherwallet/qrcode_reader_page.dart';
+import 'package:etherwallet/service/address_service.dart';
 import 'package:etherwallet/service/configuration_service.dart';
 import 'package:etherwallet/stores/wallet_store.dart';
-import 'package:etherwallet/stores/wallet_create_store.dart';
-import 'package:etherwallet/stores/wallet_import_store.dart';
 import 'package:etherwallet/stores/wallet_transfer_store.dart';
 import 'package:etherwallet/wallet_create_page.dart';
 import 'package:etherwallet/wallet_import_page.dart';
@@ -26,13 +25,13 @@ Map<String, WidgetBuilder> getRoutes(context) {
 
           return IntroPage();
         }),
-    '/create': (BuildContext context) => Consumer<WalletCreateStore>(
-          builder: (context, walletCreateStore, _) =>
-              WalletCreatePage(walletCreateStore, title: "Create wallet"),
+    '/create': (BuildContext context) => Consumer<AddressService>(
+          builder: (context, addressService, _) =>
+              WalletCreatePage(addressService, title: "Create wallet"),
         ),
-    '/import': (BuildContext context) => Consumer<WalletImportStore>(
-          builder: (context, walletImportStore, _) =>
-              WalletImportPage(walletImportStore, title: "Import wallet"),
+    '/import': (BuildContext context) => Consumer<AddressService>(
+          builder: (context, addressService, _) =>
+              WalletImportPage(addressService, title: "Import wallet"),
         ),
     '/transfer': (BuildContext context) => Consumer<WalletTransferStore>(
           builder: (context, walletTransferStore, _) =>

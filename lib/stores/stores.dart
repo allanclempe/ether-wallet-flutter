@@ -42,6 +42,8 @@ Future<List<SingleChildCloneableWidget>> createStore(
   }
 
   return [
+    Provider<AddressService>(builder: (_) => addressService),
+    Provider<ContractService>(builder: (_) => contractService),
     Provider<WalletStore>(builder: (_) => walletStore),
     Provider<WalletTransferStore>(builder: (_) => walletTransferStore),
     Provider<WalletCreateStore>(builder: (_) => walletCreateStore),
