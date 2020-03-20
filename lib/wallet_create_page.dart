@@ -1,5 +1,4 @@
 import 'package:etherwallet/components/wallet/confirm_mnemonic.dart';
-import 'package:etherwallet/service/address_service.dart';
 import 'package:etherwallet/state/use_create_wallet_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -7,14 +6,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'components/wallet/display_mnemonic.dart';
 
 class WalletCreatePage extends HookWidget {
-  WalletCreatePage(this.addressService, {this.title});
+  WalletCreatePage(this.title);
 
-  final IAddressService addressService;
   final String title;
 
   Widget build(BuildContext context) {
-    var state = useCreateWalletState(context, addressService);
-
+    var state = useCreateWalletState(context);
+  
     return Scaffold(
       appBar: AppBar(
         title: Text(title),

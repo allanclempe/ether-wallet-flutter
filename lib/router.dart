@@ -1,6 +1,5 @@
 import 'package:etherwallet/processing_transaction_page.dart';
 import 'package:etherwallet/qrcode_reader_page.dart';
-import 'package:etherwallet/service/address_service.dart';
 import 'package:etherwallet/service/configuration_service.dart';
 import 'package:etherwallet/stores/wallet_store.dart';
 import 'package:etherwallet/stores/wallet_transfer_store.dart';
@@ -25,14 +24,8 @@ Map<String, WidgetBuilder> getRoutes(context) {
 
           return IntroPage();
         }),
-    '/create': (BuildContext context) => Consumer<AddressService>(
-          builder: (context, addressService, _) =>
-              WalletCreatePage(addressService, title: "Create wallet"),
-        ),
-    '/import': (BuildContext context) => Consumer<AddressService>(
-          builder: (context, addressService, _) =>
-              WalletImportPage(addressService, title: "Import wallet"),
-        ),
+    '/create': (BuildContext context) => WalletCreatePage("Create wallet"),
+    '/import': (BuildContext context) => WalletImportPage("Import wallet"),
     '/transfer': (BuildContext context) => Consumer<WalletTransferStore>(
           builder: (context, walletTransferStore, _) =>
               WalletTransferPage(walletTransferStore, title: "Send Tokens"),

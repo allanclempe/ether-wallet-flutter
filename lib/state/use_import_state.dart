@@ -1,6 +1,7 @@
 import 'package:etherwallet/service/address_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:provider/provider.dart';
 
 class ImportWalletState {
   ImportWalletState({this.errors, this.addressService});
@@ -58,8 +59,8 @@ class ImportWalletState {
   }
 }
 
-ImportWalletState useImportWalletState<T>(
-    BuildContext context, IAddressService addressService) {
+ImportWalletState useImportWalletState<T>(BuildContext context) {
+  final addressService = Provider.of<AddressService>(context);
   final errors = useState<List<String>>([]);
 
   return ImportWalletState(addressService: addressService, errors: errors);

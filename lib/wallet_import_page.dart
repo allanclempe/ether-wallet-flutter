@@ -1,18 +1,16 @@
 import 'package:etherwallet/components/wallet/import_wallet_form.dart';
-import 'package:etherwallet/service/address_service.dart';
 import 'package:etherwallet/state/use_import_state.dart';
 import 'package:etherwallet/stores/wallet_import_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class WalletImportPage extends HookWidget {
-  WalletImportPage(this.addressService, {this.title});
+  WalletImportPage(this.title);
 
   final String title;
-  final IAddressService addressService;
 
   Widget build(BuildContext context) {
-    var state = useImportWalletState(context, addressService);
+    var state = useImportWalletState(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
