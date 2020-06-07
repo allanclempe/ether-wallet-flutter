@@ -7,7 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:provider/provider.dart';
 
-import 'hook_provider.dart';
+import '../hook_provider.dart';
 import 'wallet_state.dart';
 import 'wallet_handler.dart';
 

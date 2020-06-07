@@ -1,5 +1,5 @@
-import 'package:etherwallet/context/wallet_transfer_handler.dart';
-import 'package:etherwallet/context/wallet_transfer_state.dart';
+import 'package:etherwallet/context/transfer/wallet_transfer_handler.dart';
+import 'package:etherwallet/context/transfer/wallet_transfer_state.dart';
 import 'package:etherwallet/model/wallet_transfer.dart';
 import 'package:etherwallet/service/configuration_service.dart';
 import 'package:etherwallet/service/contract_service.dart';
@@ -8,7 +8,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:provider/provider.dart';
 
-import 'hook_provider.dart';
+import '../hook_provider.dart';
 
 class WalletTransferProvider
     extends ContextProviderWidget<WalletTransferHandler> {

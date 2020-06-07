@@ -2,7 +2,7 @@ import 'package:etherwallet/components/wallet/balance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'components/menu/main_menu.dart';
-import 'context/wallet_provider.dart';
+import 'context/wallet/wallet_provider.dart';
 
 class WalletMainPage extends HookWidget {
   WalletMainPage(this.title);
