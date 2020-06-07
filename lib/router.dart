@@ -1,39 +1,47 @@
-import 'package:etherwallet/processing_transaction_page.dart';
+import 'package:etherwallet/context/wallet_provider.dart';
 import 'package:etherwallet/qrcode_reader_page.dart';
 import 'package:etherwallet/service/configuration_service.dart';
-import 'package:etherwallet/stores/wallet_store.dart';
-import 'package:etherwallet/stores/wallet_transfer_store.dart';
 import 'package:etherwallet/wallet_create_page.dart';
 import 'package:etherwallet/wallet_import_page.dart';
 import 'package:etherwallet/wallet_main_page.dart';
 import 'package:etherwallet/wallet_transfer_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
 
+import 'context/wallet_setup_provider.dart';
+import 'context/wallet_transfer_provider.dart';
 import 'intro_page.dart';
 
 Map<String, WidgetBuilder> getRoutes(context) {
   return {
-    '/': (BuildContext context) => Consumer<ConfigurationService>(
-            builder: (context, configurationService, _) {
-          if (configurationService.didSetupWallet())
-            return Consumer<WalletStore>(
-              builder: (context, walletStore, _) =>
-                  WalletMainPage(walletStore, title: "Your wallet"),
-            );
+    '/': (BuildContext context) {
+      var configurationService = Provider.of<ConfigurationService>(context);
+      if (configurationService.didSetupWallet())
+        return WalletProvider(builder: (context, store) {
+          return WalletMainPage("Your wallet");
+        });
 
-          return IntroPage();
+      return IntroPage();
+    },
+    '/create': (BuildContext context) =>
+        WalletSetupProvider(builder: (context, store) {
+          useEffect(() {
+            store.generateMnemonic();
+            return null;
+          }, []);
+
+          return WalletCreatePage("Create wallet");
         }),
-    '/create': (BuildContext context) => WalletCreatePage("Create wallet"),
-    '/import': (BuildContext context) => WalletImportPage("Import wallet"),
-    '/transfer': (BuildContext context) => Consumer<WalletTransferStore>(
-          builder: (context, walletTransferStore, _) =>
-              WalletTransferPage(walletTransferStore, title: "Send Tokens"),
+    '/import': (BuildContext context) => WalletSetupProvider(
+          builder: (context, store) {
+            return WalletImportPage("Import wallet");
+          },
         ),
-    '/processing-transaction': (BuildContext context) =>
-        Consumer<WalletTransferStore>(
-          builder: (context, walletTransferStore, _) =>
-              ProcessingTransactionPage(title: "Sending Tokens"),
+    '/transfer': (BuildContext context) => WalletTransferProvider(
+          builder: (context, store) {
+            return WalletTransferPage(title: "Send Tokens");
+          },
         ),
     '/qrcode_reader': (BuildContext context) => QRCodeReaderPage(
           title: "Scan QRCode",

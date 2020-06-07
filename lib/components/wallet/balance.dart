@@ -16,7 +16,7 @@ class Balance extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(address),
+          Text(address ?? ""),
           CopyButton(
             text: const Text('Copy address'),
             value: address,

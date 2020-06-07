@@ -1,6 +1,6 @@
 import 'package:etherwallet/components/wallet/import_wallet_form.dart';
-import 'package:etherwallet/state/use_import_state.dart';
-import 'package:etherwallet/stores/wallet_import_store.dart';
+import 'package:etherwallet/context/wallet_setup_provider.dart';
+import 'package:etherwallet/model/wallet_setup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -10,20 +10,20 @@ class WalletImportPage extends HookWidget {
   final String title;
 
   Widget build(BuildContext context) {
-    var state = useImportWalletState(context);
+    var store = useWalletSetup(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
       ),
       body: ImportWalletForm(
-        errors: state.errors.value,
+        errors: store.state.errors.toList(),
         onImport: (type, value) async {
           switch (type) {
             case WalletImportType.mnemonic:
-              if (!await state.confirmMnemonic(value)) return;
+              if (!await store.importFromMnemonic(value)) return;
               break;
             case WalletImportType.privateKey:
-              if (!await state.confirmPrivateKey(value)) return;
+              if (!await store.importFromPrivateKey(value)) return;
               break;
             default:
               break;

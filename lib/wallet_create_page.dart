@@ -1,5 +1,6 @@
 import 'package:etherwallet/components/wallet/confirm_mnemonic.dart';
-import 'package:etherwallet/state/use_create_wallet_state.dart';
+import 'package:etherwallet/context/wallet_setup_provider.dart';
+import 'package:etherwallet/model/wallet_setup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -11,30 +12,30 @@ class WalletCreatePage extends HookWidget {
   final String title;
 
   Widget build(BuildContext context) {
-    var state = useCreateWalletState(context);
-  
+    var store = useWalletSetup(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
       ),
-      body: state.isDisplayStep
+      body: store.state.step == WalletCreateSteps.display
           ? DisplayMnemonic(
-              mnemonic: state.mnemonic.value,
+              mnemonic: store.state.mnemonic,
               onNext: () async {
-                state.goConfirm();
+                store.goto(WalletCreateSteps.confirm);
               },
             )
           : ConfirmMnemonic(
-              mnemonic: state.mnemonic.value,
-              errors: state.errors.value,
+              mnemonic: store.state.mnemonic,
+              errors: store.state.errors.toList(),
               onConfirm: (confirmedMnemonic) async {
-                if (await state.confirmMnemonic(confirmedMnemonic)) {
+                if (await store.confirmMnemonic(confirmedMnemonic)) {
                   Navigator.of(context).popAndPushNamed("/");
                 }
               },
               onGenerateNew: () async {
-                state.generateMnemonic();
-                state.goDisplay();
+                store.generateMnemonic();
+                store.goto(WalletCreateSteps.display);
               },
             ),
     );
