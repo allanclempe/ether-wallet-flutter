@@ -22,7 +22,7 @@ class Balance extends StatelessWidget {
             value: address,
           ),
           QrImage(
-            data: address,
+            data: address ?? "",
             size: 150.0,
           ),
           Text(

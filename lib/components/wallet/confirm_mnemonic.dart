@@ -3,8 +3,9 @@ import 'package:etherwallet/components/form/paper_input.dart';
 import 'package:etherwallet/components/form/paper_validation_summary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class ConfirmMnemonic extends StatelessWidget {
+class ConfirmMnemonic extends HookWidget {
   ConfirmMnemonic(
       {this.mnemonic, this.errors, this.onConfirm, this.onGenerateNew});
 
@@ -12,10 +13,10 @@ class ConfirmMnemonic extends StatelessWidget {
   final List<String> errors;
   final Function onConfirm;
   final Function onGenerateNew;
-  final TextEditingController mnemonicController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    var mnemonicController = useTextEditingController();
     return Center(
       child: Container(
         margin: EdgeInsets.all(25),
@@ -45,6 +46,5 @@ class ConfirmMnemonic extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

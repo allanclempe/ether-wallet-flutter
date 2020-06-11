@@ -27,18 +27,23 @@ class WalletTransferHandler {
 
     _store.dispatch(WalletTransferStarted());
 
-    await _contractService.send(
-      privateKey,
-      EthereumAddress.fromHex(to),
-      BigInt.from(double.parse(amount) * pow(10, 18)),
-      onTransfer: (from, to, value) {
-        completer.complete(true);
-      },
-      onError: (ex) {
-        _store.dispatch(WalletTransferError(ex.toString()));
-        completer.complete(false);
-      },
-    );
+    try {
+      await _contractService.send(
+        privateKey,
+        EthereumAddress.fromHex(to),
+        BigInt.from(double.parse(amount) * pow(10, 18)),
+        onTransfer: (from, to, value) {
+          completer.complete(true);
+        },
+        onError: (ex) {
+          _store.dispatch(WalletTransferError(ex.toString()));
+          completer.complete(false);
+        },
+      );
+    } catch (ex) {
+      _store.dispatch(WalletTransferError(ex.toString()));
+      completer.complete(false);
+    }
 
     return completer.future;
   }

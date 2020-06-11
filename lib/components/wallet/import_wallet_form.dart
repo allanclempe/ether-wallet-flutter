@@ -6,18 +6,16 @@ import 'package:etherwallet/model/wallet_setup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-typedef ImportType = void Function(WalletImportType type, String value);
-
 class ImportWalletForm extends HookWidget {
   ImportWalletForm({this.onImport, this.errors});
 
-  final ImportType onImport;
+  final Function(WalletImportType type, String value) onImport;
   final List<String> errors;
-  final TextEditingController inputController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     var importType = useState(WalletImportType.mnemonic);
+    var inputController = useTextEditingController();
 
     return Center(
       child: Container(
@@ -54,12 +52,14 @@ class ImportWalletForm extends HookWidget {
                   Visibility(
                       child: fieldForm(
                           label: 'Private Key',
-                          hintText: 'Type your private key'),
+                          hintText: 'Type your private key',
+                          controller: inputController),
                       visible: importType.value == WalletImportType.privateKey),
                   Visibility(
                       child: fieldForm(
                           label: 'Seed phrase',
-                          hintText: 'Type your seed phrase'),
+                          hintText: 'Type your seed phrase',
+                          controller: inputController),
                       visible: importType.value == WalletImportType.mnemonic),
                 ],
               ),
@@ -70,7 +70,11 @@ class ImportWalletForm extends HookWidget {
     );
   }
 
-  Widget fieldForm({String label, String hintText}) {
+  Widget fieldForm({
+    String label,
+    String hintText,
+    TextEditingController controller,
+  }) {
     return Column(
       children: <Widget>[
         PaperValidationSummary(errors),
@@ -78,7 +82,7 @@ class ImportWalletForm extends HookWidget {
           labelText: label,
           hintText: hintText,
           maxLines: 3,
-          controller: inputController,
+          controller: controller,
         ),
       ],
     );

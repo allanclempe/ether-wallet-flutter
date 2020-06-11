@@ -8,7 +8,6 @@ class DisplayMnemonic extends HookWidget {
 
   final String mnemonic;
   final Function onNext;
-  final TextEditingController mnemonicController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

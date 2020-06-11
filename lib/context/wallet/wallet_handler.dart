@@ -59,11 +59,11 @@ class WalletHandler {
       var fromMe = from.toString() == state.address;
       var toMe = to.toString() == state.address;
 
-      print('HERE ==== balance updated.');
-
       if (!fromMe && !toMe) {
         return;
       }
+
+      print('======= balance updated =======');
 
       await fetchOwnBalance();
     });
