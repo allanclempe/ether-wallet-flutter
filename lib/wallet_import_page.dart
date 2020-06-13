@@ -17,20 +17,22 @@ class WalletImportPage extends HookWidget {
       ),
       body: ImportWalletForm(
         errors: store.state.errors.toList(),
-        onImport: (type, value) async {
-          switch (type) {
-            case WalletImportType.mnemonic:
-              if (!await store.importFromMnemonic(value)) return;
-              break;
-            case WalletImportType.privateKey:
-              if (!await store.importFromPrivateKey(value)) return;
-              break;
-            default:
-              break;
-          }
+        onImport: !store.state.loading
+            ? (type, value) async {
+                switch (type) {
+                  case WalletImportType.mnemonic:
+                    if (!await store.importFromMnemonic(value)) return;
+                    break;
+                  case WalletImportType.privateKey:
+                    if (!await store.importFromPrivateKey(value)) return;
+                    break;
+                  default:
+                    break;
+                }
 
-          Navigator.of(context).popAndPushNamed("/");
-        },
+                Navigator.of(context).popAndPushNamed("/");
+              }
+            : null,
       ),
     );
   }

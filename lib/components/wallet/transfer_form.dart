@@ -25,31 +25,38 @@ class TransferForm extends HookWidget {
       return null;
     }, [address]);
 
-    return SingleChildScrollView(
-      child: PaperForm(
-        padding: 50,
-        children: <Widget>[
-          PaperValidationSummary(transferStore.state.errors.toList()),
-          PaperInput(
-            controller: toController,
-            labelText: 'To',
-            hintText: 'Type the destination address',
+    return Center(
+      child: Container(
+        margin: EdgeInsets.all(25),
+        child: SingleChildScrollView(
+          child: PaperForm(
+            padding: 30,
+            actionButtons: <Widget>[
+              RaisedButton(
+                child: const Text('Transfer now'),
+                onPressed: () {
+                  this.onSubmit(
+                    toController.value.text,
+                    amountController.value.text,
+                  );
+                },
+              )
+            ],
+            children: <Widget>[
+              PaperValidationSummary(transferStore.state.errors.toList()),
+              PaperInput(
+                controller: toController,
+                labelText: 'To',
+                hintText: 'Type the destination address',
+              ),
+              PaperInput(
+                controller: amountController,
+                labelText: 'Amount',
+                hintText: 'And amount',
+              ),
+            ],
           ),
-          PaperInput(
-            controller: amountController,
-            labelText: 'Amount',
-            hintText: 'And amount',
-          ),
-          RaisedButton(
-            child: const Text('Transfer now'),
-            onPressed: () {
-              this.onSubmit(
-                toController.value.text,
-                amountController.value.text,
-              );
-            },
-          )
-        ],
+        ),
       ),
     );
   }

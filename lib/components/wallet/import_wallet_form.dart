@@ -26,8 +26,10 @@ class ImportWalletForm extends HookWidget {
             actionButtons: <Widget>[
               RaisedButton(
                 child: const Text('Import'),
-                onPressed: () =>
-                    this.onImport(importType.value, inputController.value.text),
+                onPressed: this.onImport != null
+                    ? () => this
+                        .onImport(importType.value, inputController.value.text)
+                    : null,
               )
             ],
             children: <Widget>[

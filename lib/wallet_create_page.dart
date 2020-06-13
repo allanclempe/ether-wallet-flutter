@@ -28,15 +28,19 @@ class WalletCreatePage extends HookWidget {
           : ConfirmMnemonic(
               mnemonic: store.state.mnemonic,
               errors: store.state.errors.toList(),
-              onConfirm: (confirmedMnemonic) async {
-                if (await store.confirmMnemonic(confirmedMnemonic)) {
-                  Navigator.of(context).popAndPushNamed("/");
-                }
-              },
-              onGenerateNew: () async {
-                store.generateMnemonic();
-                store.goto(WalletCreateSteps.display);
-              },
+              onConfirm: !store.state.loading
+                  ? (confirmedMnemonic) async {
+                      if (await store.confirmMnemonic(confirmedMnemonic)) {
+                        Navigator.of(context).popAndPushNamed("/");
+                      }
+                    }
+                  : null,
+              onGenerateNew: !store.state.loading
+                  ? () async {
+                      store.generateMnemonic();
+                      store.goto(WalletCreateSteps.display);
+                    }
+                  : null,
             ),
     );
   }

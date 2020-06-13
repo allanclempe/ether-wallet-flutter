@@ -25,6 +25,7 @@ class WalletSetupHandler {
           .dispatch(WalletSetupAddError("Invalid mnemonic, please try again."));
       return false;
     }
+    _store.dispatch(WalletSetupStarted());
 
     await _addressService.setupFromMnemonic(mnemonic);
 
@@ -37,6 +38,8 @@ class WalletSetupHandler {
 
   Future<bool> importFromMnemonic(String mnemonic) async {
     try {
+      _store.dispatch(WalletSetupStarted());
+
       if (_validateMnemonic(mnemonic)) {
         final normalisedMnemonic = _mnemonicNormalise(mnemonic);
         await _addressService.setupFromMnemonic(normalisedMnemonic);
@@ -54,6 +57,8 @@ class WalletSetupHandler {
 
   Future<bool> importFromPrivateKey(String privateKey) async {
     try {
+      _store.dispatch(WalletSetupStarted());
+
       await _addressService.setupFromPrivateKey(privateKey);
       return true;
     } catch (e) {

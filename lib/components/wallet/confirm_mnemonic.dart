@@ -30,7 +30,9 @@ class ConfirmMnemonic extends HookWidget {
               ),
               RaisedButton(
                 child: const Text('Confirm'),
-                onPressed: () => this.onConfirm(mnemonicController.value.text),
+                onPressed: this.onConfirm != null
+                    ? () => this.onConfirm(mnemonicController.value.text)
+                    : null,
               )
             ],
             children: <Widget>[

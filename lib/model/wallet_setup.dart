@@ -18,7 +18,7 @@ abstract class WalletSetup implements Built<WalletSetup, WalletSetupBuilder> {
 
   WalletCreateSteps get step;
   WalletSetupMethod get method;
-
+  bool get loading;
   @nullable
   BuiltList<String> get errors;
 
@@ -27,6 +27,7 @@ abstract class WalletSetup implements Built<WalletSetup, WalletSetupBuilder> {
       _$WalletSetup((b) => b
         ..step = WalletCreateSteps.display
         ..method = WalletSetupMethod.create
+        ..loading = false
         ..errors = BuiltList<String>().toBuilder()
         ..update(updates));
 }
