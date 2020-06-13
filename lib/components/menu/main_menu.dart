@@ -1,3 +1,4 @@
+import 'package:etherwallet/utils/wallet_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -15,7 +16,7 @@ class MainMenu extends StatelessWidget {
           ListTile(
             title: Text("Get tokens"),
             subtitle: Text("Receive some test tokens"),
-            trailing: Icon(Icons.attach_money),
+            trailing: Icon(WalletIcons.gem, color: Colors.blue),
             onTap: () async {
               var url = 'https://faucet.clempe.dev?address=${this.address}';
               if (await canLaunch(url)) {
@@ -28,7 +29,10 @@ class MainMenu extends StatelessWidget {
           ListTile(
             title: Text("Get ETH"),
             subtitle: Text("Receive some test ether"),
-            trailing: Icon(Icons.attach_money),
+            trailing: Icon(
+              WalletIcons.ethereum,
+              color: Colors.black,
+            ),
             onTap: () async {
               var url = 'https://faucet.ropsten.be';
               if (await canLaunch(url)) {
@@ -42,7 +46,10 @@ class MainMenu extends StatelessWidget {
               title: Text("Reset wallet"),
               subtitle: Text(
                   "warning: without your seed phrase you cannot restore your wallet"),
-              trailing: Icon(Icons.warning),
+              trailing: Icon(
+                WalletIcons.skull,
+                color: Colors.orange,
+              ),
               onTap: this.onReset),
         ],
       ),
