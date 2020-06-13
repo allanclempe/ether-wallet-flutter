@@ -26,7 +26,7 @@ class WalletMainPage extends HookWidget {
           Alert(
               title: "Warning",
               text:
-                  "Without your seed phrase you cannot restore your wallet balance",
+                  "Without your seed phrase or private key you cannot restore your wallet balance",
               actions: [
                 FlatButton(
                   child: Text("cancel"),
@@ -45,11 +45,19 @@ class WalletMainPage extends HookWidget {
       appBar: AppBar(
         title: Text(title),
         actions: [
-          IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: () async {
-              await store.fetchOwnBalance();
-            },
+          Builder(
+            builder: (context) => IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: !store.state.loading
+                  ? () async {
+                      await store.fetchOwnBalance();
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text("Balance updated"),
+                        duration: Duration(milliseconds: 800),
+                      ));
+                    }
+                  : null,
+            ),
           ),
           IconButton(
             icon: Icon(Icons.send),

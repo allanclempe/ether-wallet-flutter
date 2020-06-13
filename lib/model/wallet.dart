@@ -14,6 +14,8 @@ abstract class Wallet implements Built<Wallet, WalletBuilder> {
 
   BigInt get ethBalance;
 
+  bool get loading;
+
   @nullable
   BuiltList<String> get errors;
 
@@ -22,5 +24,6 @@ abstract class Wallet implements Built<Wallet, WalletBuilder> {
     ..tokenBalance = BigInt.from(0)
     ..ethBalance = BigInt.from(0)
     ..errors = BuiltList<String>().toBuilder()
+    ..loading = false
     ..update(updates));
 }

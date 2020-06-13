@@ -8,11 +8,13 @@ class InitialiseWallet extends WalletAction {
   final String privateKey;
 }
 
-class UpdateBalance extends WalletAction {
-  UpdateBalance(this.ethBalance, this.tokenBalance);
+class BalanceUpdated extends WalletAction {
+  BalanceUpdated(this.ethBalance, this.tokenBalance);
   final BigInt ethBalance;
   final BigInt tokenBalance;
 }
+
+class UpdatingBalance extends WalletAction {}
 
 Wallet reducer(Wallet state, WalletAction action) {
   if (action is InitialiseWallet) {
@@ -21,8 +23,13 @@ Wallet reducer(Wallet state, WalletAction action) {
       ..privateKey = action.privateKey);
   }
 
-  if (action is UpdateBalance) {
+  if (action is UpdatingBalance) {
+    return state.rebuild((b) => b..loading = true);
+  }
+
+  if (action is BalanceUpdated) {
     return state.rebuild((b) => b
+      ..loading = false
       ..ethBalance = action.ethBalance
       ..tokenBalance = action.tokenBalance);
   }

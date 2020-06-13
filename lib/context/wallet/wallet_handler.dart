@@ -70,13 +70,15 @@ class WalletHandler {
   }
 
   Future<void> fetchOwnBalance() async {
+    _store.dispatch(UpdatingBalance());
+
     var tokenBalance = await _contractService
         .getTokenBalance(web3.EthereumAddress.fromHex(state.address));
 
     var ethBalance = await _contractService
         .getEthBalance(web3.EthereumAddress.fromHex(state.address));
 
-    _store.dispatch(UpdateBalance(ethBalance.getInWei, tokenBalance));
+    _store.dispatch(BalanceUpdated(ethBalance.getInWei, tokenBalance));
   }
 
   Future<void> resetWallet() async {
