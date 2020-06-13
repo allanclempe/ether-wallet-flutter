@@ -1,3 +1,5 @@
+## **THIS BRANCH IS NOT MAINTAINED SINCE v1.1 RELEASE**
+
 ## Ethereum wallet using an [ERC-20](https://en.wikipedia.org/wiki/ERC-20) smart contract.
 
 A digital wallet app, developed in dart language and flutter framework. The idea is to help developers to understand how to build dApps using blockchain and associated technologies. This app can transfer tokens from one wallet to another, through an [ERC-20](https://en.wikipedia.org/wiki/ERC-20) Ethereum contract.
