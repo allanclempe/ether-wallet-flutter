@@ -32,6 +32,6 @@ void main() {
     final privateKey = addressService.getPrivateKey(
         "loan absorb orange crouch mixed position sweet law ghost habit upgrade toss");
     expect(privateKey,
-        "926675e8e39e176d86fb55ea01c577325b6e385fa147bd7ceb72c7f9949a7a96");
+        "02e41a913e0d109672c9122c96f0715ef62746aabe186a8160bca314acaa3178");
   });
 }
