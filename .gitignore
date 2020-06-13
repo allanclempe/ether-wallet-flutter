@@ -74,3 +74,4 @@
 # auto generated files.
 .flutter-plugins-dependencies
 *.g.dart
+pubspec.lock
