@@ -1,6 +1,7 @@
 import 'package:etherwallet/components/wallet/balance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'components/dialog/alert.dart';
 import 'components/menu/main_menu.dart';
 import 'context/wallet/wallet_provider.dart';
 
@@ -22,8 +23,23 @@ class WalletMainPage extends HookWidget {
       drawer: MainMenu(
         address: store.state.address,
         onReset: () async {
-          await store.resetWallet();
-          Navigator.popAndPushNamed(context, "/");
+          Alert(
+              title: "Warning",
+              text:
+                  "Without your seed phrase you cannot restore your wallet balance",
+              actions: [
+                FlatButton(
+                  child: Text("cancel"),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                FlatButton(
+                  child: Text("reset"),
+                  onPressed: () async {
+                    await store.resetWallet();
+                    Navigator.popAndPushNamed(context, "/");
+                  },
+                )
+              ]).show(context);
         },
       ),
       appBar: AppBar(

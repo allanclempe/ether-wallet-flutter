@@ -15,7 +15,7 @@ class MainMenu extends StatelessWidget {
         children: <Widget>[
           ListTile(
             title: Text("Get tokens"),
-            subtitle: Text("Receive some test tokens"),
+            subtitle: Text("Claim some test tokens"),
             trailing: Icon(WalletIcons.gem, color: Colors.blue),
             onTap: () async {
               var url = 'https://faucet.clempe.dev?address=${this.address}';
@@ -28,7 +28,7 @@ class MainMenu extends StatelessWidget {
           ),
           ListTile(
             title: Text("Get ETH"),
-            subtitle: Text("Receive some test ether"),
+            subtitle: Text("Claim some test ether"),
             trailing: Icon(
               WalletIcons.ethereum,
               color: Colors.black,
@@ -44,8 +44,7 @@ class MainMenu extends StatelessWidget {
           ),
           ListTile(
               title: Text("Reset wallet"),
-              subtitle: Text(
-                  "warning: without your seed phrase you cannot restore your wallet"),
+              subtitle: Text("Wipe all wallet data"),
               trailing: Icon(
                 WalletIcons.skull,
                 color: Colors.orange,
