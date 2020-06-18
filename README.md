@@ -33,6 +33,11 @@ $ flutter packages pub run build_runner build
 $ flutter run
 ```
 
+How to run tests
+```bash
+$ flutter test
+```
+
 ### Wallet balance
 
 For those who don't want to play with smart contracts yet, you can claim some test coins (tokens) and ether using the following links or check out [this repo](https://github.com/allanclempe/ether-wallet-contract) to understand how to deploy your own contract.
