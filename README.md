@@ -8,7 +8,7 @@ A digital wallet app, developed in dart language and flutter framework. The idea
 - Built in [Flutter](https://flutter.dev/docs/get-started/install) framework
 - [Google ML Vision](https://firebase.google.com/docs/ml-kit) for QRCode scan.
 - [Web3Dart](https://github.com/simolus3/web3dart) to interact with Ethereum blockchain
-- [mobx.dart](https://github.com/mobxjs/mobx.dart) for state management
+- [Flutter hooks](https://github.com/rrousselGit/flutter_hooks) to manage widget life-cycle.
 
 Wallet |  Send tokens | Processing 
 :-----:|:------------:|:------------:|
@@ -29,7 +29,13 @@ How to run the app
 
 ```bash
 $ flutter pub get packages
+$ flutter packages pub run build_runner build
 $ flutter run
+```
+
+How to run tests
+```bash
+$ flutter test
 ```
 
 ### Wallet balance

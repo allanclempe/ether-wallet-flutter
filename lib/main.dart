@@ -1,6 +1,6 @@
 import 'package:etherwallet/app_config.dart';
 import 'package:etherwallet/router.dart';
-import 'package:etherwallet/stores/stores.dart';
+import 'package:etherwallet/services_provider.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +9,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 void main() async {
   // bootstrapping;
   WidgetsFlutterBinding.ensureInitialized();
-  final stores = await createStore(AppConfig().params["ropsten"]);
+  final stores = await createProviders(AppConfig().params["ropsten"]);
 
   runApp(MainApp(stores));
 }

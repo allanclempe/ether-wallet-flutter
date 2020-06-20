@@ -1,13 +1,14 @@
 import 'package:etherwallet/components/copyButton/copy_button.dart';
-import 'package:etherwallet/stores/wallet_store.dart';
 import 'package:etherwallet/utils/eth_amount_formatter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class Balance extends StatelessWidget {
-  Balance(this.store);
-  final WalletStore store;
+  Balance({this.address, this.ethBalance, this.tokenBalance});
+
+  final String address;
+  final BigInt ethBalance;
+  final BigInt tokenBalance;
 
   @override
   Widget build(BuildContext context) {
@@ -15,31 +16,24 @@ class Balance extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text(store.address),
+          Text(address ?? ""),
           CopyButton(
             text: const Text('Copy address'),
-            value: store.address,
+            value: address,
           ),
           QrImage(
-            data: store.address,
+            data: address ?? "",
             size: 150.0,
           ),
-          Observer(
-              builder: (_) => Text(
-                    "${EthAmountFormatter(store.tokenBalance).format()} tokens",
-                    style: Theme.of(context)
-                        .textTheme
-                        .body2
-                        .apply(fontSizeDelta: 6),
-                  )),
-          Observer(
-              builder: (_) => Text(
-                    "${EthAmountFormatter(store.ethBalance).format()} eth",
-                    style: Theme.of(context)
-                        .textTheme
-                        .body2
-                        .apply(color: Colors.blueGrey),
-                  ))
+          Text(
+            "${EthAmountFormatter(tokenBalance).format()} tokens",
+            style: Theme.of(context).textTheme.body2.apply(fontSizeDelta: 6),
+          ),
+          Text(
+            "${EthAmountFormatter(ethBalance).format()} eth",
+            style:
+                Theme.of(context).textTheme.body2.apply(color: Colors.blueGrey),
+          )
         ],
       ),
     );

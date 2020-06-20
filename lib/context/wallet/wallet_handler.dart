@@ -1,42 +1,27 @@
-import 'dart:async';
-import 'package:etherwallet/model/transaction.dart';
+import 'package:etherwallet/model/wallet.dart';
 import 'package:etherwallet/service/address_service.dart';
 import 'package:etherwallet/service/configuration_service.dart';
 import 'package:etherwallet/service/contract_service.dart';
-import 'package:mobx/mobx.dart';
-import 'package:web3dart/credentials.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:web3dart/web3dart.dart' as web3;
 
-part 'wallet_store.g.dart';
+import 'wallet_state.dart';
 
-class WalletStore = WalletStoreBase with _$WalletStore;
-
-abstract class WalletStoreBase with Store {
-  WalletStoreBase(
-    this._contractService,
+class WalletHandler {
+  WalletHandler(
+    this._store,
     this._addressService,
+    this._contractService,
     this._configurationService,
   );
 
-  final IContractService _contractService;
-  final IAddressService _addressService;
-  final IConfigurationService _configurationService;
+  final Store<Wallet, WalletAction> _store;
+  final AddressService _addressService;
+  final ConfigurationService _configurationService;
+  final ContractService _contractService;
 
-  @observable
-  BigInt tokenBalance;
+  Wallet get state => _store.state;
 
-  @observable
-  BigInt ethBalance;
-
-  @observable
-  String address;
-
-  @observable
-  String privateKey;
-
-  @observable
-  ObservableList<Transaction> transactions = ObservableList<Transaction>();
-
-  @action
   Future<void> initialise() async {
     final entropyMnemonic = _configurationService.getMnemonic();
     final privateKey = _configurationService.getPrivateKey();
@@ -54,8 +39,7 @@ abstract class WalletStoreBase with Store {
     final privateKey = _addressService.getPrivateKey(mnemonic);
     final address = await _addressService.getPublicAddress(privateKey);
 
-    this.address = address.toString();
-    this.privateKey = privateKey;
+    _store.dispatch(InitialiseWallet(address.toString(), privateKey));
 
     await _initialise();
   }
@@ -63,8 +47,7 @@ abstract class WalletStoreBase with Store {
   Future<void> _initialiseFromPrivateKey(String privateKey) async {
     final address = await _addressService.getPublicAddress(privateKey);
 
-    this.address = address.toString();
-    this.privateKey = privateKey;
+    _store.dispatch(InitialiseWallet(address.toString(), privateKey));
 
     await _initialise();
   }
@@ -73,33 +56,33 @@ abstract class WalletStoreBase with Store {
     await this.fetchOwnBalance();
 
     _contractService.listenTransfer((from, to, value) async {
-      var fromMe = from.toString() == this.address;
-      var toMe = to.toString() == this.address;
+      var fromMe = from.toString() == state.address;
+      var toMe = to.toString() == state.address;
 
       if (!fromMe && !toMe) {
         return;
       }
 
+      print('======= balance updated =======');
+
       await fetchOwnBalance();
     });
   }
 
-  @action
   Future<void> fetchOwnBalance() async {
-    var tokenBalance = await _contractService
-        .getTokenBalance(EthereumAddress.fromHex(address));
-    var ethBalance =
-        await _contractService.getEthBalance(EthereumAddress.fromHex(address));
+    _store.dispatch(UpdatingBalance());
 
-    this.tokenBalance = tokenBalance;
-    this.ethBalance = ethBalance.getInWei;
+    var tokenBalance = await _contractService
+        .getTokenBalance(web3.EthereumAddress.fromHex(state.address));
+
+    var ethBalance = await _contractService
+        .getEthBalance(web3.EthereumAddress.fromHex(state.address));
+
+    _store.dispatch(BalanceUpdated(ethBalance.getInWei, tokenBalance));
   }
 
-  @action
   Future<void> resetWallet() async {
     await _configurationService.setMnemonic(null);
     await _configurationService.setupDone(false);
-
-    this.transactions.clear();
   }
 }

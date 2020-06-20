@@ -1,74 +1,63 @@
 import 'package:etherwallet/components/wallet/balance.dart';
-import 'package:etherwallet/stores/wallet_store.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'components/dialog/alert.dart';
+import 'components/menu/main_menu.dart';
+import 'context/wallet/wallet_provider.dart';
 
-class WalletMainPage extends StatefulWidget {
-  WalletMainPage(this.walletStore, {Key key, this.title}) : super(key: key);
+class WalletMainPage extends HookWidget {
+  WalletMainPage(this.title);
 
-  final WalletStore walletStore;
   final String title;
 
   @override
-  _WalletMainPageState createState() => _WalletMainPageState();
-}
-
-class _WalletMainPageState extends State<WalletMainPage> {
-  @override
   Widget build(BuildContext context) {
+    var store = useWallet(context);
+
+    useEffect(() {
+      store.initialise();
+      return null;
+    }, []);
+
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            ListTile(
-              title: Text("Get tokens"),
-              subtitle: Text("Receive some test tokens"),
-              trailing: Icon(Icons.attach_money),
-              onTap: () async {
-                var url =
-                    'https://faucet.clempe.dev?address=${widget.walletStore.address}';
-                if (await canLaunch(url)) {
-                  await launch(url);
-                } else {
-                  throw 'Could not launch $url';
-                }
-              },
-            ),
-            ListTile(
-              title: Text("Get ETH"),
-              subtitle: Text("Receive some test ether"),
-              trailing: Icon(Icons.attach_money),
-              onTap: () async {
-                var url = 'https://faucet.ropsten.be';
-                if (await canLaunch(url)) {
-                  await launch(url);
-                } else {
-                  throw 'Could not launch $url';
-                }
-              },
-            ),
-            ListTile(
-              title: Text("Reset wallet"),
-              subtitle: Text(
-                  "warning: without your seed phrase you cannot restore your wallet"),
-              trailing: Icon(Icons.warning),
-              onTap: () async {
-                await widget.walletStore.resetWallet();
-                Navigator.popAndPushNamed(context, "/");
-              },
-            ),
-          ],
-        ),
+      drawer: MainMenu(
+        address: store.state.address,
+        onReset: () async {
+          Alert(
+              title: "Warning",
+              text:
+                  "Without your seed phrase or private key you cannot restore your wallet balance",
+              actions: [
+                FlatButton(
+                  child: Text("cancel"),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                FlatButton(
+                  child: Text("reset"),
+                  onPressed: () async {
+                    await store.resetWallet();
+                    Navigator.popAndPushNamed(context, "/");
+                  },
+                )
+              ]).show(context);
+        },
       ),
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(title),
         actions: [
-          IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: () async {
-              await widget.walletStore.fetchOwnBalance();
-            },
+          Builder(
+            builder: (context) => IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: !store.state.loading
+                  ? () async {
+                      await store.fetchOwnBalance();
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text("Balance updated"),
+                        duration: Duration(milliseconds: 800),
+                      ));
+                    }
+                  : null,
+            ),
           ),
           IconButton(
             icon: Icon(Icons.send),
@@ -78,8 +67,10 @@ class _WalletMainPageState extends State<WalletMainPage> {
           ),
         ],
       ),
-      body: Consumer<WalletStore>(
-        builder: (context, walletStore, _) => Balance(walletStore),
+      body: Balance(
+        address: store.state.address,
+        ethBalance: store.state.ethBalance,
+        tokenBalance: store.state.tokenBalance,
       ),
     );
   }

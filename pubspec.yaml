@@ -25,8 +25,6 @@ dependencies:
   cupertino_icons: ^0.1.2
   web3dart: ^1.2.3
   provider: ^3.1.0+1
-  mobx: ^1.0.1
-  flutter_mobx: ^1.0.1
   qr_flutter: ^3.2.0
   bip39: ^1.0.3
   tweetnacl: ^0.3.1
@@ -40,13 +38,16 @@ dependencies:
   flutter_spinkit: "^4.1.1+1"
   firebase_analytics: ^5.0.11
   url_launcher: ^5.4.1
+  flutter_hooks: ^0.9.0
+  built_value: ^7.1.0
+  built_collection: ^4.3.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  mobx_codegen: ^1.0.1
-  build_runner: ^1.7.4
+  build_runner: ^1.10.0
+  built_value_generator: ^7.1.0
   json_serializable: ^3.2.5
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
@@ -70,6 +71,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: MyFlutterApp
+      fonts:
+        - asset: fonts/MyFlutterApp.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:
