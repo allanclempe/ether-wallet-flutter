@@ -1,10 +1,10 @@
-import 'package:etherwallet/components/wallet/confirm_mnemonic.dart';
-import 'package:etherwallet/context/setup/wallet_setup_provider.dart';
-import 'package:etherwallet/model/wallet_setup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import 'components/wallet/confirm_mnemonic.dart';
 import 'components/wallet/display_mnemonic.dart';
+import 'context/setup/wallet_setup_provider.dart';
+import 'model/wallet_setup.dart';
 
 class WalletCreatePage extends HookWidget {
   WalletCreatePage(this.title);
@@ -16,7 +16,28 @@ class WalletCreatePage extends HookWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        leadingWidth: 100,
+        leading: GestureDetector(
+          onTap: store.state.step == WalletCreateSteps.display
+              ? () => Navigator.pop(context)
+              : () => store.goto(WalletCreateSteps.display),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.arrow_back_ios_rounded),
+              Text(
+                'BACK',
+                overflow: TextOverflow.clip,
+              )
+            ],
+          ),
+        ),
+        backgroundColor: Colors.black,
+        centerTitle: true,
+        title: Text(
+          title,
+          style: TextStyle(fontSize: 25),
+        ),
       ),
       body: store.state.step == WalletCreateSteps.display
           ? DisplayMnemonic(

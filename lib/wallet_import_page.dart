@@ -13,7 +13,26 @@ class WalletImportPage extends HookWidget {
     var store = useWalletSetup(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        leadingWidth: 100,
+        leading: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.arrow_back_ios_rounded),
+              Text(
+                'BACK',
+                overflow: TextOverflow.clip,
+              )
+            ],
+          ),
+        ),
+        backgroundColor: Colors.black,
+        centerTitle: true,
+        title: Text(
+          title,
+          style: TextStyle(fontSize: 25),
+        ),
       ),
       body: ImportWalletForm(
         errors: store.state.errors.toList(),
@@ -29,7 +48,6 @@ class WalletImportPage extends HookWidget {
                   default:
                     break;
                 }
-
                 Navigator.of(context).popAndPushNamed("/");
               }
             : null,
