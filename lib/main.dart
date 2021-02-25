@@ -3,8 +3,9 @@ import 'package:etherwallet/router.dart';
 import 'package:etherwallet/services_provider.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as p;
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:provider/single_child_widget.dart';
 
 void main() async {
   // bootstrapping;
@@ -16,13 +17,13 @@ void main() async {
 
 class MainApp extends StatelessWidget {
   MainApp(this.stores);
-  final List<SingleChildCloneableWidget> stores;
+  final List<SingleChildWidget> stores;
   final FirebaseAnalytics analytics = FirebaseAnalytics();
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return p.MultiProvider(
         providers: stores,
         child: new MaterialApp(
           title: 'Flutter App',
