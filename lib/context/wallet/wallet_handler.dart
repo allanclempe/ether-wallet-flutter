@@ -82,7 +82,7 @@ class WalletHandler {
   }
 
   Future<void> resetWallet() async {
-    await _configurationService.setMnemonic("");
+    await _configurationService.setMnemonic(null);
     await _configurationService.setupDone(false);
   }
 }

@@ -35,7 +35,7 @@ dependencies:
   tweetnacl: ^0.3.2
   pointycastle: ^1.0.1
   hex: ^0.1.2
-  shared_preferences: ^2.0.1
+  shared_preferences: ^0.5.12+4
   camera: ^0.7.0+2  
   firebase_ml_vision: ^0.9.10
   web_socket_channel: ^1.1.0

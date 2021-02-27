@@ -15,12 +15,12 @@ class ConfigurationService implements IConfigurationService {
 
   @override
   Future<void> setMnemonic(String value) async {
-    await _preferences.setString("mnemonic", value);
+    await _preferences.setString("mnemonic", value ?? "");
   }
 
   @override
   Future<void> setPrivateKey(String value) async {
-    await _preferences.setString("privateKey", value);
+    await _preferences.setString("privateKey", value ?? "");
   }
 
   @override
