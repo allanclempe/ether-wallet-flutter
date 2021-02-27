@@ -32,11 +32,11 @@ dependencies:
   provider: ^4.3.3
   qr_flutter: ^3.2.0
   bip39: ^1.0.3
-  tweetnacl: ^0.3.1
-  pointycastle: ^1.0.0
+  tweetnacl: ^0.3.2
+  pointycastle: ^1.0.1
   hex: ^0.1.2
-  shared_preferences: ^0.5.6+1
-  camera: ^0.5.7+3
+  shared_preferences: ^2.0.1
+  camera: ^0.7.0+2  
   firebase_ml_vision: ^0.10.0
   firebase_core: ^0.7.0
   web_socket_channel: ^1.1.0

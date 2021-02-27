@@ -32,7 +32,7 @@ class TransferForm extends HookWidget {
           child: PaperForm(
             padding: 30,
             actionButtons: <Widget>[
-              RaisedButton(
+              ElevatedButton(
                 child: const Text('Transfer now'),
                 onPressed: () {
                   this.onSubmit(

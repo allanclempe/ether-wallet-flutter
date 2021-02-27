@@ -37,7 +37,7 @@ class DisplayMnemonic extends HookWidget {
                     text: const Text('Copy'),
                     value: this.mnemonic,
                   ),
-                  RaisedButton(
+                  ElevatedButton(
                     child: const Text('Next'),
                     onPressed: this.onNext,
                   )

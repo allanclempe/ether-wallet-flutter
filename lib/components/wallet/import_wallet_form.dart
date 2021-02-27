@@ -24,7 +24,7 @@ class ImportWalletForm extends HookWidget {
           child: PaperForm(
             padding: 30,
             actionButtons: <Widget>[
-              RaisedButton(
+              ElevatedButton(
                 child: const Text('Import'),
                 onPressed: this.onImport != null
                     ? () => this
