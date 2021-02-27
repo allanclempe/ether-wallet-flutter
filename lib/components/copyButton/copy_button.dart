@@ -13,7 +13,7 @@ class CopyButton extends StatelessWidget {
       onPressed: () {
         Clipboard.setData(ClipboardData(text: this.value));
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        Scaffold.of(context).showSnackBar(SnackBar(
           content: Text("Copied"),
         ));
       },

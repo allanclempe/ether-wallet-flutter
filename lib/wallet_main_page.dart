@@ -51,7 +51,7 @@ class WalletMainPage extends HookWidget {
               onPressed: !store.state.loading
                   ? () async {
                       await store.fetchOwnBalance();
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      Scaffold.of(context).showSnackBar(SnackBar(
                         content: Text("Balance updated"),
                         duration: Duration(milliseconds: 800),
                       ));

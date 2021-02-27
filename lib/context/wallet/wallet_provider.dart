@@ -5,7 +5,7 @@ import 'package:etherwallet/service/contract_service.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as p;
 
 import '../hook_provider.dart';
 import 'wallet_state.dart';
@@ -20,9 +20,9 @@ class WalletProvider extends ContextProviderWidget<WalletHandler> {
     final store =
         useReducer<Wallet, WalletAction>(reducer, initialState: Wallet());
 
-    final addressService = Provider.of<AddressService>(context);
-    final contractService = Provider.of<ContractService>(context);
-    final configurationService = Provider.of<ConfigurationService>(context);
+    final addressService = p.Provider.of<AddressService>(context);
+    final contractService = p.Provider.of<ContractService>(context);
+    final configurationService = p.Provider.of<ConfigurationService>(context);
     final handler = useMemoized(
       () => WalletHandler(
         store,
@@ -38,7 +38,7 @@ class WalletProvider extends ContextProviderWidget<WalletHandler> {
 }
 
 WalletHandler useWallet(BuildContext context) {
-  var handler = Provider.of<WalletHandler>(context);
+  var handler = p.Provider.of<WalletHandler>(context);
 
   return handler;
 }
