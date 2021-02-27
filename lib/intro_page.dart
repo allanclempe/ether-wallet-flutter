@@ -9,7 +9,7 @@ class IntroPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            RaisedButton(
+            ElevatedButton(
               child: Text("Create new wallet"),
               onPressed: () {
                 Navigator.of(context).pushNamed("/create");
@@ -17,7 +17,7 @@ class IntroPage extends StatelessWidget {
             ),
             Container(
               padding: EdgeInsets.all(10),
-              child: OutlineButton(
+              child: OutlinedButton(
                 child: Text("Import wallet"),
                 onPressed: () {
                   Navigator.of(context).pushNamed("/import");

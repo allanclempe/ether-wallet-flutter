@@ -24,11 +24,11 @@ class ConfirmMnemonic extends HookWidget {
           child: PaperForm(
             padding: 30,
             actionButtons: <Widget>[
-              OutlineButton(
+              OutlinedButton(
                 child: const Text('Generate New'),
                 onPressed: this.onGenerateNew,
               ),
-              RaisedButton(
+              ElevatedButton(
                 child: const Text('Confirm'),
                 onPressed: this.onConfirm != null
                     ? () => this.onConfirm(mnemonicController.value.text)

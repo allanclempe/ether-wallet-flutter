@@ -5,12 +5,12 @@ import 'package:etherwallet/service/contract_service.dart';
 import 'package:etherwallet/utils/contract_parser.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
 
-Future<List<SingleChildCloneableWidget>> createProviders(
-    AppConfigParams params) async {
+Future<List<SingleChildWidget>> createProviders(AppConfigParams params) async {
   final client = Web3Client(params.web3HttpUrl, Client(), socketConnector: () {
     return IOWebSocketChannel.connect(params.web3RdpUrl).cast<String>();
   });

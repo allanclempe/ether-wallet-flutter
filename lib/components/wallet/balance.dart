@@ -27,12 +27,15 @@ class Balance extends StatelessWidget {
           ),
           Text(
             "${EthAmountFormatter(tokenBalance).format()} tokens",
-            style: Theme.of(context).textTheme.body2.apply(fontSizeDelta: 6),
+            style:
+                Theme.of(context).textTheme.bodyText2.apply(fontSizeDelta: 6),
           ),
           Text(
             "${EthAmountFormatter(ethBalance).format()} eth",
-            style:
-                Theme.of(context).textTheme.body2.apply(color: Colors.blueGrey),
+            style: Theme.of(context)
+                .textTheme
+                .bodyText2
+                .apply(color: Colors.blueGrey),
           )
         ],
       ),

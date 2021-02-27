@@ -1,6 +1,10 @@
 name: etherwallet
 description: A new Flutter project.
 
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
 # followed by an optional build number separated by a +.
@@ -11,34 +15,35 @@ description: A new Flutter project.
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.1.0+4
+version: 1.2.0+5
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.0
   web3dart: ^1.2.3
-  provider: ^3.1.0+1
+  provider: ^4.3.3
   qr_flutter: ^3.2.0
   bip39: ^1.0.3
-  tweetnacl: ^0.3.1
-  pointycastle: ^1.0.0
+  tweetnacl: ^0.3.2
+  pointycastle: ^1.0.1
   hex: ^0.1.2
-  shared_preferences: ^0.5.6+1
-  camera: ^0.5.7+3
-  firebase_ml_vision: 0.9.3+5
+  shared_preferences: ^2.0.1
+  camera: ^0.7.0+2  
+  firebase_ml_vision: ^0.9.10
   web_socket_channel: ^1.1.0
   intl: ^0.16.1
   flutter_spinkit: "^4.1.1+1"
   firebase_analytics: ^5.0.11
   url_launcher: ^5.4.1
-  flutter_hooks: ^0.9.0
+  flutter_hooks: ^0.15.0
   built_value: ^7.1.0
   built_collection: ^4.3.2
 
@@ -46,14 +51,19 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  build_runner: ^1.10.0
+  build_runner: ^1.11.0
   built_value_generator: ^7.1.0
-  json_serializable: ^3.2.5
+  json_serializable: ^3.5.1
+
+dependency_overrides:
+  analyzer: 0.41.2
+
 # For information on the generic Dart part of this file, see the
-# following page: https://www.dartlang.org/tools/pub/pubspec
+# following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -62,10 +72,13 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - TargaryenCoin.json
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
+
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
+
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
