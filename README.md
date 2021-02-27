@@ -61,6 +61,11 @@ just be patient, the transaction might take a while to be processed.
 
 Feel free to check out the smart contract used in this project [https://github.com/allanclempe/ether-wallet-contract](https://github.com/allanclempe/ether-wallet-contract)
 
+### Release notes
+
+- 2021 feb 27 - App running and tested on iOS and android with flutter version 1.27.0-9.0.pre.85 (dart 2.10.5)
+Flutter and libraries has been upgraded and small code changes to update deprecated flutter components.
+
 ### License
 
 Copyright © 2019-present Allan Clempe. This source code is licensed under the MIT license found in the  [LICENSE.txt](https://github.com/allanclempe/ether-wallet-flutter/blob/master/LICENSE.txt) file.
