@@ -63,8 +63,7 @@ Feel free to check out the smart contract used in this project [https://github.c
 
 ### Release notes
 
-- 2021 feb 27 - App running and tested on iOS and android with flutter version 1.27.0-9.0.pre.85 (dart 2.10.5)
-Flutter and libraries has been upgraded and small code changes to update deprecated flutter components.
+2021 feb 27: App running and tested on iOS and android with flutter version 1.27.0-9.0.pre.85 (dart 2.10.5). Flutter and libraries has been upgraded. Small code changes just to get rid of deprecated flutter components.
 
 ### License
 
