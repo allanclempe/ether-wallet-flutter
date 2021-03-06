@@ -37,11 +37,11 @@ dependencies:
   hex: ^0.1.2
   shared_preferences: ^2.0.0
   camera: ^0.8.0
-  firebase_ml_vision: ^0.11.0
+  firebase_ml_vision: ^0.9.10
   web_socket_channel: ^1.1.0
   intl: ^0.16.1
   flutter_spinkit: "^4.1.1+1"
-  firebase_analytics: ^7.1.0
+  firebase_analytics: ^5.0.11
   url_launcher: ^6.0.2
   flutter_hooks: ^0.15.0
   built_value: ^8.0.0
