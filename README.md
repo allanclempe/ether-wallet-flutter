@@ -66,7 +66,7 @@ Feel free to check out the smart contract used in this project [https://github.c
 - Libraries has been upgraded.
 - Fixed issue to generate and store private key when imported from seed phrase.
 
-  1.2.0+5:
+1.2.0+5:
 
 - Flutter has been upgraded to version 1.22 (dart 2.10.5).
 - Libraries has been upgraded.
@@ -74,7 +74,7 @@ Feel free to check out the smart contract used in this project [https://github.c
 
 ### Buy me a coffee
 
-If you enjoy my work, a coffee would be very appreciated.
+If you enjoy my work, a small donation would be greatly appreciated.
 
 |                                    BTC                                     |                                     ETH                                      |
 | :------------------------------------------------------------------------: | :--------------------------------------------------------------------------: |
