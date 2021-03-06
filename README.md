@@ -63,7 +63,17 @@ Feel free to check out the smart contract used in this project [https://github.c
 
 ### Release notes
 
-2021 feb 27: App running and tested on iOS and android with flutter version 1.22 (dart 2.10.5). Flutter and libraries has been upgraded. Small code changes just to get rid of deprecated flutter components.
+1.3.0+6: 
+
+- Flutter has been upgraded to version 2.0.1 (dart 2.12.0). 
+- Libraries has been upgraded. 
+- Fixed issue to generate and store private key when imported from seed phrase.
+
+1.2.0+5: 
+
+- Flutter has been upgraded to version 1.22 (dart 2.10.5). 
+- Libraries has been upgraded. 
+- Small code changes just to get rid of deprecated flutter components.
 
 ### License
 
