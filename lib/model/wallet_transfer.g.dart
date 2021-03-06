@@ -18,12 +18,8 @@ class _$WalletTransfer extends WalletTransfer {
       (new WalletTransferBuilder()..update(updates)).build();
 
   _$WalletTransfer._({this.errors, this.status, this.loading}) : super._() {
-    if (status == null) {
-      throw new BuiltValueNullFieldError('WalletTransfer', 'status');
-    }
-    if (loading == null) {
-      throw new BuiltValueNullFieldError('WalletTransfer', 'loading');
-    }
+    BuiltValueNullFieldError.checkNotNull(status, 'WalletTransfer', 'status');
+    BuiltValueNullFieldError.checkNotNull(loading, 'WalletTransfer', 'loading');
   }
 
   @override
@@ -79,10 +75,11 @@ class WalletTransferBuilder
   WalletTransferBuilder();
 
   WalletTransferBuilder get _$this {
-    if (_$v != null) {
-      _errors = _$v.errors?.toBuilder();
-      _status = _$v.status;
-      _loading = _$v.loading;
+    final $v = _$v;
+    if ($v != null) {
+      _errors = $v.errors?.toBuilder();
+      _status = $v.status;
+      _loading = $v.loading;
       _$v = null;
     }
     return this;
@@ -90,9 +87,7 @@ class WalletTransferBuilder
 
   @override
   void replace(WalletTransfer other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$WalletTransfer;
   }
 
@@ -107,7 +102,11 @@ class WalletTransferBuilder
     try {
       _$result = _$v ??
           new _$WalletTransfer._(
-              errors: _errors?.build(), status: status, loading: loading);
+              errors: _errors?.build(),
+              status: BuiltValueNullFieldError.checkNotNull(
+                  status, 'WalletTransfer', 'status'),
+              loading: BuiltValueNullFieldError.checkNotNull(
+                  loading, 'WalletTransfer', 'loading'));
     } catch (_) {
       String _$failedField;
       try {

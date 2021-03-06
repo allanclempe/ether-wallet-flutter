@@ -31,15 +31,10 @@ class _$Wallet extends Wallet {
       this.loading,
       this.errors})
       : super._() {
-    if (tokenBalance == null) {
-      throw new BuiltValueNullFieldError('Wallet', 'tokenBalance');
-    }
-    if (ethBalance == null) {
-      throw new BuiltValueNullFieldError('Wallet', 'ethBalance');
-    }
-    if (loading == null) {
-      throw new BuiltValueNullFieldError('Wallet', 'loading');
-    }
+    BuiltValueNullFieldError.checkNotNull(
+        tokenBalance, 'Wallet', 'tokenBalance');
+    BuiltValueNullFieldError.checkNotNull(ethBalance, 'Wallet', 'ethBalance');
+    BuiltValueNullFieldError.checkNotNull(loading, 'Wallet', 'loading');
   }
 
   @override
@@ -117,13 +112,14 @@ class WalletBuilder implements Builder<Wallet, WalletBuilder> {
   WalletBuilder();
 
   WalletBuilder get _$this {
-    if (_$v != null) {
-      _address = _$v.address;
-      _privateKey = _$v.privateKey;
-      _tokenBalance = _$v.tokenBalance;
-      _ethBalance = _$v.ethBalance;
-      _loading = _$v.loading;
-      _errors = _$v.errors?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _address = $v.address;
+      _privateKey = $v.privateKey;
+      _tokenBalance = $v.tokenBalance;
+      _ethBalance = $v.ethBalance;
+      _loading = $v.loading;
+      _errors = $v.errors?.toBuilder();
       _$v = null;
     }
     return this;
@@ -131,9 +127,7 @@ class WalletBuilder implements Builder<Wallet, WalletBuilder> {
 
   @override
   void replace(Wallet other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$Wallet;
   }
 
@@ -150,9 +144,12 @@ class WalletBuilder implements Builder<Wallet, WalletBuilder> {
           new _$Wallet._(
               address: address,
               privateKey: privateKey,
-              tokenBalance: tokenBalance,
-              ethBalance: ethBalance,
-              loading: loading,
+              tokenBalance: BuiltValueNullFieldError.checkNotNull(
+                  tokenBalance, 'Wallet', 'tokenBalance'),
+              ethBalance: BuiltValueNullFieldError.checkNotNull(
+                  ethBalance, 'Wallet', 'ethBalance'),
+              loading: BuiltValueNullFieldError.checkNotNull(
+                  loading, 'Wallet', 'loading'),
               errors: _errors?.build());
     } catch (_) {
       String _$failedField;
