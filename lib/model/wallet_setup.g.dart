@@ -31,15 +31,9 @@ class _$WalletSetup extends WalletSetup {
       this.loading,
       this.errors})
       : super._() {
-    if (step == null) {
-      throw new BuiltValueNullFieldError('WalletSetup', 'step');
-    }
-    if (method == null) {
-      throw new BuiltValueNullFieldError('WalletSetup', 'method');
-    }
-    if (loading == null) {
-      throw new BuiltValueNullFieldError('WalletSetup', 'loading');
-    }
+    BuiltValueNullFieldError.checkNotNull(step, 'WalletSetup', 'step');
+    BuiltValueNullFieldError.checkNotNull(method, 'WalletSetup', 'method');
+    BuiltValueNullFieldError.checkNotNull(loading, 'WalletSetup', 'loading');
   }
 
   @override
@@ -117,13 +111,14 @@ class WalletSetupBuilder implements Builder<WalletSetup, WalletSetupBuilder> {
   WalletSetupBuilder();
 
   WalletSetupBuilder get _$this {
-    if (_$v != null) {
-      _mnemonic = _$v.mnemonic;
-      _privateKey = _$v.privateKey;
-      _step = _$v.step;
-      _method = _$v.method;
-      _loading = _$v.loading;
-      _errors = _$v.errors?.toBuilder();
+    final $v = _$v;
+    if ($v != null) {
+      _mnemonic = $v.mnemonic;
+      _privateKey = $v.privateKey;
+      _step = $v.step;
+      _method = $v.method;
+      _loading = $v.loading;
+      _errors = $v.errors?.toBuilder();
       _$v = null;
     }
     return this;
@@ -131,9 +126,7 @@ class WalletSetupBuilder implements Builder<WalletSetup, WalletSetupBuilder> {
 
   @override
   void replace(WalletSetup other) {
-    if (other == null) {
-      throw new ArgumentError.notNull('other');
-    }
+    ArgumentError.checkNotNull(other, 'other');
     _$v = other as _$WalletSetup;
   }
 
@@ -150,9 +143,12 @@ class WalletSetupBuilder implements Builder<WalletSetup, WalletSetupBuilder> {
           new _$WalletSetup._(
               mnemonic: mnemonic,
               privateKey: privateKey,
-              step: step,
-              method: method,
-              loading: loading,
+              step: BuiltValueNullFieldError.checkNotNull(
+                  step, 'WalletSetup', 'step'),
+              method: BuiltValueNullFieldError.checkNotNull(
+                  method, 'WalletSetup', 'method'),
+              loading: BuiltValueNullFieldError.checkNotNull(
+                  loading, 'WalletSetup', 'loading'),
               errors: _errors?.build());
     } catch (_) {
       String _$failedField;
