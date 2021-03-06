@@ -3,7 +3,7 @@ import 'package:etherwallet/router.dart';
 import 'package:etherwallet/services_provider.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart' as p;
+import 'package:provider/provider.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -23,7 +23,7 @@ class MainApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return p.MultiProvider(
+    return MultiProvider(
         providers: stores,
         child: new MaterialApp(
           title: 'Flutter App',

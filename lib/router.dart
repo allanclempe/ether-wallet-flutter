@@ -6,7 +6,7 @@ import 'package:etherwallet/wallet_main_page.dart';
 import 'package:etherwallet/wallet_transfer_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:provider/provider.dart' as p;
+import 'package:provider/provider.dart';
 
 import 'context/wallet/wallet_provider.dart';
 import 'context/setup/wallet_setup_provider.dart';
@@ -16,7 +16,7 @@ import 'intro_page.dart';
 Map<String, WidgetBuilder> getRoutes(context) {
   return {
     '/': (BuildContext context) {
-      var configurationService = p.Provider.of<ConfigurationService>(context);
+      var configurationService = Provider.of<ConfigurationService>(context);
       if (configurationService.didSetupWallet())
         return WalletProvider(builder: (context, store) {
           return WalletMainPage("Your wallet");
