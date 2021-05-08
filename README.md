@@ -60,6 +60,13 @@ Feel free to check out the smart contract used in this project [https://github.c
 
 ### Release notes
 
+2.0.0+7:
+
+- Flutter has been upgraded to version 2.0.6 (dart 2.12.3)
+- Handled null-safety
+- Removed HDKey class [https://github.com/alepop/dart-ed25519-hd-key/issues/5](after agreed) to add master secret as optional parameter in [https://github.com/alepop/dart-ed25519-hd-key](dart-ed25519-hd-key) library. Re-added as dependency.
+- Libraries has been upgraded.
+
 1.3.0+6:
 
 - Flutter has been upgraded to version 2.0.1 (dart 2.12.0).
