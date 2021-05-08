@@ -13,13 +13,13 @@ import '../hook_provider.dart';
 class WalletTransferProvider
     extends ContextProviderWidget<WalletTransferHandler> {
   WalletTransferProvider(
-      {Widget child, HookWidgetBuilder<WalletTransferHandler> builder})
+      {Widget? child, HookWidgetBuilder<WalletTransferHandler>? builder})
       : super(child: child, builder: builder);
 
   @override
   Widget build(BuildContext context) {
     final store = useReducer<WalletTransfer, WalletTransferAction>(reducer,
-        initialState: WalletTransfer());
+        initialState: WalletTransfer(), initialAction: WalletTransferInit());
 
     final contractService = Provider.of<ContractService>(context);
     final configurationService = Provider.of<ConfigurationService>(context);

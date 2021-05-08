@@ -6,14 +6,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'components/wallet/loading.dart';
 
 class WalletTransferPage extends HookWidget {
-  WalletTransferPage({@required this.title});
+  WalletTransferPage({required this.title});
 
   final String title;
 
   @override
   Widget build(BuildContext context) {
     var transferStore = useWalletTransfer(context);
-    var qrcodeAddress = useState();
+    var qrcodeAddress = useState("");
 
     return Scaffold(
       appBar: AppBar(

@@ -1,12 +1,13 @@
 import 'package:etherwallet/service/configuration_service.dart';
 import 'package:bip39/bip39.dart' as bip39;
-import 'package:etherwallet/utils/hd_key.dart';
+import 'package:ed25519_hd_key/ed25519_hd_key.dart';
 import "package:hex/hex.dart";
+import 'package:convert/convert.dart';
 import 'package:web3dart/credentials.dart';
 
 abstract class IAddressService {
   String generateMnemonic();
-  String getPrivateKey(String mnemonic);
+  Future<String> getPrivateKey(String mnemonic);
   Future<EthereumAddress> getPublicAddress(String privateKey);
   Future<bool> setupFromMnemonic(String mnemonic);
   Future<bool> setupFromPrivateKey(String privateKey);
@@ -27,9 +28,10 @@ class AddressService implements IAddressService {
   }
 
   @override
-  String getPrivateKey(String mnemonic) {
+  Future<String> getPrivateKey(String mnemonic) async {
     String seed = bip39.mnemonicToSeedHex(mnemonic);
-    KeyData master = HDKey.getMasterKeyFromSeed(seed);
+    KeyData master = await ED25519_HD_KEY.getMasterKeyFromSeed(hex.decode(seed),
+        masterSecret: "Bitcoin seed");
     final privateKey = HEX.encode(master.key);
     print("private: $privateKey");
     return privateKey;
@@ -47,7 +49,7 @@ class AddressService implements IAddressService {
   @override
   Future<bool> setupFromMnemonic(String mnemonic) async {
     final cryptMnemonic = bip39.mnemonicToEntropy(mnemonic);
-    final privateKey = this.getPrivateKey(mnemonic);
+    final privateKey = await this.getPrivateKey(mnemonic);
 
     await _configService.setMnemonic(cryptMnemonic);
     await _configService.setPrivateKey(privateKey);

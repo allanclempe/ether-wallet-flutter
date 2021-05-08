@@ -7,15 +7,14 @@ enum WalletTransferStatus { started, confirmed, none }
 
 abstract class WalletTransfer
     implements Built<WalletTransfer, WalletTransferBuilder> {
-  @nullable
-  BuiltList<String> get errors;
+  BuiltList<String>? get errors;
 
   WalletTransferStatus get status;
 
   bool get loading;
 
   WalletTransfer._();
-  factory WalletTransfer([void Function(WalletTransferBuilder) updates]) =>
+  factory WalletTransfer([void Function(WalletTransferBuilder)? updates]) =>
       _$WalletTransfer((b) => b
         ..errors = BuiltList<String>().toBuilder()
         ..status = WalletTransferStatus.none

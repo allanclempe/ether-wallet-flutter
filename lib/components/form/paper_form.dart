@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
 class PaperForm extends StatelessWidget {
-  PaperForm({this.children, this.padding = 8, this.actionButtons});
+  PaperForm({required this.children, this.padding = 8, this.actionButtons});
 
   final List<Widget> children;
-  final List<Widget> actionButtons;
+  final List<Widget>? actionButtons;
   final double padding;
 
   @override
@@ -21,13 +21,13 @@ class PaperForm extends StatelessWidget {
   }
 
   List<Widget> _buildButtons() {
-    if (this.actionButtons == null) return [Container()];
+    if (this.actionButtons == null) return List.empty();
 
     return [
       const SizedBox(height: 15),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: this.actionButtons,
+        children: this.actionButtons!,
       )
     ];
   }

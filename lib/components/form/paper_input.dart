@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class PaperInput extends StatelessWidget {
   PaperInput({
-    this.labelText,
+    required this.labelText,
     this.hintText,
     this.errorText,
     this.onChanged,
@@ -11,13 +11,13 @@ class PaperInput extends StatelessWidget {
     this.obscureText = false,
   });
 
-  final ValueChanged<String> onChanged;
-  final String errorText;
+  final ValueChanged<String>? onChanged;
+  final String? errorText;
   final String labelText;
-  final String hintText;
+  final String? hintText;
   final bool obscureText;
-  final int maxLines;
-  final TextEditingController controller;
+  final int? maxLines;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {

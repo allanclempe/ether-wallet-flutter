@@ -6,13 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class ConfirmMnemonic extends HookWidget {
-  ConfirmMnemonic(
-      {this.mnemonic, this.errors, this.onConfirm, this.onGenerateNew});
+  ConfirmMnemonic({this.errors, this.onConfirm, this.onGenerateNew});
 
-  final String mnemonic;
-  final List<String> errors;
-  final Function onConfirm;
-  final Function onGenerateNew;
+  final List<String>? errors;
+  final Function(String)? onConfirm;
+  final VoidCallback? onGenerateNew;
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +29,12 @@ class ConfirmMnemonic extends HookWidget {
               ElevatedButton(
                 child: const Text('Confirm'),
                 onPressed: this.onConfirm != null
-                    ? () => this.onConfirm(mnemonicController.value.text)
+                    ? () => this.onConfirm!(mnemonicController.value.text)
                     : null,
               )
             ],
             children: <Widget>[
-              PaperValidationSummary(this.errors),
+              if (errors != null) PaperValidationSummary(errors!),
               PaperInput(
                 labelText: 'Confirm your seed',
                 hintText: 'Please type your seed phrase again',

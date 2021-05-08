@@ -2,6 +2,8 @@ import 'package:etherwallet/model/wallet.dart';
 
 abstract class WalletAction {}
 
+class WalletInit extends WalletAction {}
+
 class InitialiseWallet extends WalletAction {
   InitialiseWallet(this.address, this.privateKey);
   final String address;
@@ -17,6 +19,10 @@ class BalanceUpdated extends WalletAction {
 class UpdatingBalance extends WalletAction {}
 
 Wallet reducer(Wallet state, WalletAction action) {
+  if (action is WalletInit) {
+    return Wallet();
+  }
+
   if (action is InitialiseWallet) {
     return state.rebuild((b) => b
       ..address = action.address

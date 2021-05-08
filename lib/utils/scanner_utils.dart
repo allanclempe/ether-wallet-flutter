@@ -22,9 +22,9 @@ class ScannerUtils {
   }
 
   static Future<dynamic> detect({
-    @required CameraImage image,
-    @required Future<dynamic> Function(FirebaseVisionImage image) detectInImage,
-    @required int imageRotation,
+    required CameraImage image,
+    required Future<dynamic> Function(FirebaseVisionImage image) detectInImage,
+    required int imageRotation,
   }) async {
     return detectInImage(
       FirebaseVisionImage.fromBytes(

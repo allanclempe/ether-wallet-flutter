@@ -8,16 +8,17 @@ part of 'wallet_transfer.dart';
 
 class _$WalletTransfer extends WalletTransfer {
   @override
-  final BuiltList<String> errors;
+  final BuiltList<String>? errors;
   @override
   final WalletTransferStatus status;
   @override
   final bool loading;
 
-  factory _$WalletTransfer([void Function(WalletTransferBuilder) updates]) =>
+  factory _$WalletTransfer([void Function(WalletTransferBuilder)? updates]) =>
       (new WalletTransferBuilder()..update(updates)).build();
 
-  _$WalletTransfer._({this.errors, this.status, this.loading}) : super._() {
+  _$WalletTransfer._({this.errors, required this.status, required this.loading})
+      : super._() {
     BuiltValueNullFieldError.checkNotNull(status, 'WalletTransfer', 'status');
     BuiltValueNullFieldError.checkNotNull(loading, 'WalletTransfer', 'loading');
   }
@@ -57,20 +58,20 @@ class _$WalletTransfer extends WalletTransfer {
 
 class WalletTransferBuilder
     implements Builder<WalletTransfer, WalletTransferBuilder> {
-  _$WalletTransfer _$v;
+  _$WalletTransfer? _$v;
 
-  ListBuilder<String> _errors;
+  ListBuilder<String>? _errors;
   ListBuilder<String> get errors =>
       _$this._errors ??= new ListBuilder<String>();
-  set errors(ListBuilder<String> errors) => _$this._errors = errors;
+  set errors(ListBuilder<String>? errors) => _$this._errors = errors;
 
-  WalletTransferStatus _status;
-  WalletTransferStatus get status => _$this._status;
-  set status(WalletTransferStatus status) => _$this._status = status;
+  WalletTransferStatus? _status;
+  WalletTransferStatus? get status => _$this._status;
+  set status(WalletTransferStatus? status) => _$this._status = status;
 
-  bool _loading;
-  bool get loading => _$this._loading;
-  set loading(bool loading) => _$this._loading = loading;
+  bool? _loading;
+  bool? get loading => _$this._loading;
+  set loading(bool? loading) => _$this._loading = loading;
 
   WalletTransferBuilder();
 
@@ -92,7 +93,7 @@ class WalletTransferBuilder
   }
 
   @override
-  void update(void Function(WalletTransferBuilder) updates) {
+  void update(void Function(WalletTransferBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -108,7 +109,7 @@ class WalletTransferBuilder
               loading: BuiltValueNullFieldError.checkNotNull(
                   loading, 'WalletTransfer', 'loading'));
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'errors';
         _errors?.build();

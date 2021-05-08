@@ -9,11 +9,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'utils/detector_painters.dart';
 
-typedef OnScanned = void Function(String address);
+typedef OnScanned = void Function(String? address);
 
 class QRCodeReaderPage extends StatefulWidget {
-  QRCodeReaderPage({this.title, this.onScanned, this.closeWhenScanned = true});
-  final OnScanned onScanned;
+  QRCodeReaderPage({
+    required this.title,
+    this.onScanned,
+    this.closeWhenScanned = true,
+  });
+
+  final OnScanned? onScanned;
   final bool closeWhenScanned;
   final String title;
 
@@ -24,8 +29,8 @@ class QRCodeReaderPage extends StatefulWidget {
 class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
   static final RegExp _basicAddress =
       RegExp(r'^(0x)?[0-9a-f]{40}', caseSensitive: false);
-  List<Barcode> _scanResults;
-  CameraController _camera;
+  List<Barcode>? _scanResults;
+  CameraController? _camera;
   bool _isDetecting = false;
   CameraLensDirection _direction = CameraLensDirection.back;
 
@@ -35,6 +40,7 @@ class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
   @override
   void initState() {
     super.initState();
+
     _initializeCamera();
   }
 
@@ -49,9 +55,10 @@ class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
           : ResolutionPreset.medium,
       enableAudio: false,
     );
-    await _camera.initialize();
 
-    _camera.startImageStream((CameraImage image) {
+    await _camera?.initialize();
+
+    _camera?.startImageStream((CameraImage image) {
       if (_isDetecting) return;
 
       _isDetecting = true;
@@ -64,14 +71,16 @@ class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
         (List<Barcode> results) {
           setState(() {
             _scanResults = results
-                .where((item) => _basicAddress.hasMatch(item.displayValue))
+                .where((item) =>
+                    item.displayValue != null &&
+                    _basicAddress.hasMatch(item.displayValue!))
                 .toList();
           });
         },
       ).whenComplete(() {
-        if (_scanResults.length > 0) {
+        if (_scanResults != null && _scanResults!.length > 0) {
           if (widget.onScanned != null)
-            widget.onScanned(_scanResults.first.displayValue);
+            widget.onScanned!(_scanResults!.first.displayValue);
 
           if (widget.closeWhenScanned) {
             _isDetecting = true; // stop looping
@@ -93,17 +102,19 @@ class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
   Widget _buildResults() {
     if (_scanResults == null ||
         _camera == null ||
-        !_camera.value.isInitialized) {
+        !_camera!.value.isInitialized) {
       return Container();
     }
 
+    if (_camera!.value.previewSize == null) return Container();
+
     final Size imageSize = Size(
-      _camera.value.previewSize.height,
-      _camera.value.previewSize.width,
+      _camera!.value.previewSize!.height,
+      _camera!.value.previewSize!.width,
     );
 
     return CustomPaint(
-      painter: BarcodeDetectorPainter(imageSize, _scanResults),
+      painter: BarcodeDetectorPainter(imageSize, _scanResults!),
     );
   }
 
@@ -117,7 +128,7 @@ class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
           : Stack(
               fit: StackFit.expand,
               children: <Widget>[
-                CameraPreview(_camera),
+                CameraPreview(_camera!),
                 _buildResults(),
               ],
             ),
@@ -131,8 +142,8 @@ class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
       _direction = CameraLensDirection.back;
     }
 
-    await _camera.stopImageStream();
-    await _camera.dispose();
+    await _camera?.stopImageStream();
+    await _camera?.dispose();
 
     setState(() {
       _camera = null;
@@ -159,7 +170,7 @@ class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
 
   @override
   void dispose() {
-    _camera.dispose().then((_) {
+    _camera?.dispose().then((_) {
       _barcodeDetector.close();
     });
 

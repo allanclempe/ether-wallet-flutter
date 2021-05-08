@@ -16,7 +16,7 @@ class WalletImportPage extends HookWidget {
         title: Text(title),
       ),
       body: ImportWalletForm(
-        errors: store.state.errors.toList(),
+        errors: store.state.errors?.toList(),
         onImport: !store.state.loading
             ? (type, value) async {
                 switch (type) {

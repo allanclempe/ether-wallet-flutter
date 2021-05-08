@@ -45,7 +45,7 @@ Map<String, WidgetBuilder> getRoutes(context) {
         ),
     '/qrcode_reader': (BuildContext context) => QRCodeReaderPage(
           title: "Scan QRCode",
-          onScanned: ModalRoute.of(context).settings.arguments,
+          onScanned: ModalRoute.of(context)?.settings.arguments as OnScanned,
         )
   };
 }

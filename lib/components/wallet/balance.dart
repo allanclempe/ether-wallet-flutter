@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class Balance extends StatelessWidget {
-  Balance({this.address, this.ethBalance, this.tokenBalance});
+  Balance(
+      {required this.address,
+      required this.ethBalance,
+      required this.tokenBalance});
 
-  final String address;
-  final BigInt ethBalance;
-  final BigInt tokenBalance;
+  final String? address;
+  final BigInt? ethBalance;
+  final BigInt? tokenBalance;
 
   @override
   Widget build(BuildContext context) {
@@ -21,21 +24,22 @@ class Balance extends StatelessWidget {
             text: const Text('Copy address'),
             value: address,
           ),
-          QrImage(
-            data: address ?? "",
-            size: 150.0,
-          ),
+          if (address != null)
+            QrImage(
+              data: address!,
+              size: 150.0,
+            ),
           Text(
             "${EthAmountFormatter(tokenBalance).format()} tokens",
             style:
-                Theme.of(context).textTheme.bodyText2.apply(fontSizeDelta: 6),
+                Theme.of(context).textTheme.bodyText2?.apply(fontSizeDelta: 6),
           ),
           Text(
             "${EthAmountFormatter(ethBalance).format()} eth",
             style: Theme.of(context)
                 .textTheme
                 .bodyText2
-                .apply(color: Colors.blueGrey),
+                ?.apply(color: Colors.blueGrey),
           )
         ],
       ),

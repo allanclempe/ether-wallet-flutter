@@ -11,13 +11,13 @@ import '../hook_provider.dart';
 
 class WalletSetupProvider extends ContextProviderWidget<WalletSetupHandler> {
   WalletSetupProvider(
-      {Widget child, HookWidgetBuilder<WalletSetupHandler> builder})
+      {Widget? child, HookWidgetBuilder<WalletSetupHandler>? builder})
       : super(child: child, builder: builder);
 
   @override
   Widget build(BuildContext context) {
     final store = useReducer<WalletSetup, WalletSetupAction>(reducer,
-        initialState: WalletSetup());
+        initialState: WalletSetup(), initialAction: WalletSetupInit());
 
     final addressService = Provider.of<AddressService>(context);
     final handler = useMemoized(

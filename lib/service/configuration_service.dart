@@ -1,11 +1,11 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class IConfigurationService {
-  Future<void> setMnemonic(String value);
+  Future<void> setMnemonic(String? value);
   Future<void> setupDone(bool value);
-  Future<void> setPrivateKey(String value);
-  String getMnemonic();
-  String getPrivateKey();
+  Future<void> setPrivateKey(String? value);
+  String? getMnemonic();
+  String? getPrivateKey();
   bool didSetupWallet();
 }
 
@@ -14,12 +14,12 @@ class ConfigurationService implements IConfigurationService {
   ConfigurationService(this._preferences);
 
   @override
-  Future<void> setMnemonic(String value) async {
+  Future<void> setMnemonic(String? value) async {
     await _preferences.setString("mnemonic", value ?? "");
   }
 
   @override
-  Future<void> setPrivateKey(String value) async {
+  Future<void> setPrivateKey(String? value) async {
     await _preferences.setString("privateKey", value ?? "");
   }
 
@@ -30,12 +30,12 @@ class ConfigurationService implements IConfigurationService {
 
   // gets
   @override
-  String getMnemonic() {
+  String? getMnemonic() {
     return _preferences.getString("mnemonic");
   }
 
   @override
-  String getPrivateKey() {
+  String? getPrivateKey() {
     return _preferences.getString("privateKey");
   }
 

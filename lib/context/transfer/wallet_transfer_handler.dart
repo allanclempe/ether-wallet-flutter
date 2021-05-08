@@ -29,7 +29,7 @@ class WalletTransferHandler {
 
     try {
       await _contractService.send(
-        privateKey,
+        privateKey!,
         EthereumAddress.fromHex(to),
         BigInt.from(double.parse(amount) * pow(10, 18)),
         onTransfer: (from, to, value) {

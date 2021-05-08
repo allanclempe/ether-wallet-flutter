@@ -12,13 +12,16 @@ import 'wallet_state.dart';
 import 'wallet_handler.dart';
 
 class WalletProvider extends ContextProviderWidget<WalletHandler> {
-  WalletProvider({Widget child, HookWidgetBuilder<WalletHandler> builder})
+  WalletProvider({Widget? child, HookWidgetBuilder<WalletHandler>? builder})
       : super(child: child, builder: builder);
 
   @override
   Widget build(BuildContext context) {
-    final store =
-        useReducer<Wallet, WalletAction>(reducer, initialState: Wallet());
+    final store = useReducer<Wallet, WalletAction>(
+      reducer,
+      initialState: Wallet(),
+      initialAction: WalletInit(),
+    );
 
     final addressService = Provider.of<AddressService>(context);
     final contractService = Provider.of<ContractService>(context);

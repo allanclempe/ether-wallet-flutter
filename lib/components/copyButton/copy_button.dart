@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CopyButton extends StatelessWidget {
-  CopyButton({this.text, this.value});
+  CopyButton({required this.text, required this.value});
   final Text text;
-  final String value;
+  final String? value;
 
   @override
   Widget build(BuildContext context) {

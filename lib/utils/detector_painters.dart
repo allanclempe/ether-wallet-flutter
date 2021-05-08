@@ -18,12 +18,14 @@ class BarcodeDetectorPainter extends CustomPainter {
     final double scaleX = size.width / absoluteImageSize.width;
     final double scaleY = size.height / absoluteImageSize.height;
 
-    Rect scaleRect(Barcode barcode) {
+    Rect? scaleRect(Barcode barcode) {
+      if (barcode.boundingBox == null) return null;
+
       return Rect.fromLTRB(
-        barcode.boundingBox.left * scaleX,
-        barcode.boundingBox.top * scaleY,
-        barcode.boundingBox.right * scaleX,
-        barcode.boundingBox.bottom * scaleY,
+        barcode.boundingBox!.left * scaleX,
+        barcode.boundingBox!.top * scaleY,
+        barcode.boundingBox!.right * scaleX,
+        barcode.boundingBox!.bottom * scaleY,
       );
     }
 
@@ -32,8 +34,11 @@ class BarcodeDetectorPainter extends CustomPainter {
       ..strokeWidth = 2.0;
 
     for (Barcode barcode in barcodeLocations) {
+      var rect = scaleRect(barcode);
+      if (rect == null) continue;
+
       paint.color = Colors.green;
-      canvas.drawRect(scaleRect(barcode), paint);
+      canvas.drawRect(rect, paint);
     }
   }
 

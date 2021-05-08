@@ -10,7 +10,7 @@ import 'package:provider/single_child_widget.dart';
 void main() async {
   // bootstrapping;
   WidgetsFlutterBinding.ensureInitialized();
-  final stores = await createProviders(AppConfig().params["ropsten"]);
+  final stores = await createProviders(AppConfig().params["ropsten"]!);
 
   runApp(MainApp(stores));
 }

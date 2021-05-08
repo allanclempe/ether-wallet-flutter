@@ -9,8 +9,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 class ImportWalletForm extends HookWidget {
   ImportWalletForm({this.onImport, this.errors});
 
-  final Function(WalletImportType type, String value) onImport;
-  final List<String> errors;
+  final Function(WalletImportType type, String value)? onImport;
+  final List<String>? errors;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class ImportWalletForm extends HookWidget {
               ElevatedButton(
                 child: const Text('Import'),
                 onPressed: this.onImport != null
-                    ? () => this
-                        .onImport(importType.value, inputController.value.text)
+                    ? () => this.onImport!(
+                        importType.value, inputController.value.text)
                     : null,
               )
             ],
@@ -73,13 +73,13 @@ class ImportWalletForm extends HookWidget {
   }
 
   Widget fieldForm({
-    String label,
-    String hintText,
-    TextEditingController controller,
+    required String label,
+    required String hintText,
+    required TextEditingController controller,
   }) {
     return Column(
       children: <Widget>[
-        PaperValidationSummary(errors),
+        if (errors != null) PaperValidationSummary(errors!),
         PaperInput(
           labelText: label,
           hintText: hintText,

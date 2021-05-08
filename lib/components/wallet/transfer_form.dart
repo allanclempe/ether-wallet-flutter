@@ -7,11 +7,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 class TransferForm extends HookWidget {
   TransferForm({
-    this.address,
-    @required this.onSubmit,
+    required this.address,
+    required this.onSubmit,
   });
 
-  final String address;
+  final String? address;
   final void Function(String address, String amount) onSubmit;
 
   @override
@@ -21,8 +21,8 @@ class TransferForm extends HookWidget {
     final transferStore = useWalletTransfer(context);
 
     useEffect(() {
-      if (address != null) toController.value = TextEditingValue(text: address);
-      return null;
+      if (address != null)
+        toController.value = TextEditingValue(text: address!);
     }, [address]);
 
     return Center(
@@ -43,7 +43,8 @@ class TransferForm extends HookWidget {
               )
             ],
             children: <Widget>[
-              PaperValidationSummary(transferStore.state.errors.toList()),
+              if (transferStore.state.errors != null)
+                PaperValidationSummary(transferStore.state.errors!.toList()),
               PaperInput(
                 controller: toController,
                 labelText: 'To',

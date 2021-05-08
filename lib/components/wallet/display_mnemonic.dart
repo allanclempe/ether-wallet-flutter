@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class DisplayMnemonic extends HookWidget {
-  DisplayMnemonic({this.mnemonic, this.onNext});
+  DisplayMnemonic({required this.mnemonic, this.onNext});
 
   final String mnemonic;
-  final Function onNext;
+  final VoidCallback? onNext;
 
   @override
   Widget build(BuildContext context) {

@@ -1,78 +1,88 @@
-/*
-* author: Aleksey Popov <alepooop@gmail.com>
-* homepage: https://github.com/alepop/dart-ed25519-hd-key
-*/
+// import 'dart:convert';
+// import 'dart:typed_data';
 
-import 'dart:convert';
-import 'dart:typed_data';
-import 'package:tweetnacl/tweetnacl.dart' as ED25519;
-import 'package:pointycastle/digests/sha512.dart';
-import 'package:pointycastle/macs/hmac.dart';
-import 'package:pointycastle/api.dart';
-import 'package:hex/hex.dart';
+// import 'package:cryptography/cryptography.dart';
 
-class KeyData {
-  List<int> key;
-  List<int> chainCode;
-  KeyData({this.key, this.chainCode});
-}
+// class KeyData {
+//   final List<int> key;
+//   final List<int> chainCode;
 
-const String MASTER_SECRET = 'Bitcoin seed';
-const int HARDENED_OFFSET = 0x80000000;
+//   const KeyData({required this.key, required this.chainCode});
+// }
 
-class _HDKey {
-  static final _curveBytes = utf8.encode(MASTER_SECRET);
-  static final _pathRegex = RegExp(r"^(m\/)?(\d+'?\/)*\d+'?$");
+// // Supported curve
+// const ED25519_HD_KEY = _ED25519HD();
+// const int HARDENED_OFFSET = 0x80000000;
 
-  const _HDKey();
+// /// Implementation of ED25519 private key derivation from master private key
+// class _ED25519HD {
+//   static final _curveBytes = utf8.encode('Bitcoin seed');
+//   static final _pathRegex = RegExp(r"^(m\/)?(\d+'?\/)*\d+'?$");
 
-  KeyData _getKeys(Uint8List data, Uint8List keyParameter) {
-    final digest = SHA512Digest();
-    final hmac = HMac(digest, 128)..init(KeyParameter(keyParameter));
-    final I = hmac.process(data);
-    final IL = I.sublist(0, 32);
-    final IR = I.sublist(32);
-    return KeyData(key: IL, chainCode: IR);
-  }
+//   const _ED25519HD();
 
-  KeyData _getCKDPriv(KeyData data, int index) {
-    Uint8List dataBytes = Uint8List(37);
-    dataBytes[0] = 0x00;
-    dataBytes.setRange(1, 33, data.key);
-    dataBytes.buffer.asByteData().setUint32(33, index);
-    return this._getKeys(dataBytes, data.chainCode);
-  }
+//   Future<KeyData> derivePath(String path, List<int> seedBytes,
+//       {int offset = HARDENED_OFFSET}) async {
+//     if (!_ED25519HD._pathRegex.hasMatch(path)) {
+//       throw ArgumentError(
+//           "Invalid derivation path. Expected BIP32 path format");
+//     }
 
-  KeyData getMasterKeyFromSeed(String seed) {
-    final seedBytes = HEX.decode(seed);
-    return this._getKeys(seedBytes, _HDKey._curveBytes);
-  }
+//     KeyData master = await getMasterKeyFromSeed(seedBytes);
 
-  Uint8List getBublickKey(Uint8List privateKey, [bool withZeroByte = true]) {
-    final signature = ED25519.Signature.keyPair_fromSeed(privateKey);
-    if (withZeroByte == true) {
-      Uint8List dataBytes = Uint8List(33);
-      dataBytes[0] = 0x00;
-      dataBytes.setRange(1, 33, signature.publicKey);
-      return dataBytes;
-    } else {
-      return signature.publicKey;
-    }
-  }
+//     List<String> segments = path.split('/');
+//     segments = segments.sublist(1);
 
-  KeyData derivePath(String path, String seed) {
-    if (!_HDKey._pathRegex.hasMatch(path))
-      throw ArgumentError(
-          "Invalid derivation path. Expected BIP32 path format");
-    KeyData master = this.getMasterKeyFromSeed(seed);
-    List<String> segments = path.split('/');
-    segments = segments.sublist(1);
+//     KeyData result = master;
 
-    return segments.fold<KeyData>(master, (prevKeyData, indexStr) {
-      int index = int.parse(indexStr.substring(0, indexStr.length - 1));
-      return this._getCKDPriv(prevKeyData, index + HARDENED_OFFSET);
-    });
-  }
-}
+//     for (String segment in segments) {
+//       int index = int.parse(segment.substring(0, segment.length - 1));
+//       result = await _getCKDPriv(result, index + offset);
+//     }
 
-const HDKey = const _HDKey();
+//     return result;
+//   }
+
+//   Future<KeyData> getMasterKeyFromSeed(List<int> seedBytes) =>
+//       _getKeys(seedBytes, _ED25519HD._curveBytes);
+
+//   Future<List<int>> getPublicKey(List<int> privateKey,
+//       [bool withZeroByte = true]) async {
+//     final algorithm = Ed25519();
+//     final signature = await algorithm.newKeyPairFromSeed(privateKey);
+//     final publicKey = await signature.extractPublicKey();
+
+//     if (withZeroByte == true) {
+//       List<int> dataBytes = List.filled(33, 0);
+//       dataBytes[0] = 0x00;
+//       dataBytes.setRange(1, 33, publicKey.bytes);
+//       return dataBytes;
+//     } else {
+//       return publicKey.bytes;
+//     }
+//   }
+
+//   Future<KeyData> _getCKDPriv(KeyData data, int index) {
+//     Uint8List dataBytes = Uint8List(37);
+//     dataBytes[0] = 0x00;
+//     dataBytes.setRange(1, 33, data.key);
+//     dataBytes.buffer.asByteData().setUint32(33, index);
+//     return _getKeys(dataBytes, data.chainCode);
+//   }
+
+//   Future<KeyData> _getKeys(List<int> data, List<int> keyParameter) async {
+//     final hmac = Hmac.sha512();
+//     final sink = await hmac.newMacSink(secretKey: SecretKey(keyParameter));
+//     sink
+//       ..add(data)
+//       ..close();
+
+//     final mac = await sink.mac();
+
+//     final I = mac.bytes;
+//     final IL = I.sublist(0, 32);
+//     final IR = I.sublist(32);
+
+//     return KeyData(key: IL, chainCode: IR);
+//   }
+// }
