@@ -93,4 +93,8 @@ class WalletHandler {
     await _configurationService.setMnemonic(null);
     await _configurationService.setupDone(false);
   }
+
+  String? getPrivateKey() {
+    return _configurationService.getPrivateKey();
+  }
 }

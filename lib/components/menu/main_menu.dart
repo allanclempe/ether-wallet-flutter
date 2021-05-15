@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MainMenu extends StatelessWidget {
-  MainMenu({required this.address, this.onReset});
+  MainMenu({required this.address, this.onReset, this.onRevealKey});
 
   final String? address;
   final GestureTapCallback? onReset;
+  final GestureTapCallback? onRevealKey;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +43,14 @@ class MainMenu extends StatelessWidget {
               }
             },
           ),
+          ListTile(
+              title: Text("Private key"),
+              subtitle: Text("Reveal your private key"),
+              trailing: Icon(
+                WalletIcons.key,
+                color: Colors.black,
+              ),
+              onTap: this.onRevealKey),
           ListTile(
               title: Text("Reset wallet"),
               subtitle: Text("Wipe all wallet data"),

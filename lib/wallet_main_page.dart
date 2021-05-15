@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'components/dialog/alert.dart';
 import 'components/menu/main_menu.dart';
 import 'context/wallet/wallet_provider.dart';
+import 'package:flutter/services.dart';
 
 class WalletMainPage extends HookWidget {
   WalletMainPage(this.title);
@@ -22,25 +23,39 @@ class WalletMainPage extends HookWidget {
     return Scaffold(
       drawer: MainMenu(
         address: store.state.address,
-        onReset: () async {
-          Alert(
-              title: "Warning",
-              text:
-                  "Without your seed phrase or private key you cannot restore your wallet balance",
-              actions: [
-                TextButton(
-                  child: Text("cancel"),
-                  onPressed: () => Navigator.of(context).pop(),
-                ),
-                TextButton(
-                  child: Text("reset"),
-                  onPressed: () async {
-                    await store.resetWallet();
-                    Navigator.popAndPushNamed(context, "/");
-                  },
-                )
-              ]).show(context);
-        },
+        onReset: () => Alert(
+            title: "Warning",
+            text:
+                "Without your seed phrase or private key you cannot restore your wallet balance",
+            actions: [
+              TextButton(
+                child: Text("cancel"),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              TextButton(
+                child: Text("reset"),
+                onPressed: () async {
+                  await store.resetWallet();
+                  Navigator.popAndPushNamed(context, "/");
+                },
+              )
+            ]).show(context),
+        onRevealKey: () => Alert(
+            title: "Private key",
+            text: store.getPrivateKey() ?? "-",
+            actions: [
+              TextButton(
+                child: Text("close"),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              TextButton(
+                child: Text("copy and close"),
+                onPressed: () {
+                  Clipboard.setData(ClipboardData(text: store.getPrivateKey()));
+                  Navigator.of(context).pop();
+                },
+              ),
+            ]).show(context),
       ),
       appBar: AppBar(
         title: Text(title),
