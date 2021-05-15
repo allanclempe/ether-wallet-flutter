@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MainMenu extends StatelessWidget {
-  MainMenu({required this.address, this.onReset, this.onRevealKey});
+  MainMenu({
+    required this.address,
+    required this.onReset,
+    required this.onRevealKey,
+  });
 
   final String? address;
   final GestureTapCallback? onReset;

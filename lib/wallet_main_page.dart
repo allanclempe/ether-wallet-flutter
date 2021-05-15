@@ -42,7 +42,8 @@ class WalletMainPage extends HookWidget {
             ]).show(context),
         onRevealKey: () => Alert(
             title: "Private key",
-            text: store.getPrivateKey() ?? "-",
+            text:
+                "WARNING: In production environment the private key should be protected with password.\r\n\r\n${store.getPrivateKey() ?? "-"}",
             actions: [
               TextButton(
                 child: Text("close"),
