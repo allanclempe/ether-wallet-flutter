@@ -24,7 +24,6 @@ class QRCodeReaderPage extends StatefulWidget {
 
 class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  Barcode? result;
   QRViewController? controller;
   static final RegExp _basicAddress =
       RegExp(r'^(0x)?[0-9a-f]{40}', caseSensitive: false);
@@ -37,9 +36,9 @@ class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
   void reassemble() {
     super.reassemble();
     if (Platform.isAndroid) {
-      controller?.pauseCamera();
+      controller!.pauseCamera();
     } else if (Platform.isIOS) {
-      controller?.resumeCamera();
+      controller!.resumeCamera();
     }
   }
 
@@ -72,7 +71,10 @@ class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
   }
 
   void _onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
+    setState(() {
+      this.controller = controller;
+    });
+
     _subscription = controller.scannedDataStream.listen((scanData) {
       // metamask qrcode adds "ethereum:" in front of the address.
       final address = scanData.code.replaceAll('ethereum:', '');
@@ -96,7 +98,6 @@ class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
   @override
   void dispose() {
     controller?.dispose();
-    _subscription?.cancel();
 
     super.dispose();
   }
