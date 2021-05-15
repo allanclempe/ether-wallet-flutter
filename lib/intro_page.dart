@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class IntroPage extends StatelessWidget {
+  const IntroPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,17 +12,17 @@ class IntroPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
-              child: Text("Create new wallet"),
+              child: const Text('Create new wallet'),
               onPressed: () {
-                Navigator.of(context).pushNamed("/create");
+                Navigator.of(context).pushNamed('/create');
               },
             ),
             Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: OutlinedButton(
-                child: Text("Import wallet"),
+                child: const Text('Import wallet'),
                 onPressed: () {
-                  Navigator.of(context).pushNamed("/import");
+                  Navigator.of(context).pushNamed('/import');
                 },
               ),
             )

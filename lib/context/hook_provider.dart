@@ -6,17 +6,18 @@ typedef HookWidgetBuilder<Handler> = Widget Function(
     BuildContext context, Handler store);
 
 abstract class ContextProviderWidget<T> extends HookWidget {
-  final Widget child;
-  final HookWidgetBuilder<T> builder;
+  const ContextProviderWidget({this.child, this.builder, Key? key})
+      : super(key: key);
 
-  ContextProviderWidget({this.child, this.builder});
+  final Widget? child;
+  final HookWidgetBuilder<T>? builder;
 
   Widget provide(BuildContext context, T handler) {
     return MultiProvider(
       providers: [
         Provider.value(value: handler),
       ],
-      child: builder != null ? builder(context, handler) : child,
+      child: builder != null ? builder!(context, handler) : child,
     );
   }
 }

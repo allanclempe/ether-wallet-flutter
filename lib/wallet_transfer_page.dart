@@ -6,26 +6,27 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'components/wallet/loading.dart';
 
 class WalletTransferPage extends HookWidget {
-  WalletTransferPage({@required this.title});
+  const WalletTransferPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
   Widget build(BuildContext context) {
-    var transferStore = useWalletTransfer(context);
-    var qrcodeAddress = useState();
+    final transferStore = useWalletTransfer(context);
+    final qrcodeAddress = useState('');
 
     return Scaffold(
+      key: key,
       appBar: AppBar(
         title: Text(title),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.camera_alt),
+            icon: const Icon(Icons.camera_alt),
             onPressed: !transferStore.state.loading
                 ? () {
                     Navigator.of(context).pushNamed(
-                      "/qrcode_reader",
-                      arguments: (scannedAddress) async {
+                      '/qrcode_reader',
+                      arguments: (scannedAddress) {
                         qrcodeAddress.value = scannedAddress.toString();
                       },
                     );
@@ -35,11 +36,11 @@ class WalletTransferPage extends HookWidget {
         ],
       ),
       body: transferStore.state.loading
-          ? Loading()
+          ? const Loading()
           : TransferForm(
               address: qrcodeAddress.value,
               onSubmit: (address, amount) async {
-                var success = await transferStore.transfer(address, amount);
+                final success = await transferStore.transfer(address, amount);
 
                 if (success) {
                   Navigator.popUntil(context, ModalRoute.withName('/'));

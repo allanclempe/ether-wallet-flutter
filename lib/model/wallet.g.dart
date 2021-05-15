@@ -8,9 +8,9 @@ part of 'wallet.dart';
 
 class _$Wallet extends Wallet {
   @override
-  final String address;
+  final String? address;
   @override
-  final String privateKey;
+  final String? privateKey;
   @override
   final BigInt tokenBalance;
   @override
@@ -18,17 +18,17 @@ class _$Wallet extends Wallet {
   @override
   final bool loading;
   @override
-  final BuiltList<String> errors;
+  final BuiltList<String>? errors;
 
-  factory _$Wallet([void Function(WalletBuilder) updates]) =>
+  factory _$Wallet([void Function(WalletBuilder)? updates]) =>
       (new WalletBuilder()..update(updates)).build();
 
   _$Wallet._(
       {this.address,
       this.privateKey,
-      this.tokenBalance,
-      this.ethBalance,
-      this.loading,
+      required this.tokenBalance,
+      required this.ethBalance,
+      required this.loading,
       this.errors})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
@@ -82,32 +82,32 @@ class _$Wallet extends Wallet {
 }
 
 class WalletBuilder implements Builder<Wallet, WalletBuilder> {
-  _$Wallet _$v;
+  _$Wallet? _$v;
 
-  String _address;
-  String get address => _$this._address;
-  set address(String address) => _$this._address = address;
+  String? _address;
+  String? get address => _$this._address;
+  set address(String? address) => _$this._address = address;
 
-  String _privateKey;
-  String get privateKey => _$this._privateKey;
-  set privateKey(String privateKey) => _$this._privateKey = privateKey;
+  String? _privateKey;
+  String? get privateKey => _$this._privateKey;
+  set privateKey(String? privateKey) => _$this._privateKey = privateKey;
 
-  BigInt _tokenBalance;
-  BigInt get tokenBalance => _$this._tokenBalance;
-  set tokenBalance(BigInt tokenBalance) => _$this._tokenBalance = tokenBalance;
+  BigInt? _tokenBalance;
+  BigInt? get tokenBalance => _$this._tokenBalance;
+  set tokenBalance(BigInt? tokenBalance) => _$this._tokenBalance = tokenBalance;
 
-  BigInt _ethBalance;
-  BigInt get ethBalance => _$this._ethBalance;
-  set ethBalance(BigInt ethBalance) => _$this._ethBalance = ethBalance;
+  BigInt? _ethBalance;
+  BigInt? get ethBalance => _$this._ethBalance;
+  set ethBalance(BigInt? ethBalance) => _$this._ethBalance = ethBalance;
 
-  bool _loading;
-  bool get loading => _$this._loading;
-  set loading(bool loading) => _$this._loading = loading;
+  bool? _loading;
+  bool? get loading => _$this._loading;
+  set loading(bool? loading) => _$this._loading = loading;
 
-  ListBuilder<String> _errors;
+  ListBuilder<String>? _errors;
   ListBuilder<String> get errors =>
       _$this._errors ??= new ListBuilder<String>();
-  set errors(ListBuilder<String> errors) => _$this._errors = errors;
+  set errors(ListBuilder<String>? errors) => _$this._errors = errors;
 
   WalletBuilder();
 
@@ -132,7 +132,7 @@ class WalletBuilder implements Builder<Wallet, WalletBuilder> {
   }
 
   @override
-  void update(void Function(WalletBuilder) updates) {
+  void update(void Function(WalletBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -152,7 +152,7 @@ class WalletBuilder implements Builder<Wallet, WalletBuilder> {
                   loading, 'Wallet', 'loading'),
               errors: _errors?.build());
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'errors';
         _errors?.build();

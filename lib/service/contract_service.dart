@@ -2,13 +2,16 @@ import 'dart:async';
 import 'package:web3dart/web3dart.dart';
 
 typedef TransferEvent = void Function(
-    EthereumAddress from, EthereumAddress to, BigInt value);
+  EthereumAddress from,
+  EthereumAddress to,
+  BigInt value,
+);
 
 abstract class IContractService {
   Future<Credentials> getCredentials(String privateKey);
-  Future<String> send(
+  Future<String?> send(
       String privateKey, EthereumAddress receiver, BigInt amount,
-      {TransferEvent onTransfer, Function onError});
+      {TransferEvent? onTransfer, Function(Object exeception)? onError});
   Future<BigInt> getTokenBalance(EthereumAddress from);
   Future<EtherAmount> getEthBalance(EthereumAddress from);
   Future<void> dispose();
@@ -25,22 +28,24 @@ class ContractService implements IContractService {
   ContractFunction _balanceFunction() => contract.function('balanceOf');
   ContractFunction _sendFunction() => contract.function('transfer');
 
+  @override
   Future<Credentials> getCredentials(String privateKey) =>
       client.credentialsFromPrivateKey(privateKey);
 
-  Future<String> send(
+  @override
+  Future<String?> send(
       String privateKey, EthereumAddress receiver, BigInt amount,
-      {TransferEvent onTransfer, Function onError}) async {
-    final credentials = await this.getCredentials(privateKey);
+      {TransferEvent? onTransfer, Function(Object exeception)? onError}) async {
+    final credentials = await getCredentials(privateKey);
     final from = await credentials.extractAddress();
     final networkId = await client.getNetworkId();
 
-    StreamSubscription event;
+    StreamSubscription? event;
     // Workaround once sendTransacton doesn't return a Promise containing confirmation / receipt
     if (onTransfer != null) {
       event = listenTransfer((from, to, value) async {
         onTransfer(from, to, value);
-        await event.cancel();
+        await event?.cancel();
       }, take: 1);
     }
 
@@ -65,12 +70,14 @@ class ContractService implements IContractService {
     }
   }
 
+  @override
   Future<EtherAmount> getEthBalance(EthereumAddress from) async {
-    return await client.getBalance(from);
+    return client.getBalance(from);
   }
 
+  @override
   Future<BigInt> getTokenBalance(EthereumAddress from) async {
-    var response = await client.call(
+    final response = await client.call(
       contract: contract,
       function: _balanceFunction(),
       params: [from],
@@ -79,7 +86,8 @@ class ContractService implements IContractService {
     return response.first as BigInt;
   }
 
-  StreamSubscription listenTransfer(TransferEvent onTransfer, {int take}) {
+  @override
+  StreamSubscription listenTransfer(TransferEvent onTransfer, {int? take}) {
     var events = client.events(FilterOptions.events(
       contract: contract,
       event: _transferEvent(),
@@ -90,7 +98,12 @@ class ContractService implements IContractService {
     }
 
     return events.listen((event) {
-      final decoded = _transferEvent().decodeResults(event.topics, event.data);
+      if (event.topics == null || event.data == null) {
+        return;
+      }
+
+      final decoded =
+          _transferEvent().decodeResults(event.topics!, event.data!);
 
       final from = decoded[0] as EthereumAddress;
       final to = decoded[1] as EthereumAddress;
@@ -104,6 +117,7 @@ class ContractService implements IContractService {
     });
   }
 
+  @override
   Future<void> dispose() async {
     await client.dispose();
   }

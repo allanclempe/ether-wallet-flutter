@@ -2,19 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CopyButton extends StatelessWidget {
-  CopyButton({this.text, this.value});
+  const CopyButton({
+    Key? key,
+    required this.text,
+    required this.value,
+  }) : super(key: key);
+
   final Text text;
-  final String value;
+  final String? value;
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      child: this.text,
+      child: text,
       onPressed: () {
-        Clipboard.setData(ClipboardData(text: this.value));
+        Clipboard.setData(ClipboardData(text: value));
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Copied"),
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Copied'),
         ));
       },
     );

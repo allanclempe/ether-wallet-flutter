@@ -22,14 +22,14 @@ class WalletTransferHandler {
   WalletTransfer get state => _store.state;
 
   Future<bool> transfer(String to, String amount) async {
-    var completer = new Completer<bool>();
-    var privateKey = _configurationService.getPrivateKey();
+    final completer = Completer<bool>();
+    final privateKey = _configurationService.getPrivateKey();
 
     _store.dispatch(WalletTransferStarted());
 
     try {
       await _contractService.send(
-        privateKey,
+        privateKey!,
         EthereumAddress.fromHex(to),
         BigInt.from(double.parse(amount) * pow(10, 18)),
         onTransfer: (from, to, value) {

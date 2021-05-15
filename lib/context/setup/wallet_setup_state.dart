@@ -2,6 +2,8 @@ import 'package:etherwallet/model/wallet_setup.dart';
 
 abstract class WalletSetupAction {}
 
+class WalletSetupInit implements WalletSetupAction {}
+
 class WalletSetupConfirmMnemonic implements WalletSetupAction {
   WalletSetupConfirmMnemonic(this.mnemonic);
   final String mnemonic;
@@ -25,6 +27,10 @@ class WalletSetupChangeMethod implements WalletSetupAction {
 class WalletSetupStarted implements WalletSetupAction {}
 
 WalletSetup reducer(WalletSetup state, WalletSetupAction action) {
+  if (action is WalletSetupInit) {
+    return WalletSetup();
+  }
+
   if (action is WalletSetupConfirmMnemonic) {
     return state.rebuild((b) => b
       ..mnemonic = action.mnemonic

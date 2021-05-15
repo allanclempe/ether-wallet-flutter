@@ -7,28 +7,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class ImportWalletForm extends HookWidget {
-  ImportWalletForm({this.onImport, this.errors});
+  const ImportWalletForm({Key? key, this.onImport, this.errors})
+      : super(key: key);
 
-  final Function(WalletImportType type, String value) onImport;
-  final List<String> errors;
+  final Function(WalletImportType type, String value)? onImport;
+  final List<String>? errors;
 
   @override
   Widget build(BuildContext context) {
-    var importType = useState(WalletImportType.mnemonic);
-    var inputController = useTextEditingController();
+    final importType = useState(WalletImportType.mnemonic);
+    final inputController = useTextEditingController();
 
     return Center(
       child: Container(
-        margin: EdgeInsets.all(25),
+        margin: const EdgeInsets.all(25),
         child: SingleChildScrollView(
           child: PaperForm(
             padding: 30,
             actionButtons: <Widget>[
               ElevatedButton(
                 child: const Text('Import'),
-                onPressed: this.onImport != null
-                    ? () => this
-                        .onImport(importType.value, inputController.value.text)
+                onPressed: onImport != null
+                    ? () =>
+                        onImport!(importType.value, inputController.value.text)
                     : null,
               )
             ],
@@ -36,16 +37,18 @@ class ImportWalletForm extends HookWidget {
               Row(
                 children: <Widget>[
                   PaperRadio(
-                    "Seed",
+                    'Seed',
                     groupValue: importType.value,
                     value: WalletImportType.mnemonic,
-                    onChanged: (value) => importType.value = value,
+                    onChanged: (value) =>
+                        importType.value = value as WalletImportType,
                   ),
                   PaperRadio(
-                    "Private Key",
+                    'Private Key',
                     groupValue: importType.value,
                     value: WalletImportType.privateKey,
-                    onChanged: (value) => importType.value = value,
+                    onChanged: (value) =>
+                        importType.value = value as WalletImportType,
                   ),
                 ],
               ),
@@ -73,13 +76,13 @@ class ImportWalletForm extends HookWidget {
   }
 
   Widget fieldForm({
-    String label,
-    String hintText,
-    TextEditingController controller,
+    required String label,
+    required String hintText,
+    required TextEditingController controller,
   }) {
     return Column(
       children: <Widget>[
-        PaperValidationSummary(errors),
+        if (errors != null) PaperValidationSummary(errors!),
         PaperInput(
           labelText: label,
           hintText: hintText,

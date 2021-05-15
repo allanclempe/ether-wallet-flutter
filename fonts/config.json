@@ -23,6 +23,12 @@
       "css": "skull",
       "code": 62796,
       "src": "fontawesome5"
+    },
+    {
+      "uid": "71f905d8fda639701b4127de4b0bab67",
+      "css": "key",
+      "code": 61572,
+      "src": "fontawesome5"
     }
   ]
 }

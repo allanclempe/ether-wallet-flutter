@@ -30,13 +30,17 @@ class WalletHandler {
       _initialiseFromMnemonic(entropyMnemonic);
       return;
     }
+    if (privateKey != null && privateKey.isNotEmpty) {
+      _initialiseFromPrivateKey(privateKey);
+      return;
+    }
 
-    _initialiseFromPrivateKey(privateKey);
+    throw Exception('Wallet could not be initialised.');
   }
 
   Future<void> _initialiseFromMnemonic(String entropyMnemonic) async {
     final mnemonic = _addressService.entropyToMnemonic(entropyMnemonic);
-    final privateKey = _addressService.getPrivateKey(mnemonic);
+    final privateKey = await _addressService.getPrivateKey(mnemonic);
     final address = await _addressService.getPublicAddress(privateKey);
 
     _store.dispatch(InitialiseWallet(address.toString(), privateKey));
@@ -53,11 +57,11 @@ class WalletHandler {
   }
 
   Future<void> _initialise() async {
-    await this.fetchOwnBalance();
+    await fetchOwnBalance();
 
     _contractService.listenTransfer((from, to, value) async {
-      var fromMe = from.toString() == state.address;
-      var toMe = to.toString() == state.address;
+      final fromMe = from.toString() == state.address;
+      final toMe = to.toString() == state.address;
 
       if (!fromMe && !toMe) {
         return;
@@ -70,13 +74,17 @@ class WalletHandler {
   }
 
   Future<void> fetchOwnBalance() async {
+    if (state.address?.isEmpty ?? true) {
+      return;
+    }
+
     _store.dispatch(UpdatingBalance());
 
-    var tokenBalance = await _contractService
-        .getTokenBalance(web3.EthereumAddress.fromHex(state.address));
+    final tokenBalance = await _contractService
+        .getTokenBalance(web3.EthereumAddress.fromHex(state.address!));
 
-    var ethBalance = await _contractService
-        .getEthBalance(web3.EthereumAddress.fromHex(state.address));
+    final ethBalance = await _contractService
+        .getEthBalance(web3.EthereumAddress.fromHex(state.address!));
 
     _store.dispatch(BalanceUpdated(ethBalance.getInWei, tokenBalance));
   }
@@ -84,5 +92,9 @@ class WalletHandler {
   Future<void> resetWallet() async {
     await _configurationService.setMnemonic(null);
     await _configurationService.setupDone(false);
+  }
+
+  String? getPrivateKey() {
+    return _configurationService.getPrivateKey();
   }
 }

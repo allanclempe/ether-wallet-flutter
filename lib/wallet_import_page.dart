@@ -5,32 +5,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class WalletImportPage extends HookWidget {
-  WalletImportPage(this.title);
+  const WalletImportPage(this.title, {Key? key}) : super(key: key);
 
   final String title;
 
+  @override
   Widget build(BuildContext context) {
-    var store = useWalletSetup(context);
+    final store = useWalletSetup(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
       ),
       body: ImportWalletForm(
-        errors: store.state.errors.toList(),
+        errors: store.state.errors?.toList(),
         onImport: !store.state.loading
             ? (type, value) async {
                 switch (type) {
                   case WalletImportType.mnemonic:
-                    if (!await store.importFromMnemonic(value)) return;
+                    if (!await store.importFromMnemonic(value)) {
+                      return;
+                    }
                     break;
                   case WalletImportType.privateKey:
-                    if (!await store.importFromPrivateKey(value)) return;
+                    if (!await store.importFromPrivateKey(value)) {
+                      return;
+                    }
                     break;
                   default:
                     break;
                 }
 
-                Navigator.of(context).popAndPushNamed("/");
+                Navigator.of(context).popAndPushNamed('/');
               }
             : null,
       ),

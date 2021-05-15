@@ -2,6 +2,8 @@ import 'package:etherwallet/model/wallet_transfer.dart';
 
 abstract class WalletTransferAction {}
 
+class WalletTransferInit implements WalletTransferAction {}
+
 class WalletTransferStarted implements WalletTransferAction {}
 
 class WalletTransferError implements WalletTransferAction {
@@ -12,6 +14,10 @@ class WalletTransferError implements WalletTransferAction {
 class WalletTransferConfirmed implements WalletTransferAction {}
 
 WalletTransfer reducer(WalletTransfer state, WalletTransferAction action) {
+  if (action is WalletTransferInit) {
+    return WalletTransfer();
+  }
+
   if (action is WalletTransferStarted) {
     return state.rebuild((b) => b
       ..errors.clear()

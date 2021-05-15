@@ -3,10 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MainMenu extends StatelessWidget {
-  MainMenu({this.address, this.onReset});
+  const MainMenu({
+    Key? key,
+    required this.address,
+    required this.onReset,
+    required this.onRevealKey,
+  }) : super(key: key);
 
-  final String address;
-  final Function onReset;
+  final String? address;
+  final GestureTapCallback? onReset;
+  final GestureTapCallback? onRevealKey;
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +20,11 @@ class MainMenu extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           ListTile(
-            title: Text("Get tokens"),
-            subtitle: Text("Claim some test tokens"),
-            trailing: Icon(WalletIcons.gem, color: Colors.blue),
+            title: const Text('Get tokens'),
+            subtitle: const Text('Claim some test tokens'),
+            trailing: const Icon(WalletIcons.gem, color: Colors.blue),
             onTap: () async {
-              var url = 'https://faucet.clempe.dev?address=${this.address}';
+              var url = 'https://faucet.clempe.dev?address=$address';
               if (await canLaunch(url)) {
                 await launch(url);
               } else {
@@ -27,14 +33,14 @@ class MainMenu extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text("Get ETH"),
-            subtitle: Text("Claim some test ether"),
-            trailing: Icon(
+            title: const Text('Get ETH'),
+            subtitle: const Text('Claim some test ether'),
+            trailing: const Icon(
               WalletIcons.ethereum,
               color: Colors.black,
             ),
             onTap: () async {
-              var url = 'https://faucet.ropsten.be';
+              const url = 'https://faucet.ropsten.be';
               if (await canLaunch(url)) {
                 await launch(url);
               } else {
@@ -43,13 +49,21 @@ class MainMenu extends StatelessWidget {
             },
           ),
           ListTile(
-              title: Text("Reset wallet"),
-              subtitle: Text("Wipe all wallet data"),
-              trailing: Icon(
+              title: const Text('Private key'),
+              subtitle: const Text('Reveal your private key'),
+              trailing: const Icon(
+                WalletIcons.key,
+                color: Colors.black,
+              ),
+              onTap: onRevealKey),
+          ListTile(
+              title: const Text('Reset wallet'),
+              subtitle: const Text('Wipe all wallet data'),
+              trailing: const Icon(
                 WalletIcons.skull,
                 color: Colors.orange,
               ),
-              onTap: this.onReset),
+              onTap: onReset),
         ],
       ),
     );
