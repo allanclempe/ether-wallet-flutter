@@ -64,8 +64,11 @@ Feel free to check out the smart contract used in this project [https://github.c
 
 - Flutter has been upgraded to version 2.0.6 (dart 2.12.3)
 - Handled null-safety
-- Removed HDKey class [https://github.com/alepop/dart-ed25519-hd-key/issues/5](after agreed) to add master secret as optional parameter in [https://github.com/alepop/dart-ed25519-hd-key](dart-ed25519-hd-key) library. Re-added as dependency.
+- Removed HDKey class [after agreed](https://github.com/alepop/dart-ed25519-hd-key/issues/5) to add master secret as optional parameter in [dart-ed25519-hd-key](https://github.com/alepop/dart-ed25519-hd-key) library. Re-added as dependency.
 - Libraries has been upgraded.
+- Removed discontinued [firebase_ml_vision](https://pub.dev/packages/firebase_ml_vision) in favor of [qr_code_scanner](https://pub.dev/packages/qr_code_scanner)
+- Added menu option to reveal private key
+
 
 1.3.0+6:
 
