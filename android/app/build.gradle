@@ -54,8 +54,6 @@ android {
     }
 
     dependencies {
-        // api 'com.google.firebase:firebase-ml-vision-image-label-model:17.0.2'
-         api 'com.google.mlkit:image-labeling:17.0.3'
     }
 }
 
