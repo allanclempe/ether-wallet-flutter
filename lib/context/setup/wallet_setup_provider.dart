@@ -10,9 +10,9 @@ import 'package:provider/provider.dart';
 import '../hook_provider.dart';
 
 class WalletSetupProvider extends ContextProviderWidget<WalletSetupHandler> {
-  WalletSetupProvider(
-      {Widget? child, HookWidgetBuilder<WalletSetupHandler>? builder})
-      : super(child: child, builder: builder);
+  const WalletSetupProvider(
+      {Widget? child, HookWidgetBuilder<WalletSetupHandler>? builder, Key? key})
+      : super(child: child, builder: builder, key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,5 @@ class WalletSetupProvider extends ContextProviderWidget<WalletSetupHandler> {
   }
 }
 
-WalletSetupHandler useWalletSetup(BuildContext context) {
-  var handler = Provider.of<WalletSetupHandler>(context);
-
-  return handler;
-}
+WalletSetupHandler useWalletSetup(BuildContext context) =>
+    Provider.of<WalletSetupHandler>(context);

@@ -16,8 +16,8 @@ void main() {
     final addressService = AddressService(config);
 
     final privateKey = await addressService.getPrivateKey(
-        "loan absorb orange crouch mixed position sweet law ghost habit upgrade toss");
+        'loan absorb orange crouch mixed position sweet law ghost habit upgrade toss');
     expect(privateKey,
-        "02e41a913e0d109672c9122c96f0715ef62746aabe186a8160bca314acaa3178");
+        '02e41a913e0d109672c9122c96f0715ef62746aabe186a8160bca314acaa3178');
   });
 }

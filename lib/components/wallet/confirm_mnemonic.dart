@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class ConfirmMnemonic extends HookWidget {
-  ConfirmMnemonic({this.errors, this.onConfirm, this.onGenerateNew});
+  const ConfirmMnemonic(
+      {Key? key, this.errors, this.onConfirm, this.onGenerateNew})
+      : super(key: key);
 
   final List<String>? errors;
   final Function(String)? onConfirm;
@@ -14,22 +16,22 @@ class ConfirmMnemonic extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var mnemonicController = useTextEditingController();
+    final mnemonicController = useTextEditingController();
     return Center(
       child: Container(
-        margin: EdgeInsets.all(25),
+        margin: const EdgeInsets.all(25),
         child: SingleChildScrollView(
           child: PaperForm(
             padding: 30,
             actionButtons: <Widget>[
               OutlinedButton(
                 child: const Text('Generate New'),
-                onPressed: this.onGenerateNew,
+                onPressed: onGenerateNew,
               ),
               ElevatedButton(
                 child: const Text('Confirm'),
-                onPressed: this.onConfirm != null
-                    ? () => this.onConfirm!(mnemonicController.value.text)
+                onPressed: onConfirm != null
+                    ? () => onConfirm!(mnemonicController.value.text)
                     : null,
               )
             ],

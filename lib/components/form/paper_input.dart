@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PaperInput extends StatelessWidget {
-  PaperInput({
+  const PaperInput({
     required this.labelText,
     this.hintText,
     this.errorText,
@@ -9,7 +9,8 @@ class PaperInput extends StatelessWidget {
     this.controller,
     this.maxLines,
     this.obscureText = false,
-  });
+    Key? key,
+  }) : super(key: key);
 
   final ValueChanged<String>? onChanged;
   final String? errorText;
@@ -22,14 +23,14 @@ class PaperInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      obscureText: this.obscureText,
-      controller: this.controller,
-      onChanged: this.onChanged,
-      maxLines: this.maxLines,
+      obscureText: obscureText,
+      controller: controller,
+      onChanged: onChanged,
+      maxLines: maxLines,
       decoration: InputDecoration(
-        labelText: this.labelText,
-        hintText: this.hintText,
-        errorText: this.errorText,
+        labelText: labelText,
+        hintText: hintText,
+        errorText: errorText,
       ),
     );
   }

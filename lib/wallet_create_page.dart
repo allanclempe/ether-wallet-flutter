@@ -7,12 +7,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'components/wallet/display_mnemonic.dart';
 
 class WalletCreatePage extends HookWidget {
-  WalletCreatePage(this.title);
+  const WalletCreatePage(this.title, {Key? key}) : super(key: key);
 
   final String title;
 
+  @override
   Widget build(BuildContext context) {
-    var store = useWalletSetup(context);
+    final store = useWalletSetup(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +31,7 @@ class WalletCreatePage extends HookWidget {
               onConfirm: !store.state.loading
                   ? (confirmedMnemonic) async {
                       if (await store.confirmMnemonic(confirmedMnemonic)) {
-                        Navigator.of(context).popAndPushNamed("/");
+                        Navigator.of(context).popAndPushNamed('/');
                       }
                     }
                   : null,

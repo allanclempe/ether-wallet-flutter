@@ -1,7 +1,3 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'dart:async';
 import 'dart:io';
 
@@ -11,11 +7,12 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 typedef OnScanned = void Function(String? address);
 
 class QRCodeReaderPage extends StatefulWidget {
-  QRCodeReaderPage({
+  const QRCodeReaderPage({
+    Key? key,
     required this.title,
     this.onScanned,
     this.closeWhenScanned = true,
-  });
+  }) : super(key: key);
 
   final OnScanned? onScanned;
   final bool closeWhenScanned;
@@ -48,7 +45,7 @@ class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
 
   @override
   Widget build(BuildContext context) {
-    var scanArea = (MediaQuery.of(context).size.width < 400 ||
+    final scanArea = (MediaQuery.of(context).size.width < 400 ||
             MediaQuery.of(context).size.height < 400)
         ? 150.0
         : 300.0;
@@ -78,7 +75,7 @@ class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
     this.controller = controller;
     _subscription = controller.scannedDataStream.listen((scanData) {
       // metamask qrcode adds "ethereum:" in front of the address.
-      var address = scanData.code.replaceAll("ethereum:", "");
+      final address = scanData.code.replaceAll('ethereum:', '');
 
       if (!_basicAddress.hasMatch(address)) {
         return;

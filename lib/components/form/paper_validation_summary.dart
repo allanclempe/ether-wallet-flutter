@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
 class PaperValidationSummary extends StatelessWidget {
-  PaperValidationSummary(this.errors);
+  const PaperValidationSummary(this.errors, {Key? key}) : super(key: key);
   final List<String> errors;
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: this.errors.map((error) => Text(error)).toList(),
+      children: errors.map((error) => Text(error)).toList(),
     );
   }
 }

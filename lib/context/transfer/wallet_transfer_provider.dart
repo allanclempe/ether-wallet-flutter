@@ -12,9 +12,11 @@ import '../hook_provider.dart';
 
 class WalletTransferProvider
     extends ContextProviderWidget<WalletTransferHandler> {
-  WalletTransferProvider(
-      {Widget? child, HookWidgetBuilder<WalletTransferHandler>? builder})
-      : super(child: child, builder: builder);
+  const WalletTransferProvider(
+      {Widget? child,
+      HookWidgetBuilder<WalletTransferHandler>? builder,
+      Key? key})
+      : super(child: child, builder: builder, key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +34,5 @@ class WalletTransferProvider
   }
 }
 
-WalletTransferHandler useWalletTransfer(BuildContext context) {
-  var handler = Provider.of<WalletTransferHandler>(context);
-
-  return handler;
-}
+WalletTransferHandler useWalletTransfer(BuildContext context) =>
+    Provider.of<WalletTransferHandler>(context);

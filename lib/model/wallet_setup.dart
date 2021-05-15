@@ -10,6 +10,16 @@ enum WalletCreateSteps { display, confirm }
 enum WalletImportType { mnemonic, privateKey }
 
 abstract class WalletSetup implements Built<WalletSetup, WalletSetupBuilder> {
+  factory WalletSetup([void Function(WalletSetupBuilder)? updates]) =>
+      _$WalletSetup((b) => b
+        ..step = WalletCreateSteps.display
+        ..method = WalletSetupMethod.create
+        ..loading = false
+        ..errors = BuiltList<String>().toBuilder()
+        ..update(updates));
+
+  WalletSetup._();
+
   String? get mnemonic;
 
   String? get privateKey;
@@ -18,13 +28,4 @@ abstract class WalletSetup implements Built<WalletSetup, WalletSetupBuilder> {
   WalletSetupMethod get method;
   bool get loading;
   BuiltList<String>? get errors;
-
-  WalletSetup._();
-  factory WalletSetup([void Function(WalletSetupBuilder)? updates]) =>
-      _$WalletSetup((b) => b
-        ..step = WalletCreateSteps.display
-        ..method = WalletSetupMethod.create
-        ..loading = false
-        ..errors = BuiltList<String>().toBuilder()
-        ..update(updates));
 }

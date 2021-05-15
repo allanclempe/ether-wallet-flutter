@@ -7,16 +7,16 @@ import 'package:provider/provider.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:provider/single_child_widget.dart';
 
-void main() async {
+Future<void> main() async {
   // bootstrapping;
   WidgetsFlutterBinding.ensureInitialized();
-  final stores = await createProviders(AppConfig().params["ropsten"]!);
+  final stores = await createProviders(AppConfig().params['ropsten']!);
 
   runApp(MainApp(stores));
 }
 
 class MainApp extends StatelessWidget {
-  MainApp(this.stores);
+  MainApp(this.stores, {Key? key}) : super(key: key);
   final List<SingleChildWidget> stores;
   final FirebaseAnalytics analytics = FirebaseAnalytics();
 
@@ -25,7 +25,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: stores,
-        child: new MaterialApp(
+        child: MaterialApp(
           title: 'Flutter App',
           initialRoute: '/',
           routes: getRoutes(context),
@@ -43,7 +43,7 @@ class MainApp extends StatelessWidget {
             // Notice that the counter didn't reset back to zero; the application
             // is not restarted.
             primarySwatch: Colors.blue,
-            buttonTheme: ButtonThemeData(
+            buttonTheme: const ButtonThemeData(
               buttonColor: Colors.blue,
               textTheme: ButtonTextTheme.primary,
             ),

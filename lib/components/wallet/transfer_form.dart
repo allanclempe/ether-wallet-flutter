@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class TransferForm extends HookWidget {
-  TransferForm({
+  const TransferForm({
+    Key? key,
     required this.address,
     required this.onSubmit,
-  });
+  }) : super(key: key);
 
   final String? address;
   final void Function(String address, String amount) onSubmit;
@@ -27,19 +28,17 @@ class TransferForm extends HookWidget {
 
     return Center(
       child: Container(
-        margin: EdgeInsets.all(25),
+        margin: const EdgeInsets.all(25),
         child: SingleChildScrollView(
           child: PaperForm(
             padding: 30,
             actionButtons: <Widget>[
               ElevatedButton(
                 child: const Text('Transfer now'),
-                onPressed: () {
-                  this.onSubmit(
-                    toController.value.text,
-                    amountController.value.text,
-                  );
-                },
+                onPressed: () => onSubmit(
+                  toController.value.text,
+                  amountController.value.text,
+                ),
               )
             ],
             children: <Widget>[

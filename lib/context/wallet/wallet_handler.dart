@@ -35,7 +35,7 @@ class WalletHandler {
       return;
     }
 
-    throw Exception("Wallet could not be initialised.");
+    throw Exception('Wallet could not be initialised.');
   }
 
   Future<void> _initialiseFromMnemonic(String entropyMnemonic) async {
@@ -57,11 +57,11 @@ class WalletHandler {
   }
 
   Future<void> _initialise() async {
-    await this.fetchOwnBalance();
+    await fetchOwnBalance();
 
     _contractService.listenTransfer((from, to, value) async {
-      var fromMe = from.toString() == state.address;
-      var toMe = to.toString() == state.address;
+      final fromMe = from.toString() == state.address;
+      final toMe = to.toString() == state.address;
 
       if (!fromMe && !toMe) {
         return;
@@ -80,10 +80,10 @@ class WalletHandler {
 
     _store.dispatch(UpdatingBalance());
 
-    var tokenBalance = await _contractService
+    final tokenBalance = await _contractService
         .getTokenBalance(web3.EthereumAddress.fromHex(state.address!));
 
-    var ethBalance = await _contractService
+    final ethBalance = await _contractService
         .getEthBalance(web3.EthereumAddress.fromHex(state.address!));
 
     _store.dispatch(BalanceUpdated(ethBalance.getInWei, tokenBalance));

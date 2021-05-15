@@ -6,7 +6,13 @@ typedef OnRadioChanged = void Function(
 );
 
 class PaperRadio extends StatelessWidget {
-  PaperRadio(this.title, {this.value, this.groupValue, this.onChanged});
+  const PaperRadio(
+    this.title, {
+    this.value,
+    this.groupValue,
+    this.onChanged,
+    Key? key,
+  }) : super(key: key);
 
   final dynamic value;
   final String title;

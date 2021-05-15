@@ -2,7 +2,10 @@ import 'dart:async';
 import 'package:web3dart/web3dart.dart';
 
 typedef TransferEvent = void Function(
-    EthereumAddress from, EthereumAddress to, BigInt value);
+  EthereumAddress from,
+  EthereumAddress to,
+  BigInt value,
+);
 
 abstract class IContractService {
   Future<Credentials> getCredentials(String privateKey);
@@ -25,13 +28,15 @@ class ContractService implements IContractService {
   ContractFunction _balanceFunction() => contract.function('balanceOf');
   ContractFunction _sendFunction() => contract.function('transfer');
 
+  @override
   Future<Credentials> getCredentials(String privateKey) =>
       client.credentialsFromPrivateKey(privateKey);
 
+  @override
   Future<String?> send(
       String privateKey, EthereumAddress receiver, BigInt amount,
       {TransferEvent? onTransfer, Function(Object exeception)? onError}) async {
-    final credentials = await this.getCredentials(privateKey);
+    final credentials = await getCredentials(privateKey);
     final from = await credentials.extractAddress();
     final networkId = await client.getNetworkId();
 
@@ -65,12 +70,14 @@ class ContractService implements IContractService {
     }
   }
 
+  @override
   Future<EtherAmount> getEthBalance(EthereumAddress from) async {
-    return await client.getBalance(from);
+    return client.getBalance(from);
   }
 
+  @override
   Future<BigInt> getTokenBalance(EthereumAddress from) async {
-    var response = await client.call(
+    final response = await client.call(
       contract: contract,
       function: _balanceFunction(),
       params: [from],
@@ -79,6 +86,7 @@ class ContractService implements IContractService {
     return response.first as BigInt;
   }
 
+  @override
   StreamSubscription listenTransfer(TransferEvent onTransfer, {int? take}) {
     var events = client.events(FilterOptions.events(
       contract: contract,
@@ -109,6 +117,7 @@ class ContractService implements IContractService {
     });
   }
 
+  @override
   Future<void> dispose() async {
     await client.dispose();
   }

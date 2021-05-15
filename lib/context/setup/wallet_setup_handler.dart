@@ -15,14 +15,14 @@ class WalletSetupHandler {
   WalletSetup get state => _store.state;
 
   void generateMnemonic() {
-    var mnemonic = _addressService.generateMnemonic();
+    final mnemonic = _addressService.generateMnemonic();
     _store.dispatch(WalletSetupConfirmMnemonic(mnemonic));
   }
 
   Future<bool> confirmMnemonic(String mnemonic) async {
     if (state.mnemonic != mnemonic) {
       _store
-          .dispatch(WalletSetupAddError("Invalid mnemonic, please try again."));
+          .dispatch(WalletSetupAddError('Invalid mnemonic, please try again.'));
       return false;
     }
     _store.dispatch(WalletSetupStarted());
@@ -50,7 +50,7 @@ class WalletSetupHandler {
     }
 
     _store.dispatch(
-        WalletSetupAddError("Invalid mnemonic, it requires 12 words."));
+        WalletSetupAddError('Invalid mnemonic, it requires 12 words.'));
 
     return false;
   }
@@ -66,18 +66,18 @@ class WalletSetupHandler {
     }
 
     _store.dispatch(
-        WalletSetupAddError("Invalid private key, please try again."));
+        WalletSetupAddError('Invalid private key, please try again.'));
 
     return false;
   }
 
   String _mnemonicNormalise(String mnemonic) {
-    return _mnemonicWords(mnemonic).join(" ");
+    return _mnemonicWords(mnemonic).join(' ');
   }
 
   List<String> _mnemonicWords(String mnemonic) {
     return mnemonic
-        .split(" ")
+        .split(' ')
         .where((item) => item != null && item.trim().isNotEmpty)
         .map((item) => item.trim())
         .toList();

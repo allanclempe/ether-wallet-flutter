@@ -10,37 +10,38 @@ abstract class IConfigurationService {
 }
 
 class ConfigurationService implements IConfigurationService {
-  SharedPreferences _preferences;
-  ConfigurationService(this._preferences);
+  const ConfigurationService(this._preferences);
+
+  final SharedPreferences _preferences;
 
   @override
   Future<void> setMnemonic(String? value) async {
-    await _preferences.setString("mnemonic", value ?? "");
+    await _preferences.setString('mnemonic', value ?? '');
   }
 
   @override
   Future<void> setPrivateKey(String? value) async {
-    await _preferences.setString("privateKey", value ?? "");
+    await _preferences.setString('privateKey', value ?? '');
   }
 
   @override
   Future<void> setupDone(bool value) async {
-    await _preferences.setBool("didSetupWallet", value);
+    await _preferences.setBool('didSetupWallet', value);
   }
 
   // gets
   @override
   String? getMnemonic() {
-    return _preferences.getString("mnemonic");
+    return _preferences.getString('mnemonic');
   }
 
   @override
   String? getPrivateKey() {
-    return _preferences.getString("privateKey");
+    return _preferences.getString('privateKey');
   }
 
   @override
   bool didSetupWallet() {
-    return _preferences.getBool("didSetupWallet") ?? false;
+    return _preferences.getBool('didSetupWallet') ?? false;
   }
 }

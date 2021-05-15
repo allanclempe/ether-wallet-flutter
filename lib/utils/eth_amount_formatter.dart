@@ -5,10 +5,12 @@ class EthAmountFormatter {
 
   final BigInt? amount;
   String format({
-    fromUnit = EtherUnit.wei,
-    toUnit = EtherUnit.ether,
+    EtherUnit fromUnit = EtherUnit.wei,
+    EtherUnit toUnit = EtherUnit.ether,
   }) {
-    if (amount == null) return "-";
+    if (amount == null) {
+      return '-';
+    }
 
     return EtherAmount.fromUnitAndValue(fromUnit, amount)
         .getValueInUnit(toUnit)

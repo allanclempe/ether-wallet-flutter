@@ -1,19 +1,20 @@
 import 'package:etherwallet/components/wallet/balance.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+
 import 'components/dialog/alert.dart';
 import 'components/menu/main_menu.dart';
 import 'context/wallet/wallet_provider.dart';
-import 'package:flutter/services.dart';
 
 class WalletMainPage extends HookWidget {
-  WalletMainPage(this.title);
+  const WalletMainPage(this.title, {Key? key}) : super(key: key);
 
   final String title;
 
   @override
   Widget build(BuildContext context) {
-    var store = useWallet(context);
+    final store = useWallet(context);
 
     useEffect(() {
       store.initialise();
@@ -24,33 +25,33 @@ class WalletMainPage extends HookWidget {
       drawer: MainMenu(
         address: store.state.address,
         onReset: () => Alert(
-            title: "Warning",
+            title: 'Warning',
             text:
-                "Without your seed phrase or private key you cannot restore your wallet balance",
+                'Without your seed phrase or private key you cannot restore your wallet balance',
             actions: [
               TextButton(
-                child: Text("cancel"),
+                child: const Text('cancel'),
                 onPressed: () => Navigator.of(context).pop(),
               ),
               TextButton(
-                child: Text("reset"),
+                child: const Text('reset'),
                 onPressed: () async {
                   await store.resetWallet();
-                  Navigator.popAndPushNamed(context, "/");
+                  Navigator.popAndPushNamed(context, '/');
                 },
               )
             ]).show(context),
         onRevealKey: () => Alert(
-            title: "Private key",
+            title: 'Private key',
             text:
-                "WARNING: In production environment the private key should be protected with password.\r\n\r\n${store.getPrivateKey() ?? "-"}",
+                'WARNING: In production environment the private key should be protected with password.\r\n\r\n${store.getPrivateKey() ?? "-"}',
             actions: [
               TextButton(
-                child: Text("close"),
+                child: const Text('close'),
                 onPressed: () => Navigator.of(context).pop(),
               ),
               TextButton(
-                child: Text("copy and close"),
+                child: const Text('copy and close'),
                 onPressed: () {
                   Clipboard.setData(ClipboardData(text: store.getPrivateKey()));
                   Navigator.of(context).pop();
@@ -63,12 +64,12 @@ class WalletMainPage extends HookWidget {
         actions: [
           Builder(
             builder: (context) => IconButton(
-              icon: Icon(Icons.refresh),
+              icon: const Icon(Icons.refresh),
               onPressed: !store.state.loading
                   ? () async {
                       await store.fetchOwnBalance();
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text("Balance updated"),
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Balance updated'),
                         duration: Duration(milliseconds: 800),
                       ));
                     }
@@ -76,9 +77,9 @@ class WalletMainPage extends HookWidget {
             ),
           ),
           IconButton(
-            icon: Icon(Icons.send),
+            icon: const Icon(Icons.send),
             onPressed: () {
-              Navigator.of(context).pushNamed("/transfer");
+              Navigator.of(context).pushNamed('/transfer');
             },
           ),
         ],
