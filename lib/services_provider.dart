@@ -11,9 +11,11 @@ import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
 
 Future<List<SingleChildWidget>> createProviders(AppConfigParams params) async {
-  final client = Web3Client(params.web3HttpUrl, Client(), socketConnector: () {
-    return IOWebSocketChannel.connect(params.web3RdpUrl).cast<String>();
-  });
+  final wsAddress = params.web3RdpUrl;
+  final client = Web3Client(params.web3HttpUrl, Client(),
+      socketConnector: wsAddress != null
+          ? () => IOWebSocketChannel.connect(wsAddress).cast<String>()
+          : null);
 
   final sharedPrefs = await SharedPreferences.getInstance();
 
