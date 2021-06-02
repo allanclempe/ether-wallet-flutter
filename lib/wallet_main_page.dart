@@ -6,6 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'components/dialog/alert.dart';
 import 'components/menu/main_menu.dart';
 import 'context/wallet/wallet_provider.dart';
+import 'model/network_type.dart';
 
 class WalletMainPage extends HookWidget {
   const WalletMainPage(this.title, {Key? key}) : super(key: key);
@@ -17,9 +18,9 @@ class WalletMainPage extends HookWidget {
     final store = useWallet(context);
 
     useEffect(() {
-      store.initialise();
+      store.initialise(store.state.network);
       return null;
-    }, []);
+    }, [store.state.network]);
 
     return Scaffold(
       drawer: MainMenu(
@@ -84,10 +85,30 @@ class WalletMainPage extends HookWidget {
           ),
         ],
       ),
-      body: Balance(
-        address: store.state.address,
-        ethBalance: store.state.ethBalance,
-        tokenBalance: store.state.tokenBalance,
+      body: Column(
+        children: [
+          DropdownButton<NetworkType>(
+            items: [
+              NetworkType.ropsten,
+              NetworkType.matic,
+              NetworkType.bsc,
+              NetworkType.local
+            ]
+                .map((NetworkType value) => DropdownMenuItem<NetworkType>(
+                      value: value,
+                      child: Text(value.toString()),
+                    ))
+                .toList(),
+            onChanged: (value) {
+              store.changeNetwork(value!);
+            },
+          ),
+          Balance(
+            address: store.state.address,
+            ethBalance: store.state.ethBalance,
+            tokenBalance: store.state.tokenBalance,
+          )
+        ],
       ),
     );
   }

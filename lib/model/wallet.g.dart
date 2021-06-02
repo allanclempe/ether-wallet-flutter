@@ -8,6 +8,8 @@ part of 'wallet.dart';
 
 class _$Wallet extends Wallet {
   @override
+  final NetworkType network;
+  @override
   final String? address;
   @override
   final String? privateKey;
@@ -24,13 +26,15 @@ class _$Wallet extends Wallet {
       (new WalletBuilder()..update(updates)).build();
 
   _$Wallet._(
-      {this.address,
+      {required this.network,
+      this.address,
       this.privateKey,
       required this.tokenBalance,
       required this.ethBalance,
       required this.loading,
       this.errors})
       : super._() {
+    BuiltValueNullFieldError.checkNotNull(network, 'Wallet', 'network');
     BuiltValueNullFieldError.checkNotNull(
         tokenBalance, 'Wallet', 'tokenBalance');
     BuiltValueNullFieldError.checkNotNull(ethBalance, 'Wallet', 'ethBalance');
@@ -48,6 +52,7 @@ class _$Wallet extends Wallet {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Wallet &&
+        network == other.network &&
         address == other.address &&
         privateKey == other.privateKey &&
         tokenBalance == other.tokenBalance &&
@@ -61,7 +66,9 @@ class _$Wallet extends Wallet {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, address.hashCode), privateKey.hashCode),
+                $jc(
+                    $jc($jc($jc(0, network.hashCode), address.hashCode),
+                        privateKey.hashCode),
                     tokenBalance.hashCode),
                 ethBalance.hashCode),
             loading.hashCode),
@@ -71,6 +78,7 @@ class _$Wallet extends Wallet {
   @override
   String toString() {
     return (newBuiltValueToStringHelper('Wallet')
+          ..add('network', network)
           ..add('address', address)
           ..add('privateKey', privateKey)
           ..add('tokenBalance', tokenBalance)
@@ -83,6 +91,10 @@ class _$Wallet extends Wallet {
 
 class WalletBuilder implements Builder<Wallet, WalletBuilder> {
   _$Wallet? _$v;
+
+  NetworkType? _network;
+  NetworkType? get network => _$this._network;
+  set network(NetworkType? network) => _$this._network = network;
 
   String? _address;
   String? get address => _$this._address;
@@ -114,6 +126,7 @@ class WalletBuilder implements Builder<Wallet, WalletBuilder> {
   WalletBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
+      _network = $v.network;
       _address = $v.address;
       _privateKey = $v.privateKey;
       _tokenBalance = $v.tokenBalance;
@@ -142,6 +155,8 @@ class WalletBuilder implements Builder<Wallet, WalletBuilder> {
     try {
       _$result = _$v ??
           new _$Wallet._(
+              network: BuiltValueNullFieldError.checkNotNull(
+                  network, 'Wallet', 'network'),
               address: address,
               privateKey: privateKey,
               tokenBalance: BuiltValueNullFieldError.checkNotNull(

@@ -24,13 +24,13 @@ class WalletProvider extends ContextProviderWidget<WalletHandler> {
     );
 
     final addressService = Provider.of<AddressService>(context);
-    final contractService = Provider.of<ContractService>(context);
+    final contractServiceFactory = Provider.of<ContractServiceFactory>(context);
     final configurationService = Provider.of<ConfigurationService>(context);
     final handler = useMemoized(
       () => WalletHandler(
         store,
         addressService,
-        contractService,
+        contractServiceFactory,
         configurationService,
       ),
       [addressService, store],

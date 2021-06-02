@@ -1,5 +1,10 @@
 import 'dart:async';
+import 'package:etherwallet/app_config.dart';
+import 'package:etherwallet/model/network_type.dart';
+import 'package:etherwallet/utils/contract_parser.dart';
 import 'package:web3dart/web3dart.dart';
+import 'package:web_socket_channel/io.dart';
+import 'package:http/http.dart';
 
 typedef TransferEvent = void Function(
   EthereumAddress from,
@@ -16,6 +21,42 @@ abstract class IContractService {
   Future<EtherAmount> getEthBalance(EthereumAddress from);
   Future<void> dispose();
   StreamSubscription listenTransfer(TransferEvent onTransfer);
+}
+
+class ContractServiceFactory {
+  ContractServiceFactory(this.appConfig);
+
+  final AppConfig appConfig;
+  final Map<NetworkType, ContractService> _instances =
+      <NetworkType, ContractService>{};
+
+  Future<ContractService> getInstance(NetworkType network) async {
+    final contractService =
+        _instances[network] ?? await _setupInstance(network);
+
+    _instances[network] = contractService;
+
+    return contractService;
+  }
+
+  Future<ContractService> _setupInstance(NetworkType network) async {
+    final networkConfig = appConfig.params[network];
+
+    if (networkConfig == null) {
+      throw Exception("Config for network '$network' could not be found");
+    }
+
+    final wsAddress = networkConfig.web3RdpUrl;
+    final client = Web3Client(networkConfig.web3HttpUrl, Client(),
+        socketConnector: wsAddress != null
+            ? () => IOWebSocketChannel.connect(wsAddress).cast<String>()
+            : null);
+
+    final contract = await ContractParser.fromAssets(
+        'TargaryenCoin.json', networkConfig.contractAddress);
+
+    return ContractService(client, contract);
+  }
 }
 
 class ContractService implements IContractService {
