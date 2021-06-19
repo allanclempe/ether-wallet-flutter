@@ -23,7 +23,7 @@ class WalletTransferProvider
     final store = useReducer<WalletTransfer, WalletTransferAction>(reducer,
         initialState: WalletTransfer(), initialAction: WalletTransferInit());
 
-    final contractService = Provider.of<ContractService>(context);
+    final contractService = Provider.of<ContractServiceFactory>(context);
     final configurationService = Provider.of<ConfigurationService>(context);
     final handler = useMemoized(
       () => WalletTransferHandler(store, contractService, configurationService),

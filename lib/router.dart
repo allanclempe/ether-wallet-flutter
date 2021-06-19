@@ -1,5 +1,7 @@
+import 'package:etherwallet/model/network_type.dart';
 import 'package:etherwallet/qrcode_reader_page.dart';
 import 'package:etherwallet/service/configuration_service.dart';
+import 'package:etherwallet/utils/route_utils.dart';
 import 'package:etherwallet/wallet_create_page.dart';
 import 'package:etherwallet/wallet_import_page.dart';
 import 'package:etherwallet/wallet_main_page.dart';
@@ -39,7 +41,10 @@ Map<String, WidgetBuilder> getRoutes(context) {
         ),
     '/transfer': (BuildContext context) => WalletTransferProvider(
           // ignore: prefer_const_constructors
-          builder: (context, store) => WalletTransferPage(title: 'Send Tokens'),
+          builder: (context, store) => WalletTransferPage(
+            title: 'Send Tokens',
+            network: getRouteArgs<NetworkType>(context),
+          ),
         ),
     '/qrcode_reader': (BuildContext context) => QRCodeReaderPage(
           title: 'Scan QRCode',

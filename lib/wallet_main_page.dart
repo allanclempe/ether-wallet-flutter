@@ -5,8 +5,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'components/dialog/alert.dart';
 import 'components/menu/main_menu.dart';
+import 'components/wallet/change_network.dart';
 import 'context/wallet/wallet_provider.dart';
-import 'model/network_type.dart';
 
 class WalletMainPage extends HookWidget {
   const WalletMainPage(this.title, {Key? key}) : super(key: key);
@@ -80,35 +80,28 @@ class WalletMainPage extends HookWidget {
           IconButton(
             icon: const Icon(Icons.send),
             onPressed: () {
-              Navigator.of(context).pushNamed('/transfer');
+              Navigator.of(context)
+                  .pushNamed('/transfer', arguments: store.state.network);
             },
           ),
         ],
       ),
-      body: Column(
-        children: [
-          DropdownButton<NetworkType>(
-            items: [
-              NetworkType.ropsten,
-              NetworkType.matic,
-              NetworkType.bsc,
-              NetworkType.local
-            ]
-                .map((NetworkType value) => DropdownMenuItem<NetworkType>(
-                      value: value,
-                      child: Text(value.toString()),
-                    ))
-                .toList(),
-            onChanged: (value) {
-              store.changeNetwork(value!);
-            },
-          ),
-          Balance(
-            address: store.state.address,
-            ethBalance: store.state.ethBalance,
-            tokenBalance: store.state.tokenBalance,
-          )
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ChangeNetwork(
+              onChange: store.changeNetwork,
+              currentValue: store.state.network,
+              loading: store.state.loading,
+            ),
+            Balance(
+              address: store.state.address,
+              ethBalance: store.state.ethBalance,
+              tokenBalance: store.state.tokenBalance,
+            )
+          ],
+        ),
       ),
     );
   }
