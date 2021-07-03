@@ -2,7 +2,7 @@ import 'package:etherwallet/model/network_type.dart';
 import 'package:etherwallet/model/wallet.dart';
 import 'package:etherwallet/service/address_service.dart';
 import 'package:etherwallet/service/configuration_service.dart';
-import 'package:etherwallet/service/contract_service.dart';
+import 'package:etherwallet/service/contract_locator.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:web3dart/web3dart.dart' as web3;
 
@@ -12,14 +12,14 @@ class WalletHandler {
   WalletHandler(
     this._store,
     this._addressService,
-    this._contractServiceFactory,
+    this._contractLocator,
     this._configurationService,
   );
 
   final Store<Wallet, WalletAction> _store;
   final AddressService _addressService;
   final ConfigurationService _configurationService;
-  final ContractServiceFactory _contractServiceFactory;
+  final ContractLocator _contractLocator;
 
   Wallet get state => _store.state;
 
@@ -60,13 +60,13 @@ class WalletHandler {
   }
 
   Future<Function> _initialise() async {
-    final contractService =
-        await _contractServiceFactory.getInstance(state.network);
-
     await fetchOwnBalance();
 
-    final subscription =
-        contractService.listenTransfer((from, to, value) async {
+    // TODO: got to correctly dispose this events somehow.
+
+    final subscription = _contractLocator
+        .getInstance(state.network)
+        .listenTransfer((from, to, value) async {
       final fromMe = from.toString() == state.address;
       final toMe = to.toString() == state.address;
 
@@ -93,8 +93,7 @@ class WalletHandler {
       return;
     }
 
-    final contractService =
-        await _contractServiceFactory.getInstance(state.network);
+    final contractService = _contractLocator.getInstance(state.network);
 
     _store.dispatch(UpdatingBalance());
 

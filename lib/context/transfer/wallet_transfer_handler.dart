@@ -5,19 +5,19 @@ import 'package:etherwallet/context/transfer/wallet_transfer_state.dart';
 import 'package:etherwallet/model/network_type.dart';
 import 'package:etherwallet/model/wallet_transfer.dart';
 import 'package:etherwallet/service/configuration_service.dart';
-import 'package:etherwallet/service/contract_service.dart';
+import 'package:etherwallet/service/contract_locator.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:web3dart/credentials.dart';
 
 class WalletTransferHandler {
   WalletTransferHandler(
     this._store,
-    this._contractServiceFactory,
+    this._contractLocator,
     this._configurationService,
   );
 
   final Store<WalletTransfer, WalletTransferAction> _store;
-  final ContractServiceFactory _contractServiceFactory;
+  final ContractLocator _contractLocator;
   final ConfigurationService _configurationService;
 
   WalletTransfer get state => _store.state;
@@ -28,10 +28,8 @@ class WalletTransferHandler {
 
     _store.dispatch(WalletTransferStarted());
 
-    final contractService = await _contractServiceFactory.getInstance(network);
-
     try {
-      await contractService.send(
+      await _contractLocator.getInstance(network).send(
         privateKey!,
         EthereumAddress.fromHex(to),
         BigInt.from(double.parse(amount) * pow(10, 18)),
