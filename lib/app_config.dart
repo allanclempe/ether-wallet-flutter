@@ -19,7 +19,7 @@ class AppConfig {
     params[NetworkType.Matic] = AppConfigParams(
         'https://rpc-mumbai.maticvigil.com',
         '0x73434bb95eC80d623359f6f9d7b84568407187BA',
-        web3RdpUrl: 'wss://rpc-mumbai.maticvigil.com/ws');
+        web3RdpUrl: 'wss://ws-mumbai.matic.today');
   }
 
   Map<NetworkType, AppConfigParams> params = <NetworkType, AppConfigParams>{};
