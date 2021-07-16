@@ -30,7 +30,8 @@ class WalletMainPage extends HookWidget {
 
     return Scaffold(
       drawer: MainMenu(
-        address: store.state.address,
+        network: network,
+        address: address,
         onReset: () => Alert(
             title: 'Warning',
             text:
@@ -105,6 +106,7 @@ class WalletMainPage extends HookWidget {
               address: store.state.address,
               ethBalance: store.state.ethBalance,
               tokenBalance: store.state.tokenBalance,
+              symbol: network.config.symbol,
             )
           ],
         ),

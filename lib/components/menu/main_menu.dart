@@ -1,3 +1,4 @@
+import 'package:etherwallet/model/network_type.dart';
 import 'package:etherwallet/utils/wallet_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -6,11 +7,13 @@ class MainMenu extends StatelessWidget {
   const MainMenu({
     Key? key,
     required this.address,
+    required this.network,
     required this.onReset,
     required this.onRevealKey,
   }) : super(key: key);
 
   final String? address;
+  final NetworkType network;
   final GestureTapCallback? onReset;
   final GestureTapCallback? onRevealKey;
 
@@ -24,7 +27,8 @@ class MainMenu extends StatelessWidget {
             subtitle: const Text('Claim some test tokens'),
             trailing: const Icon(WalletIcons.gem, color: Colors.blue),
             onTap: () async {
-              var url = 'https://faucet.clempe.dev?address=$address';
+              final url =
+                  'https://faucet.clempe.dev?address=$address&network=${network.name.toLowerCase()}';
               if (await canLaunch(url)) {
                 await launch(url);
               } else {
@@ -33,14 +37,11 @@ class MainMenu extends StatelessWidget {
             },
           ),
           ListTile(
-            title: const Text('Get ETH'),
-            subtitle: const Text('Claim some test ether'),
-            trailing: const Icon(
-              WalletIcons.ethereum,
-              color: Colors.black,
-            ),
+            title: Text('Get ${network.config.symbol}'),
+            subtitle: Text('Claim some test ${network.config.symbol}'),
+            trailing: Icon(network.config.icon, color: Colors.black),
             onTap: () async {
-              const url = 'https://faucet.ropsten.be';
+              final url = network.config.faucetUrl;
               if (await canLaunch(url)) {
                 await launch(url);
               } else {

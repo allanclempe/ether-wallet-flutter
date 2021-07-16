@@ -12,9 +12,9 @@ class ContractLocator {
   static Map<NetworkType, ContractService> instance =
       <NetworkType, ContractService>{};
 
-  static Future<ContractLocator> setup(AppConfig appConfig) async {
-    for (final network in appConfig.params.keys) {
-      instance[network] = await createInstance(appConfig.params[network]!);
+  static Future<ContractLocator> setup() async {
+    for (final network in NetworkType.enabledValues) {
+      instance[network] = await createInstance(network.config);
     }
 
     return ContractLocator._();

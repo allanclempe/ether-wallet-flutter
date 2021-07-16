@@ -16,6 +16,8 @@ class ChangeNetwork extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final networks = NetworkType.enabledValues;
+
     return ElevatedButton(
       child: Text(currentValue.toString()),
       onPressed: !loading
@@ -24,10 +26,10 @@ class ChangeNetwork extends StatelessWidget {
                 context: context,
                 builder: (BuildContext context) {
                   return SizedBox(
-                    height: 150,
+                    height: 48.0 * networks.length,
                     child: Column(
                       children: <Widget>[
-                        for (var network in NetworkType.values)
+                        for (var network in networks)
                           RawMaterialButton(
                             onPressed: () {
                               onChange(network);

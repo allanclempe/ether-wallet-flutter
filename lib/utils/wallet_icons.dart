@@ -31,6 +31,8 @@ class WalletIcons {
       IconData(0xf3a5, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData ethereum =
       IconData(0xf42e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData coins =
+      IconData(0xf51e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData skull =
       IconData(0xf54c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

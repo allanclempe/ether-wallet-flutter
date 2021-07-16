@@ -1,4 +1,3 @@
-import 'package:etherwallet/app_config.dart';
 import 'package:etherwallet/service/address_service.dart';
 import 'package:etherwallet/service/configuration_service.dart';
 import 'package:etherwallet/service/contract_locator.dart';
@@ -13,7 +12,7 @@ Future<List<SingleChildWidget>> createProviders() async {
 
   final addressService = AddressService(configurationService);
 
-  final contractLocator = await ContractLocator.setup(AppConfig());
+  final contractLocator = await ContractLocator.setup();
 
   return [
     Provider.value(value: addressService),

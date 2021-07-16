@@ -9,11 +9,13 @@ class Balance extends StatelessWidget {
     required this.address,
     required this.ethBalance,
     required this.tokenBalance,
+    required this.symbol,
   }) : super(key: key);
 
   final String? address;
   final BigInt? ethBalance;
   final BigInt? tokenBalance;
+  final String? symbol;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class Balance extends StatelessWidget {
                 Theme.of(context).textTheme.bodyText2?.apply(fontSizeDelta: 6),
           ),
           Text(
-            '${EthAmountFormatter(ethBalance).format()} eth',
+            '${EthAmountFormatter(ethBalance).format()} $symbol',
             style: Theme.of(context)
                 .textTheme
                 .bodyText2

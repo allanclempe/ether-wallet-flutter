@@ -6,12 +6,15 @@ part of 'network_type.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+const NetworkType _$Local = const NetworkType._('Local');
 const NetworkType _$Ethereum = const NetworkType._('Ethereum');
 const NetworkType _$Matic = const NetworkType._('Matic');
 const NetworkType _$BSC = const NetworkType._('BSC');
 
 NetworkType _$valuesOf(String name) {
   switch (name) {
+    case 'Local':
+      return _$Local;
     case 'Ethereum':
       return _$Ethereum;
     case 'Matic':
@@ -25,6 +28,7 @@ NetworkType _$valuesOf(String name) {
 
 final BuiltSet<NetworkType> _$values =
     new BuiltSet<NetworkType>(const <NetworkType>[
+  _$Local,
   _$Ethereum,
   _$Matic,
   _$BSC,
