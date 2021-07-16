@@ -23,23 +23,23 @@ class WalletHandler {
 
   Wallet get state => _store.state;
 
-  Future<void> initialise(NetworkType network) async {
+  Future<void> initialise() async {
     final entropyMnemonic = _configurationService.getMnemonic();
     final privateKey = _configurationService.getPrivateKey();
 
     if (entropyMnemonic != null && entropyMnemonic.isNotEmpty) {
-      _initialiseFromMnemonic(network, entropyMnemonic);
+      _initialiseFromMnemonic(state.network, entropyMnemonic);
       return;
     }
     if (privateKey != null && privateKey.isNotEmpty) {
-      _initialiseFromPrivateKey(network, privateKey);
+      _initialiseFromPrivateKey(state.network, privateKey);
       return;
     }
 
     throw Exception('Wallet could not be initialised.');
   }
 
-  Future<Function> _initialiseFromMnemonic(
+  Future<void> _initialiseFromMnemonic(
       NetworkType network, String entropyMnemonic) async {
     final mnemonic = _addressService.entropyToMnemonic(entropyMnemonic);
     final privateKey = await _addressService.getPrivateKey(mnemonic);
@@ -47,28 +47,28 @@ class WalletHandler {
 
     _store.dispatch(InitialiseWallet(network, address.toString(), privateKey));
 
-    return _initialise();
+    await refreshBalance();
   }
 
-  Future<Function> _initialiseFromPrivateKey(
+  Future<void> _initialiseFromPrivateKey(
       NetworkType network, String privateKey) async {
     final address = await _addressService.getPublicAddress(privateKey);
 
     _store.dispatch(InitialiseWallet(network, address.toString(), privateKey));
 
-    return _initialise();
+    await refreshBalance();
   }
 
-  Future<Function> _initialise() async {
-    await fetchOwnBalance();
-
-    // TODO: got to correctly dispose this events somehow.
+  Function()? listenTransfers(String? address, NetworkType network) {
+    if (address == null || address.isEmpty) {
+      return null;
+    }
 
     final subscription = _contractLocator
-        .getInstance(state.network)
+        .getInstance(network)
         .listenTransfer((from, to, value) async {
-      final fromMe = from.toString() == state.address;
-      final toMe = to.toString() == state.address;
+      final fromMe = from.toString() == address;
+      final toMe = to.toString() == address;
 
       if (!fromMe && !toMe) {
         return;
@@ -76,19 +76,19 @@ class WalletHandler {
 
       print('======= balance updated =======');
 
-      await fetchOwnBalance();
+      await refreshBalance();
     });
 
-    return () {
-      subscription.cancel();
-    };
+    return subscription.cancel;
   }
 
-  void changeNetwork(NetworkType network) {
+  Future<void> changeNetwork(NetworkType network) async {
     _store.dispatch(NetworkChanged(network));
+
+    await refreshBalance();
   }
 
-  Future<void> fetchOwnBalance() async {
+  Future<void> refreshBalance() async {
     if (state.address?.isEmpty ?? true) {
       return;
     }

@@ -16,11 +16,17 @@ class WalletMainPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final store = useWallet(context);
+    final address = store.state.address;
+    final network = store.state.network;
 
     useEffect(() {
-      store.initialise(store.state.network);
-      return null;
-    }, [store.state.network]);
+      store.initialise();
+    }, []);
+
+    useEffect(
+      () => store.listenTransfers(address, network),
+      [address, network],
+    );
 
     return Scaffold(
       drawer: MainMenu(
@@ -68,7 +74,7 @@ class WalletMainPage extends HookWidget {
               icon: const Icon(Icons.refresh),
               onPressed: !store.state.loading
                   ? () async {
-                      await store.fetchOwnBalance();
+                      await store.refreshBalance();
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('Balance updated'),
                         duration: Duration(milliseconds: 800),
