@@ -63,7 +63,7 @@ Feel free to check out the smart contract used in this project [https://github.c
 2.1.0+8:
 
 - Flutter upgraded to version 2.2.3 (dart 2.13.4)
-- Multi networks support (ETH Ropsten, MATIC Mumbai and BSC)
+- Multi network support (ETH Ropsten, MATIC Mumbai and BSC)
 
 2.0.0+7:
 
