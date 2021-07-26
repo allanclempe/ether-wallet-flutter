@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'components/dialog/alert.dart';
 import 'components/menu/main_menu.dart';
+import 'components/wallet/change_network.dart';
 import 'context/wallet/wallet_provider.dart';
 
 class WalletMainPage extends HookWidget {
@@ -15,15 +16,22 @@ class WalletMainPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final store = useWallet(context);
+    final address = store.state.address;
+    final network = store.state.network;
 
     useEffect(() {
       store.initialise();
-      return null;
     }, []);
+
+    useEffect(
+      () => store.listenTransfers(address, network),
+      [address, network],
+    );
 
     return Scaffold(
       drawer: MainMenu(
-        address: store.state.address,
+        network: network,
+        address: address,
         onReset: () => Alert(
             title: 'Warning',
             text:
@@ -67,7 +75,7 @@ class WalletMainPage extends HookWidget {
               icon: const Icon(Icons.refresh),
               onPressed: !store.state.loading
                   ? () async {
-                      await store.fetchOwnBalance();
+                      await store.refreshBalance();
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text('Balance updated'),
                         duration: Duration(milliseconds: 800),
@@ -79,15 +87,30 @@ class WalletMainPage extends HookWidget {
           IconButton(
             icon: const Icon(Icons.send),
             onPressed: () {
-              Navigator.of(context).pushNamed('/transfer');
+              Navigator.of(context)
+                  .pushNamed('/transfer', arguments: store.state.network);
             },
           ),
         ],
       ),
-      body: Balance(
-        address: store.state.address,
-        ethBalance: store.state.ethBalance,
-        tokenBalance: store.state.tokenBalance,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ChangeNetwork(
+              onChange: store.changeNetwork,
+              currentValue: store.state.network,
+              loading: store.state.loading,
+            ),
+            const SizedBox(height: 10),
+            Balance(
+              address: store.state.address,
+              ethBalance: store.state.ethBalance,
+              tokenBalance: store.state.tokenBalance,
+              symbol: network.config.symbol,
+            )
+          ],
+        ),
       ),
     );
   }

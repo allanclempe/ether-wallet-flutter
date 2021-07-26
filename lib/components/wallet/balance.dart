@@ -9,24 +9,29 @@ class Balance extends StatelessWidget {
     required this.address,
     required this.ethBalance,
     required this.tokenBalance,
+    required this.symbol,
   }) : super(key: key);
 
   final String? address;
   final BigInt? ethBalance;
   final BigInt? tokenBalance;
+  final String? symbol;
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(address ?? ''),
+          const SizedBox(height: 10),
           CopyButton(
             text: const Text('Copy address'),
             value: address,
           ),
-          if (address != null)
+          if (address != null && mediaQuery.orientation == Orientation.portrait)
             QrImage(
               data: address!,
               size: 150.0,
@@ -37,7 +42,7 @@ class Balance extends StatelessWidget {
                 Theme.of(context).textTheme.bodyText2?.apply(fontSizeDelta: 6),
           ),
           Text(
-            '${EthAmountFormatter(ethBalance).format()} eth',
+            '${EthAmountFormatter(ethBalance).format()} $symbol',
             style: Theme.of(context)
                 .textTheme
                 .bodyText2

@@ -29,6 +29,18 @@
       "css": "key",
       "code": 61572,
       "src": "fontawesome5"
+    },
+    {
+      "uid": "8edaefd94639c91605b18d3183eb5b12",
+      "css": "coins",
+      "code": 62750,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "dd6c6b221a1088ff8a9b9cd32d0b3dd5",
+      "css": "check",
+      "code": 59392,
+      "src": "fontawesome"
     }
   ]
 }
