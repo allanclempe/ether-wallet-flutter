@@ -5,7 +5,7 @@ A digital wallet app, developed in dart language and flutter framework. The idea
 ### What's being used
 
 - Built in [Flutter](https://flutter.dev/docs/get-started/install) framework
-- [Google ML Vision](https://firebase.google.com/docs/ml-kit) for QRCode scan.
+- [QR code scanner](https://github.com/juliuscanute/qr_code_scanner) to scan addresses
 - [Web3Dart](https://github.com/simolus3/web3dart) to interact with Ethereum blockchain
 - [Flutter hooks](https://github.com/rrousselGit/flutter_hooks) to manage widget life-cycle.
 
