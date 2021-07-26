@@ -35,4 +35,6 @@ class WalletIcons {
       IconData(0xf51e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData skull =
       IconData(0xf54c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData check =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

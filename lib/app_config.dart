@@ -13,6 +13,7 @@ class AppConfig {
       symbol: 'ETH',
       faucetUrl: 'about:blank',
       enabled: false,
+      label: 'Local (Truffle)',
     ),
     NetworkType.Ethereum: AppConfigParams(
       'https://ropsten.infura.io/v3/628074215a2449eb960b4fe9e95feb09',
@@ -23,6 +24,7 @@ class AppConfig {
       faucetUrl: 'https://faucet.ropsten.be',
       enabled: true,
       icon: WalletIcons.ethereum,
+      label: 'Ethereum (Ropsten)',
     ),
     NetworkType.BSC: AppConfigParams(
       'https://data-seed-prebsc-1-s1.binance.org:8545',
@@ -30,6 +32,7 @@ class AppConfig {
       symbol: 'BNB',
       faucetUrl: 'https://testnet.binance.org/faucet-smart',
       enabled: true,
+      label: 'Binance Chain (BSC)',
     ),
     NetworkType.Matic: AppConfigParams(
       'https://rpc-mumbai.maticvigil.com',
@@ -38,6 +41,7 @@ class AppConfig {
       symbol: 'MATIC',
       faucetUrl: 'https://faucet.matic.network',
       enabled: true,
+      label: 'Matic (Mumbai)',
     )
   };
 }
@@ -49,6 +53,7 @@ class AppConfigParams {
     required this.symbol,
     required this.faucetUrl,
     required this.enabled,
+    required this.label,
     this.web3RdpUrl,
     this.icon = WalletIcons.coins,
   });
@@ -59,4 +64,5 @@ class AppConfigParams {
   final String faucetUrl;
   final IconData icon;
   final bool enabled;
+  final String label;
 }

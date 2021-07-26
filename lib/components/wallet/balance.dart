@@ -19,16 +19,19 @@ class Balance extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(address ?? ''),
+          const SizedBox(height: 10),
           CopyButton(
             text: const Text('Copy address'),
             value: address,
           ),
-          if (address != null)
+          if (address != null && mediaQuery.orientation == Orientation.portrait)
             QrImage(
               data: address!,
               size: 150.0,

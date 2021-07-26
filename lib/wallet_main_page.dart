@@ -102,6 +102,7 @@ class WalletMainPage extends HookWidget {
               currentValue: store.state.network,
               loading: store.state.loading,
             ),
+            const SizedBox(height: 10),
             Balance(
               address: store.state.address,
               ethBalance: store.state.ethBalance,
