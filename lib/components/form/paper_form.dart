@@ -12,12 +12,15 @@ class PaperForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-      child: Padding(
-        padding: EdgeInsets.all(padding),
-        child: Column(children: [
-          ...children,
-          ..._buildButtons(),
-        ]),
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 480),
+        child: Padding(
+          padding: EdgeInsets.all(padding),
+          child: Column(children: [
+            ...children,
+            ..._buildButtons(),
+          ]),
+        ),
       ),
     );
   }

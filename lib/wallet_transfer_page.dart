@@ -3,6 +3,7 @@ import 'package:etherwallet/context/transfer/wallet_transfer_provider.dart';
 import 'package:etherwallet/model/network_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'components/wallet/loading.dart';
 
@@ -26,19 +27,20 @@ class WalletTransferPage extends HookWidget {
       appBar: AppBar(
         title: Text(title),
         actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.camera_alt),
-            onPressed: !transferStore.state.loading
-                ? () {
-                    Navigator.of(context).pushNamed(
-                      '/qrcode_reader',
-                      arguments: (scannedAddress) {
-                        qrcodeAddress.value = scannedAddress.toString();
-                      },
-                    );
-                  }
-                : null,
-          ),
+          if (!kIsWeb)
+            IconButton(
+              icon: const Icon(Icons.camera_alt),
+              onPressed: !transferStore.state.loading
+                  ? () {
+                      Navigator.of(context).pushNamed(
+                        '/qrcode_reader',
+                        arguments: (scannedAddress) {
+                          qrcodeAddress.value = scannedAddress.toString();
+                        },
+                      );
+                    }
+                  : null,
+            ),
         ],
       ),
       body: transferStore.state.loading

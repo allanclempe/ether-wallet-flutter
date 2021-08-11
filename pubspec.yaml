@@ -41,7 +41,7 @@ dependencies:
   intl: ^0.16.1
   flutter_spinkit: ^5.0.0
   qr_code_scanner: ^0.4.0
-  firebase_analytics: ^8.0.4
+  firebase_analytics: ^8.2.0
   url_launcher: ^6.0.2
   flutter_hooks: ^0.16.0
   built_value: ^8.0.6

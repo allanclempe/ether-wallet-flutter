@@ -2,6 +2,7 @@ import 'package:etherwallet/components/copyButton/copy_button.dart';
 import 'package:etherwallet/utils/eth_amount_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class Balance extends StatelessWidget {
   const Balance({
@@ -31,7 +32,8 @@ class Balance extends StatelessWidget {
             text: const Text('Copy address'),
             value: address,
           ),
-          if (address != null && mediaQuery.orientation == Orientation.portrait)
+          if (address != null &&
+              (mediaQuery.orientation == Orientation.portrait || kIsWeb))
             QrImage(
               data: address!,
               size: 150.0,
