@@ -5,6 +5,8 @@ import 'package:etherwallet/utils/contract_parser.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:http/http.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ContractLocator {
   ContractLocator._();
@@ -29,7 +31,13 @@ class ContractLocator {
     final wsAddress = networkConfig.web3RdpUrl;
     final client = Web3Client(networkConfig.web3HttpUrl, Client(),
         socketConnector: wsAddress != null
-            ? () => IOWebSocketChannel.connect(wsAddress).cast<String>()
+            ? () {
+                if (kIsWeb)
+                  return WebSocketChannel.connect(Uri.parse(wsAddress))
+                      .cast<String>();
+
+                return IOWebSocketChannel.connect(wsAddress).cast<String>();
+              }
             : null);
 
     final contract = await ContractParser.fromAssets(

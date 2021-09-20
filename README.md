@@ -8,6 +8,7 @@ A digital wallet app, developed in dart language and flutter framework. The idea
 - [QR code scanner](https://github.com/juliuscanute/qr_code_scanner) to scan addresses
 - [Web3Dart](https://github.com/simolus3/web3dart) to interact with Ethereum blockchain
 - [Flutter hooks](https://github.com/rrousselGit/flutter_hooks) to manage widget life-cycle.
+- [Solidity](https://github.com/allanclempe/ether-wallet-contract) smart contract
 
 |                              Wallet                              |                              Change network                              |                                Transfer tokens                                |
 | :--------------------------------------------------------------: | :-------------------------------------------------------------------: | :----------------------------------------------------------------------: |
@@ -30,6 +31,12 @@ $ flutter packages pub run build_runner build
 $ flutter run
 ```
 
+running on the browser
+
+```bash
+$ flutter run -d chrome
+```
+
 How to run tests
 
 ```bash
@@ -48,15 +55,18 @@ After setting up your wallet, you will need some tokens to play with. Use the li
 
 **_Transfer test Ether to your wallet_**
 
-Also to process transactions on the network, you will also need ETH to pay transaction fees, called gas. You also can claim some using the link below.
+To process transactions on the network, you will also need ETH to pay transaction fees, called gas. You also can claim some to test your wallet. Each network has its own faucet.
 
-[https://faucet.ropsten.be/](https://faucet.ropsten.be/)
+- Ropsten: [https://faucet.ropsten.be/](https://faucet.ropsten.be/)
+- Polygon (old MATIC): [https://faucet.polygon.technology/](https://faucet.polygon.technology/)
+- BSC: [https://testnet.binance.org/faucet-smart](https://testnet.binance.org/faucet-smart)
 
 just be patient, the transaction might take a while to be processed.
 
 ### The smart contract
 
 Feel free to check out the smart contract used in this project [https://github.com/allanclempe/ether-wallet-contract](https://github.com/allanclempe/ether-wallet-contract)
+
 
 ### Buy me a coffee
 

@@ -14,6 +14,7 @@ class DisplayMnemonic extends HookWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
+        constraints: const BoxConstraints(maxWidth: 420),
         margin: const EdgeInsets.all(25),
         child: SingleChildScrollView(
           child: Column(
