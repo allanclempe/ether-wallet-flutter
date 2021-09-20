@@ -5,7 +5,7 @@
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Ethereum wallet using an ERC-20 smart contract.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
