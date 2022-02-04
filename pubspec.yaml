@@ -27,35 +27,34 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.0
-  web3dart: ^2.1.0
-  provider: ^5.0.0
+  cupertino_icons: ^1.0.4
+  web3dart: ^2.3.3
+  provider: ^6.0.2
   qr_flutter: ^4.0.0
   bip39: ^1.0.6
   hex: ^0.2.0
-  shared_preferences: ^2.0.0
-  web_socket_channel: ^2.0.0
-  intl: ^0.16.1
-  flutter_spinkit: ^5.0.0
-  qr_code_scanner: ^0.4.0
+  shared_preferences: ^2.0.12
+  web_socket_channel: ^2.1.0
+  intl: ^0.17.0
+  flutter_spinkit: ^5.1.0
+  qr_code_scanner: ^0.6.1
   firebase_analytics: ^8.2.0
-  url_launcher: ^6.0.2
-  flutter_hooks: ^0.16.0
-  built_value: ^8.0.6
-  built_collection: ^5.0.0
-  ed25519_hd_key: ^2.1.0
+  url_launcher: ^6.0.18
+  flutter_hooks: ^0.18.1
+  built_value: ^8.1.4
+  built_collection: ^5.1.1
+  ed25519_hd_key: ^2.2.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  lint: ^1.0.0
-  build_runner: ^2.0.2
-  built_value_generator: ^8.0.6
-  json_serializable: ^4.0.2
+  lint: ^1.8.2
+  build_runner: ^2.1.7
+  built_value_generator: ^8.1.4
+  json_serializable: ^6.1.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec 

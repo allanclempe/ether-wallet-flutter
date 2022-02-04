@@ -1,5 +1,10 @@
 # Release notes
 
+2.2.0+9:
+
+- Flutter upgraded to version 2.8.1 (dart 2.15.1)
+- Libraries has been upgraded.
+
 2.1.0+8:
 
 - Flutter upgraded to version 2.2.3 (dart 2.13.4)

@@ -34,7 +34,7 @@ $ flutter run
 running on the browser
 
 ```bash
-$ flutter run -d chrome
+$ flutter run -d web-server
 ```
 
 How to run tests
