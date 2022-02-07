@@ -77,9 +77,9 @@ class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
 
     _subscription = controller.scannedDataStream.listen((scanData) {
       // metamask qrcode adds "ethereum:" in front of the address.
-      final address = scanData.code.replaceAll('ethereum:', '');
+      final address = scanData.code?.replaceAll('ethereum:', '');
 
-      if (!_basicAddress.hasMatch(address)) {
+      if (address == null || !_basicAddress.hasMatch(address)) {
         return;
       }
 
