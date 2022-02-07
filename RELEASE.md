@@ -2,8 +2,9 @@
 
 2.3.0+10:
 
-- Flutter upgraded to version 2.8.1 (dart 2.15.1)
-- Libraries has been upgraded.
+- Flutter upgraded to version 2.8.1 / 2.10 mac (dart 2.15.1) 
+- Libraries upgraded and code tweaks to match new contracts.
+- Tested on Android and iOS. 
 
 2.2.0+9:
 
