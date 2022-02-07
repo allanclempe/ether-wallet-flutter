@@ -55,9 +55,6 @@ dev_dependencies:
   built_value_generator: ^8.1.4
   json_serializable: ^6.1.4
 
-dependency_overrides:
-  platform: ^3.1.0 # required for iOS build. (analytics might be using old platform, try upgrading it)
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec 
 
