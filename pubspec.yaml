@@ -1,8 +1,6 @@
 name: etherwallet
 description: Ethereum wallet using an ERC-20 smart contract.
 homepage: https://github.com/allanclempe/ether-wallet-flutter
-authors:
-  - "Allan Clempe"
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -40,7 +38,8 @@ dependencies:
   intl: ^0.17.0
   flutter_spinkit: ^5.1.0
   qr_code_scanner: ^0.6.1
-  firebase_analytics: ^8.2.0
+  firebase_analytics: ^9.1.0
+  firebase_core: ^1.12.0
   url_launcher: ^6.0.18
   flutter_hooks: ^0.18.1
   built_value: ^8.1.4

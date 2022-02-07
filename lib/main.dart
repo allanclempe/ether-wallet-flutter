@@ -1,7 +1,7 @@
 import 'package:etherwallet/router.dart';
 import 'package:etherwallet/services_provider.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -9,6 +9,8 @@ import 'package:provider/single_child_widget.dart';
 Future<void> main() async {
   // bootstrapping;
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   final stores = await createProviders();
 
   runApp(MainApp(stores));
@@ -16,8 +18,12 @@ Future<void> main() async {
 
 class MainApp extends StatelessWidget {
   MainApp(this.stores, {Key? key}) : super(key: key);
+
   final List<SingleChildWidget> stores;
-  final FirebaseAnalytics analytics = FirebaseAnalytics();
+
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
 
   // This widget is the root of your application.
   @override
@@ -28,9 +34,7 @@ class MainApp extends StatelessWidget {
           title: 'Flutter App',
           initialRoute: '/',
           routes: getRoutes(context),
-          navigatorObservers: [
-            FirebaseAnalyticsObserver(analytics: analytics),
-          ],
+          navigatorObservers: [observer],
           theme: ThemeData(
             // This is the theme of your application.
             //
