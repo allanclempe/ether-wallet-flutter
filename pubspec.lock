@@ -367,7 +367,7 @@ packages:
     source: hosted
     version: "4.4.0"
   json_rpc_2:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: json_rpc_2
       url: "https://pub.dartlang.org"
