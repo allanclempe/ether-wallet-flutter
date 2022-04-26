@@ -27,6 +27,7 @@ class ContractService implements IContractService {
   ContractEvent _transferEvent() => contract.event('Transfer');
   ContractFunction _balanceFunction() => contract.function('balanceOf');
   ContractFunction _sendFunction() => contract.function('transfer');
+
   @override
   EthPrivateKey getCredentials(String privateKey) =>
       EthPrivateKey.fromHex(privateKey);

@@ -797,7 +797,7 @@ packages:
       name: web3dart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.3"
+    version: "2.3.5"
   web_socket_channel:
     dependency: "direct main"
     description:
