@@ -17,7 +17,7 @@ Future<void> main() async {
 }
 
 class MainApp extends StatelessWidget {
-  MainApp(this.stores, {Key? key}) : super(key: key);
+  const MainApp(this.stores, {Key? key}) : super(key: key);
 
   final List<SingleChildWidget> stores;
 

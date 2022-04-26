@@ -31,6 +31,7 @@ dependencies:
   web3dart: ^2.3.3
   provider: ^6.0.2
   qr_flutter: ^4.0.0
+  # used to generate pneumonic phrase
   bip39: ^1.0.6
   hex: ^0.2.0
   shared_preferences: ^2.0.12
@@ -45,6 +46,7 @@ dependencies:
   built_value: ^8.1.4
   built_collection: ^5.1.1
   ed25519_hd_key: ^2.2.0
+
 
 dev_dependencies:
   flutter_test:
