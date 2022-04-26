@@ -2,11 +2,11 @@ import 'package:etherwallet/app_config.dart';
 import 'package:etherwallet/model/network_type.dart';
 import 'package:etherwallet/service/contract_service.dart';
 import 'package:etherwallet/utils/contract_parser.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
-import 'package:http/http.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ContractLocator {
   ContractLocator._();

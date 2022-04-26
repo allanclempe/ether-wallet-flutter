@@ -8,7 +8,7 @@ typedef TransferEvent = void Function(
 );
 
 abstract class IContractService {
-  Future<Credentials> getCredentials(String privateKey);
+  EthPrivateKey getCredentials(String privateKey);
   Future<String?> send(
       String privateKey, EthereumAddress receiver, BigInt amount,
       {TransferEvent? onTransfer, Function(Object exeception)? onError});
@@ -29,14 +29,14 @@ class ContractService implements IContractService {
   ContractFunction _sendFunction() => contract.function('transfer');
 
   @override
-  Future<Credentials> getCredentials(String privateKey) =>
-      client.credentialsFromPrivateKey(privateKey);
+  EthPrivateKey getCredentials(String privateKey) =>
+      EthPrivateKey.fromHex(privateKey);
 
   @override
   Future<String?> send(
       String privateKey, EthereumAddress receiver, BigInt amount,
       {TransferEvent? onTransfer, Function(Object exeception)? onError}) async {
-    final credentials = await getCredentials(privateKey);
+    final credentials = getCredentials(privateKey);
     final from = await credentials.extractAddress();
     final networkId = await client.getNetworkId();
 

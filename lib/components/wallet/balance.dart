@@ -1,8 +1,8 @@
 import 'package:etherwallet/components/copyButton/copy_button.dart';
 import 'package:etherwallet/utils/eth_amount_formatter.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 class Balance extends StatelessWidget {
   const Balance({
