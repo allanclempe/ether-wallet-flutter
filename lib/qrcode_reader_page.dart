@@ -93,6 +93,11 @@ class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
         }
       }
     });
+
+    // workaround, sometimes it just gets black screen
+    // ref: https://github.com/juliuscanute/qr_code_scanner/issues/560
+    controller.pauseCamera();
+    controller.resumeCamera();
   }
 
   @override
