@@ -23,7 +23,7 @@ class _$Wallet extends Wallet {
   final BuiltList<String>? errors;
 
   factory _$Wallet([void Function(WalletBuilder)? updates]) =>
-      (new WalletBuilder()..update(updates)).build();
+      (new WalletBuilder()..update(updates))._build();
 
   _$Wallet._(
       {required this.network,
@@ -34,11 +34,11 @@ class _$Wallet extends Wallet {
       required this.loading,
       this.errors})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(network, 'Wallet', 'network');
+    BuiltValueNullFieldError.checkNotNull(network, r'Wallet', 'network');
     BuiltValueNullFieldError.checkNotNull(
-        tokenBalance, 'Wallet', 'tokenBalance');
-    BuiltValueNullFieldError.checkNotNull(ethBalance, 'Wallet', 'ethBalance');
-    BuiltValueNullFieldError.checkNotNull(loading, 'Wallet', 'loading');
+        tokenBalance, r'Wallet', 'tokenBalance');
+    BuiltValueNullFieldError.checkNotNull(ethBalance, r'Wallet', 'ethBalance');
+    BuiltValueNullFieldError.checkNotNull(loading, r'Wallet', 'loading');
   }
 
   @override
@@ -77,7 +77,7 @@ class _$Wallet extends Wallet {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('Wallet')
+    return (newBuiltValueToStringHelper(r'Wallet')
           ..add('network', network)
           ..add('address', address)
           ..add('privateKey', privateKey)
@@ -150,21 +150,23 @@ class WalletBuilder implements Builder<Wallet, WalletBuilder> {
   }
 
   @override
-  _$Wallet build() {
+  Wallet build() => _build();
+
+  _$Wallet _build() {
     _$Wallet _$result;
     try {
       _$result = _$v ??
           new _$Wallet._(
               network: BuiltValueNullFieldError.checkNotNull(
-                  network, 'Wallet', 'network'),
+                  network, r'Wallet', 'network'),
               address: address,
               privateKey: privateKey,
               tokenBalance: BuiltValueNullFieldError.checkNotNull(
-                  tokenBalance, 'Wallet', 'tokenBalance'),
+                  tokenBalance, r'Wallet', 'tokenBalance'),
               ethBalance: BuiltValueNullFieldError.checkNotNull(
-                  ethBalance, 'Wallet', 'ethBalance'),
+                  ethBalance, r'Wallet', 'ethBalance'),
               loading: BuiltValueNullFieldError.checkNotNull(
-                  loading, 'Wallet', 'loading'),
+                  loading, r'Wallet', 'loading'),
               errors: _errors?.build());
     } catch (_) {
       late String _$failedField;
@@ -173,7 +175,7 @@ class WalletBuilder implements Builder<Wallet, WalletBuilder> {
         _errors?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'Wallet', _$failedField, e.toString());
+            r'Wallet', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -182,4 +184,4 @@ class WalletBuilder implements Builder<Wallet, WalletBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
