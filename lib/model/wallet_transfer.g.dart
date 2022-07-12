@@ -15,12 +15,13 @@ class _$WalletTransfer extends WalletTransfer {
   final bool loading;
 
   factory _$WalletTransfer([void Function(WalletTransferBuilder)? updates]) =>
-      (new WalletTransferBuilder()..update(updates)).build();
+      (new WalletTransferBuilder()..update(updates))._build();
 
   _$WalletTransfer._({this.errors, required this.status, required this.loading})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(status, 'WalletTransfer', 'status');
-    BuiltValueNullFieldError.checkNotNull(loading, 'WalletTransfer', 'loading');
+    BuiltValueNullFieldError.checkNotNull(status, r'WalletTransfer', 'status');
+    BuiltValueNullFieldError.checkNotNull(
+        loading, r'WalletTransfer', 'loading');
   }
 
   @override
@@ -48,7 +49,7 @@ class _$WalletTransfer extends WalletTransfer {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('WalletTransfer')
+    return (newBuiltValueToStringHelper(r'WalletTransfer')
           ..add('errors', errors)
           ..add('status', status)
           ..add('loading', loading))
@@ -98,16 +99,18 @@ class WalletTransferBuilder
   }
 
   @override
-  _$WalletTransfer build() {
+  WalletTransfer build() => _build();
+
+  _$WalletTransfer _build() {
     _$WalletTransfer _$result;
     try {
       _$result = _$v ??
           new _$WalletTransfer._(
               errors: _errors?.build(),
               status: BuiltValueNullFieldError.checkNotNull(
-                  status, 'WalletTransfer', 'status'),
+                  status, r'WalletTransfer', 'status'),
               loading: BuiltValueNullFieldError.checkNotNull(
-                  loading, 'WalletTransfer', 'loading'));
+                  loading, r'WalletTransfer', 'loading'));
     } catch (_) {
       late String _$failedField;
       try {
@@ -115,7 +118,7 @@ class WalletTransferBuilder
         _errors?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'WalletTransfer', _$failedField, e.toString());
+            r'WalletTransfer', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -124,4 +127,4 @@ class WalletTransferBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

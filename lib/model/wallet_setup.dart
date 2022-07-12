@@ -25,7 +25,10 @@ abstract class WalletSetup implements Built<WalletSetup, WalletSetupBuilder> {
   String? get privateKey;
 
   WalletCreateSteps get step;
+
   WalletSetupMethod get method;
+
   bool get loading;
+
   BuiltList<String>? get errors;
 }

@@ -50,6 +50,9 @@ class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
         : 300.0;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
       body: Column(
         children: <Widget>[
           Expanded(
@@ -93,6 +96,11 @@ class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
         }
       }
     });
+
+    // workaround, sometimes it just gets black screen
+    // ref: https://github.com/juliuscanute/qr_code_scanner/issues/560
+    controller.pauseCamera();
+    controller.resumeCamera();
   }
 
   @override

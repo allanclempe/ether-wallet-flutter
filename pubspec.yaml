@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 2.4.0+11
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.3 <3.0.0"
 
 dependencies:
   flutter:
@@ -27,23 +27,23 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.4
+  cupertino_icons: ^1.0.5
   web3dart: ^2.3.5
-  provider: ^6.0.2
+  provider: ^6.0.3
   qr_flutter: ^4.0.0
   # used to generate pneumonic phrase
   bip39: ^1.0.6
   hex: ^0.2.0
-  shared_preferences: ^2.0.12
-  web_socket_channel: ^2.1.0
+  shared_preferences: ^2.0.15
+  web_socket_channel: ^2.2.0
   intl: ^0.17.0
   flutter_spinkit: ^5.1.0
-  qr_code_scanner: ^0.6.1
-  firebase_analytics: ^9.1.0
-  firebase_core: ^1.12.0
-  url_launcher: ^6.0.18
-  flutter_hooks: ^0.18.1
-  built_value: ^8.1.4
+  qr_code_scanner: ^1.0.0
+  firebase_analytics: ^9.1.12
+  firebase_core: ^1.19.1
+  url_launcher: ^6.1.4
+  flutter_hooks: ^0.18.5+1
+  built_value: ^8.3.3
   built_collection: ^5.1.1
   ed25519_hd_key: ^2.2.0
 
@@ -53,9 +53,9 @@ dev_dependencies:
     sdk: flutter
 
   lint: ^1.8.2
-  build_runner: ^2.1.7
-  built_value_generator: ^8.1.4
-  json_serializable: ^6.1.4
+  build_runner: ^2.1.11
+  built_value_generator: ^8.3.3
+  json_serializable: ^6.3.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec 

@@ -21,7 +21,7 @@ class _$WalletSetup extends WalletSetup {
   final BuiltList<String>? errors;
 
   factory _$WalletSetup([void Function(WalletSetupBuilder)? updates]) =>
-      (new WalletSetupBuilder()..update(updates)).build();
+      (new WalletSetupBuilder()..update(updates))._build();
 
   _$WalletSetup._(
       {this.mnemonic,
@@ -31,9 +31,9 @@ class _$WalletSetup extends WalletSetup {
       required this.loading,
       this.errors})
       : super._() {
-    BuiltValueNullFieldError.checkNotNull(step, 'WalletSetup', 'step');
-    BuiltValueNullFieldError.checkNotNull(method, 'WalletSetup', 'method');
-    BuiltValueNullFieldError.checkNotNull(loading, 'WalletSetup', 'loading');
+    BuiltValueNullFieldError.checkNotNull(step, r'WalletSetup', 'step');
+    BuiltValueNullFieldError.checkNotNull(method, r'WalletSetup', 'method');
+    BuiltValueNullFieldError.checkNotNull(loading, r'WalletSetup', 'loading');
   }
 
   @override
@@ -69,7 +69,7 @@ class _$WalletSetup extends WalletSetup {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('WalletSetup')
+    return (newBuiltValueToStringHelper(r'WalletSetup')
           ..add('mnemonic', mnemonic)
           ..add('privateKey', privateKey)
           ..add('step', step)
@@ -136,7 +136,9 @@ class WalletSetupBuilder implements Builder<WalletSetup, WalletSetupBuilder> {
   }
 
   @override
-  _$WalletSetup build() {
+  WalletSetup build() => _build();
+
+  _$WalletSetup _build() {
     _$WalletSetup _$result;
     try {
       _$result = _$v ??
@@ -144,11 +146,11 @@ class WalletSetupBuilder implements Builder<WalletSetup, WalletSetupBuilder> {
               mnemonic: mnemonic,
               privateKey: privateKey,
               step: BuiltValueNullFieldError.checkNotNull(
-                  step, 'WalletSetup', 'step'),
+                  step, r'WalletSetup', 'step'),
               method: BuiltValueNullFieldError.checkNotNull(
-                  method, 'WalletSetup', 'method'),
+                  method, r'WalletSetup', 'method'),
               loading: BuiltValueNullFieldError.checkNotNull(
-                  loading, 'WalletSetup', 'loading'),
+                  loading, r'WalletSetup', 'loading'),
               errors: _errors?.build());
     } catch (_) {
       late String _$failedField;
@@ -157,7 +159,7 @@ class WalletSetupBuilder implements Builder<WalletSetup, WalletSetupBuilder> {
         _errors?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'WalletSetup', _$failedField, e.toString());
+            r'WalletSetup', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -166,4 +168,4 @@ class WalletSetupBuilder implements Builder<WalletSetup, WalletSetupBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
