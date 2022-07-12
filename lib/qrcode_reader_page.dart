@@ -50,6 +50,9 @@ class _QRCodeReaderPageState extends State<QRCodeReaderPage> {
         : 300.0;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
       body: Column(
         children: <Widget>[
           Expanded(
