@@ -28,8 +28,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.5
-  web3dart: ^2.3.5
-  provider: ^6.0.3
+  web3dart: ^2.4.1
+  provider: ^6.0.4
   qr_flutter: ^4.0.0
   # used to generate pneumonic phrase
   bip39: ^1.0.6

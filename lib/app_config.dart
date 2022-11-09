@@ -16,15 +16,13 @@ class AppConfig {
       label: 'Local (Truffle)',
     ),
     NetworkType.Ethereum: AppConfigParams(
-      'https://ropsten.infura.io/v3/628074215a2449eb960b4fe9e95feb09',
-      '0x5060b60cb8Bd1C94B7ADEF4134555CDa7B45c461',
-      web3RdpUrl:
-          'wss://ropsten.infura.io/ws/v3/628074215a2449eb960b4fe9e95feb09',
+      'https://goerli.infura.io/v3/628074215a2449eb960b4fe9e95feb09',
+      '0x3B4c8de78c34773f5A1A656691734641f99066A1',
       symbol: 'ETH',
-      faucetUrl: 'https://faucet.ropsten.be',
+      faucetUrl: 'https://goerlifaucet.com',
       enabled: true,
       icon: WalletIcons.ethereum,
-      label: 'Ethereum (Ropsten)',
+      label: 'Ethereum (Goerli)',
     ),
     NetworkType.BSC: AppConfigParams(
       'https://data-seed-prebsc-1-s1.binance.org:8545',
