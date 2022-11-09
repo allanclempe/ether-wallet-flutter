@@ -1,6 +1,6 @@
 ## Ethereum wallet using an [ERC-20](https://en.wikipedia.org/wiki/ERC-20) smart contract.
 
-A digital wallet app, developed in dart language and flutter framework. The idea is to help developers to understand how to build dApps using blockchain and associated technologies. This app can transfer tokens from one wallet to another, through an [ERC-20](https://en.wikipedia.org/wiki/ERC-20) Ethereum contract.
+A digital wallet app developed in dart and flutter. The idea is to help developers to understand how to build dApps using blockchain and associated technologies. This app can transfer tokens from one wallet to another through an [ERC-20](https://en.wikipedia.org/wiki/ERC-20) Ethereum contract.
 
 ### What's being used
 
@@ -10,8 +10,8 @@ A digital wallet app, developed in dart language and flutter framework. The idea
 - [Flutter hooks](https://github.com/rrousselGit/flutter_hooks) to manage widget life-cycle.
 - [Solidity](https://github.com/allanclempe/ether-wallet-contract) smart contract
 
-|                              Wallet                              |                              Change network                              |                                Transfer tokens                                |
-| :--------------------------------------------------------------: | :-------------------------------------------------------------------: | :----------------------------------------------------------------------: |
+|                               Wallet                               |                              Change network                              |                               Transfer tokens                               |
+| :----------------------------------------------------------------: | :----------------------------------------------------------------------: | :-------------------------------------------------------------------------: |
 | ![Your wallet](https://faucet.clempe.dev/images/your-wallet-2.jpg) | ![Change network](https://faucet.clempe.dev/images/change-network-2.jpg) | ![Transfer tokens](https://faucet.clempe.dev/images/transfer-address-2.jpg) |
 
 ### Getting started
@@ -45,7 +45,7 @@ $ flutter test
 
 ### Wallet balance
 
-For those who don't want to play with smart contracts yet, you can claim some test coins (tokens) and ether using the following links or check out [this repo](https://github.com/allanclempe/ether-wallet-contract) to understand how to deploy your own contract.
+For those who don't want to play with smart contracts yet, you can claim some test tokens by following links below, or [check this repo](https://github.com/allanclempe/ether-wallet-contract) to understand how to deploy your own contract.
 
 **_Transfer test TOKENS to your wallet:_**
 
@@ -55,18 +55,15 @@ After setting up your wallet, you will need some tokens to play with. Use the li
 
 **_Transfer test Ether to your wallet_**
 
-To process transactions on the network, you will also need ETH to pay transaction fees, called gas. You also can claim some to test your wallet. Each network has its own faucet.
+To process transactions on the network, you will also need coins to pay the transaction fees (gas). Use one of the following links to claim some coins depending on the network you are working on:
 
-- Ropsten: [https://faucet.ropsten.be/](https://faucet.ropsten.be/)
+- Goerli: [https://goerlifaucet.com/](https://goerlifaucet.com/)
 - Polygon (old MATIC): [https://faucet.polygon.technology/](https://faucet.polygon.technology/)
 - BSC: [https://testnet.binance.org/faucet-smart](https://testnet.binance.org/faucet-smart)
 
-just be patient, the transaction might take a while to be processed.
-
 ### The smart contract
 
-Feel free to check out the smart contract used in this project [https://github.com/allanclempe/ether-wallet-contract](https://github.com/allanclempe/ether-wallet-contract)
-
+Link for the smart contract used for this project [https://github.com/allanclempe/ether-wallet-contract](https://github.com/allanclempe/ether-wallet-contract)
 
 ### Buy me a coffee
 

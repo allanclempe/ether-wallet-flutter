@@ -1,5 +1,25 @@
 # Release notes
 
+2.5.0+13:
+
+- Flutter upgraded and tested on version 3.3.7 (dart 2.18.4)
+- Upgraded web3dart and provider libraries
+- Migrated to goerli testnet
+
+2.4.1+12:
+
+- Flutter upgraded to version 3.0.4 (dart 2.17.5)
+- Libraries upgraded 
+- fixed black screen on QR code scanner
+- added back navbar on the QR code scanner page
+
+
+2.4.0+11:
+
+- Removed use of deprecated methods
+- Web3dart library upgraded
+- Stable on Flutter 2.10.5 and dart 2.16.2 (android and ios)
+
 2.3.0+10:
 
 - Flutter upgraded to version 2.8.1 / 2.10 mac (dart 2.15.1) 
@@ -13,7 +33,7 @@
 2.1.0+8:
 
 - Flutter upgraded to version 2.2.3 (dart 2.13.4)
-- Multi network support (ETH Ropsten, MATIC Mumbai and BSC)
+- Multi network support (Ethereum, Polygon and BSC)
 
 2.0.0+7:
 
