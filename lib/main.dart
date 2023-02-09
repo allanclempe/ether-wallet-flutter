@@ -1,14 +1,26 @@
+import 'dart:io';
+
 import 'package:etherwallet/router.dart';
 import 'package:etherwallet/services_provider.dart';
+import 'package:etherwallet/utils/http_override.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 Future<void> main() async {
   // bootstrapping;
+
+  if (kDebugMode) {
+    // ingore http bad cert in debug
+    // https://stackoverflow.com/questions/54285172/how-to-solve-flutter-certificate-verify-failed-error-while-performing-a-post-req
+    HttpOverrides.global = MyHttpOverrides();
+  }
+
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
 
   final stores = await createProviders();
