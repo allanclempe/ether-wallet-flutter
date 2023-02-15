@@ -1,5 +1,11 @@
 # Release notes
 
+2.6.0+14:
+
+- Flutter upgraded and tested on version 3.7.2 (dart 2.19.2)
+- Libraries upgraded
+- Fixed web3 filter subscription error when network is changed
+
 2.5.0+13:
 
 - Flutter upgraded and tested on version 3.3.7 (dart 2.18.4)

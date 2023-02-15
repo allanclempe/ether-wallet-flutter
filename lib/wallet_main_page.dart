@@ -24,7 +24,10 @@ class WalletMainPage extends HookWidget {
     }, []);
 
     useEffect(
-      () => store.listenTransfers(address, network),
+      () {
+        store.listenTransfers(address, network);
+        return null;
+      },
       [address, network],
     );
 

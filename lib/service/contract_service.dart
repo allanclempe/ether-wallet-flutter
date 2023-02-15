@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:etherwallet/utils/stream_disposable.dart';
 import 'package:web3dart/web3dart.dart';
 
 typedef TransferEvent = void Function(
@@ -19,14 +20,15 @@ abstract class IContractService {
 }
 
 class ContractService implements IContractService {
-  ContractService(this.client, this.contract);
+  ContractService(this._client, this._contract);
 
-  final Web3Client client;
-  final DeployedContract contract;
+  final Web3Client _client;
+  final DeployedContract _contract;
+  final StreamDisposable _sendStreamDisposable = StreamDisposable();
 
-  ContractEvent _transferEvent() => contract.event('Transfer');
-  ContractFunction _balanceFunction() => contract.function('balanceOf');
-  ContractFunction _sendFunction() => contract.function('transfer');
+  ContractEvent _transferEvent() => _contract.event('Transfer');
+  ContractFunction _balanceFunction() => _contract.function('balanceOf');
+  ContractFunction _sendFunction() => _contract.function('transfer');
 
   @override
   EthPrivateKey getCredentials(String privateKey) =>
@@ -37,25 +39,25 @@ class ContractService implements IContractService {
       String privateKey, EthereumAddress receiver, BigInt amount,
       {TransferEvent? onTransfer, Function(Object exeception)? onError}) async {
     final credentials = getCredentials(privateKey);
-    final from = await credentials.extractAddress();
-    final networkId = await client.getNetworkId();
+    final from = credentials.address;
+    final networkId = await _client.getNetworkId();
 
-    StreamSubscription? event;
-    // Workaround once sendTransacton doesn't return a Promise containing confirmation / receipt
     if (onTransfer != null) {
-      event = listenTransfer((from, to, value) async {
-        onTransfer(from, to, value);
-        await event?.cancel();
-      }, take: 1);
+      await _sendStreamDisposable.set(() {
+        return listenTransfer(onTransfer, take: 1);
+      });
     }
 
+    final gasPrice = await _client.getGasPrice();
+
     try {
-      final transactionId = await client.sendTransaction(
+      final transactionId = await _client.sendTransaction(
         credentials,
         Transaction.callContract(
-          contract: contract,
+          contract: _contract,
           function: _sendFunction(),
           parameters: [receiver, amount],
+          gasPrice: gasPrice,
           from: from,
         ),
         chainId: networkId,
@@ -72,13 +74,13 @@ class ContractService implements IContractService {
 
   @override
   Future<EtherAmount> getEthBalance(EthereumAddress from) async {
-    return client.getBalance(from);
+    return _client.getBalance(from);
   }
 
   @override
   Future<BigInt> getTokenBalance(EthereumAddress from) async {
-    final response = await client.call(
-      contract: contract,
+    final response = await _client.call(
+      contract: _contract,
       function: _balanceFunction(),
       params: [from],
     );
@@ -88,8 +90,8 @@ class ContractService implements IContractService {
 
   @override
   StreamSubscription listenTransfer(TransferEvent onTransfer, {int? take}) {
-    var events = client.events(FilterOptions.events(
-      contract: contract,
+    var events = _client.events(FilterOptions.events(
+      contract: _contract,
       event: _transferEvent(),
     ));
 
@@ -119,6 +121,6 @@ class ContractService implements IContractService {
 
   @override
   Future<void> dispose() async {
-    await client.dispose();
+    await _client.dispose();
   }
 }
