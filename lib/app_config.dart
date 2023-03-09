@@ -12,32 +12,44 @@ class AppConfig {
       web3RdpUrl: 'ws://192.168.40.197:8545',
       symbol: 'ETH',
       faucetUrl: 'about:blank',
+      explorerUrl: 'about:blank',
       enabled: false,
       label: 'Local (Truffle)',
     ),
+
+    // If you are forking the project and will build on top of this boiler plate, please
+    // create your onw nodes on infura.io or getblock.io
     NetworkType.Ethereum: AppConfigParams(
-      'https://goerli.infura.io/v3/628074215a2449eb960b4fe9e95feb09',
+      'https://eth.getblock.io/7188e622-0550-43e7-9124-d78e772c4994/goerli/',
       '0x3B4c8de78c34773f5A1A656691734641f99066A1',
+      web3RdpUrl:
+          'wss://eth.getblock.io/7188e622-0550-43e7-9124-d78e772c4994/goerli/',
       symbol: 'ETH',
       faucetUrl: 'https://goerlifaucet.com',
+      explorerUrl: 'https://goerli.etherscan.io',
       enabled: true,
       icon: WalletIcons.ethereum,
       label: 'Ethereum (Goerli)',
     ),
     NetworkType.BSC: AppConfigParams(
-      'https://data-seed-prebsc-1-s1.binance.org:8545',
+      'https://bsc.getblock.io/7188e622-0550-43e7-9124-d78e772c4994/testnet/',
       '0x73434bb95eC80d623359f6f9d7b84568407187BA',
+      web3RdpUrl:
+          'wss://bsc.getblock.io/7188e622-0550-43e7-9124-d78e772c4994/testnet/',
       symbol: 'BNB',
       faucetUrl: 'https://testnet.binance.org/faucet-smart',
+      explorerUrl: 'https://testnet.bscscan.com',
       enabled: true,
       label: 'Binance Chain (BSC)',
     ),
     NetworkType.Matic: AppConfigParams(
-      'https://rpc-mumbai.maticvigil.com',
+      'https://matic.getblock.io/7188e622-0550-43e7-9124-d78e772c4994/testnet/',
       '0x73434bb95eC80d623359f6f9d7b84568407187BA',
-      web3RdpUrl: 'wss://ws-mumbai.matic.today',
+      web3RdpUrl:
+          'wss://matic.getblock.io/7188e622-0550-43e7-9124-d78e772c4994/testnet/',
       symbol: 'MATIC',
       faucetUrl: 'https://faucet.matic.network',
+      explorerUrl: 'https://mumbai.polygonscan.com',
       enabled: true,
       label: 'Matic (Mumbai)',
     )
@@ -52,6 +64,7 @@ class AppConfigParams {
     required this.faucetUrl,
     required this.enabled,
     required this.label,
+    required this.explorerUrl,
     this.web3RdpUrl,
     this.icon = WalletIcons.coins,
   });
@@ -63,4 +76,5 @@ class AppConfigParams {
   final IconData icon;
   final bool enabled;
   final String label;
+  final String explorerUrl;
 }
