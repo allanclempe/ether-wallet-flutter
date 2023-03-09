@@ -12,7 +12,7 @@ A digital wallet app developed in dart and flutter. The idea is to help develope
 
 |                               Wallet                               |                              Change network                              |                               Transfer tokens                               |
 | :----------------------------------------------------------------: | :----------------------------------------------------------------------: | :-------------------------------------------------------------------------: |
-| ![Your wallet](https://faucet.clempe.dev/images/your-wallet-2.jpg) | ![Change network](https://faucet.clempe.dev/images/change-network-2.jpg) | ![Transfer tokens](https://faucet.clempe.dev/images/transfer-address-2.jpg) |
+| ![Your wallet](https://faucet.clempe.dev/images/your-wallet-3.png) | ![Change network](https://faucet.clempe.dev/images/change-network-3.png) | ![Transfer tokens](https://faucet.clempe.dev/images/transfer-address-3.png) |
 
 ### Getting started
 
@@ -72,6 +72,7 @@ If you enjoy my work, a small donation would be greatly appreciated.
 |                                    BTC                                     |                                     ETH                                      |
 | :------------------------------------------------------------------------: | :--------------------------------------------------------------------------: |
 | <img src="https://faucet.clempe.dev/images/btc-address.png" width="150" /> | <img src="https://faucet.clempe.dev/images/eth-address.png"  width="150"  /> |
+| bc1qkvjec6dhr94jvlvqqjpuv7n3vz8j0h89nle6n3 | 0xE4B2ca20D15109b0a2Eef933678C496A1a798173 |
 
 ### License
 

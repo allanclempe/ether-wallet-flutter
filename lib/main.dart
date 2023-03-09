@@ -22,7 +22,7 @@ Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  const webConfig = FirebaseOptions(
+  const firebaseWebOptions = FirebaseOptions(
     apiKey: 'AIzaSyDWvJXaUYfFKdTHNxv5EA0iNEuCUAY7Nbo',
     authDomain: 'etherwallet-18c58.firebaseapp.com',
     databaseURL: 'https://etherwallet-18c58.firebaseio.com',
@@ -34,7 +34,7 @@ Future<void> main() async {
   );
 
   await Firebase.initializeApp(
-    options: kIsWeb ? webConfig : null,
+    options: kIsWeb ? firebaseWebOptions : null,
   );
 
   final stores = await createProviders();
