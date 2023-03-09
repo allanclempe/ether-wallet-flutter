@@ -35,7 +35,9 @@ class AddressService implements IAddressService {
     final master = await ED25519_HD_KEY.getMasterKeyFromSeed(hex.decode(seed),
         masterSecret: 'Bitcoin seed');
     final privateKey = HEX.encode(master.key);
+
     print('private: $privateKey');
+
     return privateKey;
   }
 
@@ -43,9 +45,9 @@ class AddressService implements IAddressService {
   Future<EthereumAddress> getPublicAddress(String privateKey) async {
     final private = EthPrivateKey.fromHex(privateKey);
 
-    final address = await private.extractAddress();
-    print('address: $address');
-    return address;
+    print('address: ${private.address}');
+
+    return private.address;
   }
 
   @override

@@ -4,6 +4,7 @@ class EthAmountFormatter {
   EthAmountFormatter(this.amount);
 
   final BigInt? amount;
+
   String format({
     EtherUnit fromUnit = EtherUnit.wei,
     EtherUnit toUnit = EtherUnit.ether,
@@ -12,7 +13,7 @@ class EthAmountFormatter {
       return '-';
     }
 
-    return EtherAmount.fromUnitAndValue(fromUnit, amount)
+    return EtherAmount.fromBigInt(fromUnit, amount!)
         .getValueInUnit(toUnit)
         .toString();
   }

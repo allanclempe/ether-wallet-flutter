@@ -27,10 +27,10 @@ class MainMenu extends StatelessWidget {
             subtitle: const Text('Claim some test tokens'),
             trailing: const Icon(WalletIcons.gem, color: Colors.blue),
             onTap: () async {
-              final url =
-                  'https://faucet.clempe.dev?address=$address&network=${network.name.toLowerCase()}';
-              if (await canLaunch(url)) {
-                await launch(url);
+              final url = Uri.parse(
+                  'https://faucet.clempe.dev?address=$address&network=${network.name.toLowerCase()}');
+              if (await canLaunchUrl(url)) {
+                await launchUrl(url);
               } else {
                 throw 'Could not launch $url';
               }
@@ -41,9 +41,9 @@ class MainMenu extends StatelessWidget {
             subtitle: Text('Claim some test ${network.config.symbol}'),
             trailing: Icon(network.config.icon, color: Colors.black),
             onTap: () async {
-              final url = network.config.faucetUrl;
-              if (await canLaunch(url)) {
-                await launch(url);
+              final url = Uri.parse(network.config.faucetUrl);
+              if (await canLaunchUrl(url)) {
+                await launchUrl(url);
               } else {
                 throw 'Could not launch $url';
               }

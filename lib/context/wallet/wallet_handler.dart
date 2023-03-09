@@ -8,7 +8,6 @@ import 'package:etherwallet/service/contract_locator.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:web3dart/web3dart.dart' as web3;
 
-import '../../utils/stream_disposable.dart';
 import 'wallet_state.dart';
 
 class WalletHandler {
@@ -23,7 +22,6 @@ class WalletHandler {
   final AddressService _addressService;
   final ConfigurationService _configurationService;
   final ContractLocator _contractLocator;
-  final StreamDisposable _transferStreamDisposable = StreamDisposable();
 
   Wallet get state => _store.state;
 
@@ -63,27 +61,26 @@ class WalletHandler {
     await refreshBalance();
   }
 
-  Future<void> listenTransfers(String? address, NetworkType network) async {
+  Function()? listenTransfers(String? address, NetworkType network) {
     if (address == null || address.isEmpty) {
-      return;
+      return null;
     }
 
-    await _transferStreamDisposable.set(() {
-      return _contractLocator
-          .getInstance(network)
-          .listenTransfer((from, to, value) async {
-        final fromMe = from.toString() == address;
-        final toMe = to.toString() == address;
+    final subscription = _contractLocator
+        .getInstance(network)
+        .listenTransfer((from, to, value) async {
+      final toMe = to.toString() == address;
 
-        if (!fromMe && !toMe) {
-          return;
-        }
+      if (!toMe) {
+        return;
+      }
 
-        print('======= balance updated =======');
+      print('======= balance updated =======');
 
-        await refreshBalance();
-      });
+      await refreshBalance();
     });
+
+    return subscription.cancel;
   }
 
   Future<void> changeNetwork(NetworkType network) async {
@@ -113,6 +110,8 @@ class WalletHandler {
   Future<void> resetWallet() async {
     await _configurationService.setMnemonic(null);
     await _configurationService.setupDone(false);
+
+    _store.dispatch(BalanceUpdated(BigInt.zero, BigInt.zero));
   }
 
   String? getPrivateKey() {
