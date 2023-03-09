@@ -6,6 +6,11 @@ class WalletTransferInit implements WalletTransferAction {}
 
 class WalletTransferStarted implements WalletTransferAction {}
 
+class UpdateTransferTrasactionId implements WalletTransferAction {
+  UpdateTransferTrasactionId(this.transactionId);
+  final String? transactionId;
+}
+
 class WalletTransferError implements WalletTransferAction {
   WalletTransferError(this.error);
   final String error;
@@ -23,6 +28,10 @@ WalletTransfer reducer(WalletTransfer state, WalletTransferAction action) {
       ..errors.clear()
       ..status = WalletTransferStatus.started
       ..loading = true);
+  }
+
+  if (action is UpdateTransferTrasactionId) {
+    return state.rebuild((b) => b..transactionId = action.transactionId);
   }
 
   if (action is WalletTransferError) {

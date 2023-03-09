@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:etherwallet/utils/stream_disposable.dart';
 import 'package:web3dart/web3dart.dart';
+
+import '../model/wallet_transfer.dart';
 
 typedef TransferEvent = void Function(
   EthereumAddress from,
@@ -11,12 +12,17 @@ typedef TransferEvent = void Function(
 abstract class IContractService {
   EthPrivateKey getCredentials(String privateKey);
   Future<String?> send(
-      String privateKey, EthereumAddress receiver, BigInt amount,
-      {TransferEvent? onTransfer, Function(Object exeception)? onError});
+    String privateKey,
+    WalletTransferType type,
+    EthereumAddress receiver,
+    EtherAmount amount, {
+    TransferEvent? onTransfer,
+    Function(Object exeception)? onError,
+  });
   Future<BigInt> getTokenBalance(EthereumAddress from);
   Future<EtherAmount> getEthBalance(EthereumAddress from);
   Future<void> dispose();
-  StreamSubscription listenTransfer(TransferEvent onTransfer);
+  StreamSubscription<FilterEvent> listenTransfer(TransferEvent onTransfer);
 }
 
 class ContractService implements IContractService {
@@ -24,7 +30,6 @@ class ContractService implements IContractService {
 
   final Web3Client _client;
   final DeployedContract _contract;
-  final StreamDisposable _sendStreamDisposable = StreamDisposable();
 
   ContractEvent _transferEvent() => _contract.event('Transfer');
   ContractFunction _balanceFunction() => _contract.function('balanceOf');
@@ -36,33 +41,55 @@ class ContractService implements IContractService {
 
   @override
   Future<String?> send(
-      String privateKey, EthereumAddress receiver, BigInt amount,
-      {TransferEvent? onTransfer, Function(Object exeception)? onError}) async {
+    String privateKey,
+    WalletTransferType type,
+    EthereumAddress receiver,
+    EtherAmount amount, {
+    TransferEvent? onTransfer,
+    Function(Object exeception)? onError,
+  }) async {
     final credentials = getCredentials(privateKey);
     final from = credentials.address;
     final networkId = await _client.getNetworkId();
 
-    if (onTransfer != null) {
-      await _sendStreamDisposable.set(() {
-        return listenTransfer(onTransfer, take: 1);
-      });
-    }
-
     final gasPrice = await _client.getGasPrice();
+    final transaction = type == WalletTransferType.ether
+        ? Transaction(
+            from: from,
+            to: receiver,
+            gasPrice: gasPrice,
+            value: amount,
+          )
+        : Transaction.callContract(
+            contract: _contract,
+            function: _sendFunction(),
+            parameters: [receiver, amount.getInWei],
+            gasPrice: gasPrice,
+            from: from,
+          );
 
     try {
       final transactionId = await _client.sendTransaction(
         credentials,
-        Transaction.callContract(
-          contract: _contract,
-          function: _sendFunction(),
-          parameters: [receiver, amount],
-          gasPrice: gasPrice,
-          from: from,
-        ),
+        transaction,
         chainId: networkId,
       );
+
+      // pooling the transaction receipt every x seconds.
+      Timer.periodic(const Duration(seconds: 2), (timer) async {
+        final receipt = await _client.getTransactionReceipt(transactionId);
+
+        if (receipt?.status ?? false) {
+          if (onTransfer != null) {
+            onTransfer(from, receiver, amount.getInEther);
+          }
+
+          timer.cancel();
+        }
+      });
+
       print('transact started $transactionId');
+
       return transactionId;
     } catch (ex) {
       if (onError != null) {
@@ -89,7 +116,8 @@ class ContractService implements IContractService {
   }
 
   @override
-  StreamSubscription listenTransfer(TransferEvent onTransfer, {int? take}) {
+  StreamSubscription<FilterEvent> listenTransfer(TransferEvent onTransfer,
+      {int? take}) {
     var events = _client.events(FilterOptions.events(
       contract: _contract,
       event: _transferEvent(),

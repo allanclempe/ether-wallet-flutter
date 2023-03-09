@@ -12,12 +12,18 @@ class _$WalletTransfer extends WalletTransfer {
   @override
   final WalletTransferStatus status;
   @override
+  final String? transactionId;
+  @override
   final bool loading;
 
   factory _$WalletTransfer([void Function(WalletTransferBuilder)? updates]) =>
       (new WalletTransferBuilder()..update(updates))._build();
 
-  _$WalletTransfer._({this.errors, required this.status, required this.loading})
+  _$WalletTransfer._(
+      {this.errors,
+      required this.status,
+      this.transactionId,
+      required this.loading})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(status, r'WalletTransfer', 'status');
     BuiltValueNullFieldError.checkNotNull(
@@ -38,13 +44,19 @@ class _$WalletTransfer extends WalletTransfer {
     return other is WalletTransfer &&
         errors == other.errors &&
         status == other.status &&
+        transactionId == other.transactionId &&
         loading == other.loading;
   }
 
   @override
   int get hashCode {
-    return $jf(
-        $jc($jc($jc(0, errors.hashCode), status.hashCode), loading.hashCode));
+    var _$hash = 0;
+    _$hash = $jc(_$hash, errors.hashCode);
+    _$hash = $jc(_$hash, status.hashCode);
+    _$hash = $jc(_$hash, transactionId.hashCode);
+    _$hash = $jc(_$hash, loading.hashCode);
+    _$hash = $jf(_$hash);
+    return _$hash;
   }
 
   @override
@@ -52,6 +64,7 @@ class _$WalletTransfer extends WalletTransfer {
     return (newBuiltValueToStringHelper(r'WalletTransfer')
           ..add('errors', errors)
           ..add('status', status)
+          ..add('transactionId', transactionId)
           ..add('loading', loading))
         .toString();
   }
@@ -70,6 +83,11 @@ class WalletTransferBuilder
   WalletTransferStatus? get status => _$this._status;
   set status(WalletTransferStatus? status) => _$this._status = status;
 
+  String? _transactionId;
+  String? get transactionId => _$this._transactionId;
+  set transactionId(String? transactionId) =>
+      _$this._transactionId = transactionId;
+
   bool? _loading;
   bool? get loading => _$this._loading;
   set loading(bool? loading) => _$this._loading = loading;
@@ -81,6 +99,7 @@ class WalletTransferBuilder
     if ($v != null) {
       _errors = $v.errors?.toBuilder();
       _status = $v.status;
+      _transactionId = $v.transactionId;
       _loading = $v.loading;
       _$v = null;
     }
@@ -109,6 +128,7 @@ class WalletTransferBuilder
               errors: _errors?.build(),
               status: BuiltValueNullFieldError.checkNotNull(
                   status, r'WalletTransfer', 'status'),
+              transactionId: transactionId,
               loading: BuiltValueNullFieldError.checkNotNull(
                   loading, r'WalletTransfer', 'loading'));
     } catch (_) {
@@ -127,4 +147,4 @@ class WalletTransferBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
+// ignore_for_file: deprecated_member_use_from_same_package,type=lint
