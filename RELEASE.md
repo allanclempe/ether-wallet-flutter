@@ -9,6 +9,7 @@
 - Using getBlock nodes instead of infura
 - Refactored deprecated methods and components
 - Displayed balance on the transfer form
+- Fixed firebase init on the web
 - Libraries upgraded
 
 

@@ -22,7 +22,18 @@ Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: 'AIzaSyDWvJXaUYfFKdTHNxv5EA0iNEuCUAY7Nbo',
+      authDomain: 'etherwallet-18c58.firebaseapp.com',
+      databaseURL: 'https://etherwallet-18c58.firebaseio.com',
+      projectId: 'etherwallet-18c58',
+      storageBucket: 'etherwallet-18c58.appspot.com',
+      messagingSenderId: '1087248227022',
+      appId: '1:1087248227022:web:df8ff8ba4d302b361a4e9f',
+      measurementId: 'G-V04M927HSD',
+    ),
+  );
 
   final stores = await createProviders();
 
