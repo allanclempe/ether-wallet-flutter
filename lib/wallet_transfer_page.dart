@@ -49,12 +49,18 @@ class WalletTransferPage extends HookWidget {
         ],
       ),
       body: transferStore.state.loading
-          ? Loading(
-              extra: transactionId != null
-                  ? TransactionInfo(
-                      transactionId: transactionId,
-                      explorerUrl: network.config.explorerUrl)
-                  : null)
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Loading(),
+                  if (transactionId != null)
+                    TransactionInfo(
+                        transactionId: transactionId,
+                        explorerUrl: network.config.explorerUrl)
+                ],
+              ),
+            )
           : TransferForm(
               address: qrcodeAddress.value,
               onSubmit: (type, address, amount) async {
