@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:etherwallet/context/wallet/wallet_provider.dart';
 import 'package:etherwallet/router.dart';
 import 'package:etherwallet/services_provider.dart';
 import 'package:etherwallet/utils/http_override.dart';
@@ -41,8 +42,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: stores,
-        child: MaterialApp(
+      providers: stores,
+      child: WalletProvider(
+        builder: (context, store) => MaterialApp(
           title: 'Flutter App',
           initialRoute: '/',
           routes: getRoutes(context),
@@ -63,6 +65,8 @@ class MainApp extends StatelessWidget {
               textTheme: ButtonTextTheme.primary,
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
