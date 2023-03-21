@@ -6,21 +6,17 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        padding: const EdgeInsets.all(25),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text(
-              'Your transaction is being processed',
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 48.0),
-            SpinKitWanderingCubes(color: Colors.blue),
-          ],
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const [
+        Text(
+          'Your transaction is being processed',
+          textAlign: TextAlign.center,
         ),
-      ),
+        SizedBox(height: 48.0),
+        SpinKitWanderingCubes(color: Colors.blue),
+        SizedBox(height: 48.0),
+      ],
     );
   }
 }

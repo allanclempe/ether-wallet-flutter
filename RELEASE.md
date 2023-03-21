@@ -1,5 +1,18 @@
 # Release notes
 
+2.6.0+14:
+
+- Flutter upgraded and tested on version 3.7.2 (dart 2.19.2)
+- Polling transaction instead of using listener to get the confirmation (receipt)
+- While transfering, enabled a option to open the transaction on the blockchain explorer.
+- Ability to transfer contract token or network coin (ETH, BSB or MATIC)
+- Using getBlock nodes instead of infura
+- Refactored deprecated methods and components
+- Displayed balance on the transfer form
+- Fixed firebase init on the web
+- Libraries upgraded
+
+
 2.5.0+13:
 
 - Flutter upgraded and tested on version 3.3.7 (dart 2.18.4)

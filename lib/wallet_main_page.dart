@@ -1,4 +1,5 @@
 import 'package:etherwallet/components/wallet/balance.dart';
+import 'package:etherwallet/components/wallet/copyable_address.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -21,6 +22,7 @@ class WalletMainPage extends HookWidget {
 
     useEffect(() {
       store.initialise();
+      return null;
     }, []);
 
     useEffect(
@@ -103,12 +105,17 @@ class WalletMainPage extends HookWidget {
               loading: store.state.loading,
             ),
             const SizedBox(height: 10),
+            CopyableAddress(address: store.state.address),
             Balance(
-              address: store.state.address,
-              ethBalance: store.state.ethBalance,
-              tokenBalance: store.state.tokenBalance,
+              balance: store.state.tokenBalance,
+              symbol: 'tokens',
+              fontSizeDelta: 6,
+            ),
+            Balance(
+              balance: store.state.ethBalance,
               symbol: network.config.symbol,
-            )
+              fontColor: Colors.blueGrey,
+            ),
           ],
         ),
       ),

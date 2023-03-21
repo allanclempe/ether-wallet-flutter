@@ -12,24 +12,22 @@ import 'package:provider/provider.dart';
 
 import 'context/setup/wallet_setup_provider.dart';
 import 'context/transfer/wallet_transfer_provider.dart';
-import 'context/wallet/wallet_provider.dart';
 import 'intro_page.dart';
 
 Map<String, WidgetBuilder> getRoutes(context) {
   return {
     '/': (BuildContext context) {
       final configurationService = Provider.of<ConfigurationService>(context);
-      if (configurationService.didSetupWallet())
-        return WalletProvider(
-            // ignore: prefer_const_constructors
-            builder: (context, store) => WalletMainPage('Your wallet'));
-
-      return const IntroPage();
+      return configurationService.didSetupWallet()
+          // ignore: prefer_const_constructors
+          ? WalletMainPage('Your wallet')
+          : const IntroPage();
     },
     '/create': (BuildContext context) =>
         WalletSetupProvider(builder: (context, store) {
           useEffect(() {
             store.generateMnemonic();
+            return null;
           }, []);
 
           // ignore: prefer_const_constructors

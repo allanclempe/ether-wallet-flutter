@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:etherwallet/model/network_type.dart';
 import 'package:etherwallet/model/wallet.dart';
 import 'package:etherwallet/service/address_service.dart';
@@ -67,10 +69,9 @@ class WalletHandler {
     final subscription = _contractLocator
         .getInstance(network)
         .listenTransfer((from, to, value) async {
-      final fromMe = from.toString() == address;
       final toMe = to.toString() == address;
 
-      if (!fromMe && !toMe) {
+      if (!toMe) {
         return;
       }
 
@@ -109,6 +110,8 @@ class WalletHandler {
   Future<void> resetWallet() async {
     await _configurationService.setMnemonic(null);
     await _configurationService.setupDone(false);
+
+    _store.dispatch(BalanceUpdated(BigInt.zero, BigInt.zero));
   }
 
   String? getPrivateKey() {

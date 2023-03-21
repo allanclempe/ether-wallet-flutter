@@ -1,15 +1,41 @@
+import 'dart:io';
+
+import 'package:etherwallet/context/wallet/wallet_provider.dart';
 import 'package:etherwallet/router.dart';
 import 'package:etherwallet/services_provider.dart';
+import 'package:etherwallet/utils/http_override.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 Future<void> main() async {
   // bootstrapping;
+
+  if (kDebugMode) {
+    // ingore http bad cert in debug
+    // https://stackoverflow.com/questions/54285172/how-to-solve-flutter-certificate-verify-failed-error-while-performing-a-post-req
+    HttpOverrides.global = MyHttpOverrides();
+  }
+
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+
+  const firebaseWebOptions = FirebaseOptions(
+    apiKey: 'AIzaSyDWvJXaUYfFKdTHNxv5EA0iNEuCUAY7Nbo',
+    authDomain: 'etherwallet-18c58.firebaseapp.com',
+    databaseURL: 'https://etherwallet-18c58.firebaseio.com',
+    projectId: 'etherwallet-18c58',
+    storageBucket: 'etherwallet-18c58.appspot.com',
+    messagingSenderId: '1087248227022',
+    appId: '1:1087248227022:web:df8ff8ba4d302b361a4e9f',
+    measurementId: 'G-V04M927HSD',
+  );
+
+  await Firebase.initializeApp(
+    options: kIsWeb ? firebaseWebOptions : null,
+  );
 
   final stores = await createProviders();
 
@@ -29,8 +55,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: stores,
-        child: MaterialApp(
+      providers: stores,
+      child: WalletProvider(
+        builder: (context, store) => MaterialApp(
           title: 'Flutter App',
           initialRoute: '/',
           routes: getRoutes(context),
@@ -51,6 +78,8 @@ class MainApp extends StatelessWidget {
               textTheme: ButtonTextTheme.primary,
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
