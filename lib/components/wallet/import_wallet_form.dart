@@ -44,9 +44,16 @@ class ImportWalletForm extends HookWidget {
                         importType.value = value as WalletImportType,
                   ),
                   PaperRadio(
-                    'Private Key',
+                    'Pvt Key',
                     groupValue: importType.value,
                     value: WalletImportType.privateKey,
+                    onChanged: (value) =>
+                        importType.value = value as WalletImportType,
+                  ),
+                  PaperRadio(
+                    'SSS',
+                    groupValue: importType.value,
+                    value: WalletImportType.sss,
                     onChanged: (value) =>
                         importType.value = value as WalletImportType,
                   ),
@@ -56,7 +63,7 @@ class ImportWalletForm extends HookWidget {
                 children: <Widget>[
                   Visibility(
                       child: fieldForm(
-                          label: 'Private Key',
+                          label: 'Private key',
                           hintText: 'Type your private key',
                           controller: inputController),
                       visible: importType.value == WalletImportType.privateKey),
@@ -66,6 +73,12 @@ class ImportWalletForm extends HookWidget {
                           hintText: 'Type your seed phrase',
                           controller: inputController),
                       visible: importType.value == WalletImportType.mnemonic),
+                  Visibility(
+                      child: fieldForm(
+                          label: "Shamir's secret sharing",
+                          hintText: 'Paste one secret per line',
+                          controller: inputController),
+                      visible: importType.value == WalletImportType.sss)
                 ],
               ),
             ],

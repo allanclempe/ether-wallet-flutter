@@ -31,6 +31,12 @@ class WalletImportPage extends HookWidget {
                       return;
                     }
                     break;
+                  case WalletImportType.sss:
+                    if (!await store.importFromSSS(
+                        value.split(value.contains('\r\n') ? '\r\n' : ','))) {
+                      return;
+                    }
+                    break;
                   default:
                     break;
                 }

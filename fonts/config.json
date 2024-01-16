@@ -41,6 +41,12 @@
       "css": "check",
       "code": 59392,
       "src": "fontawesome"
+    },
+    {
+      "uid": "afdef1656447e2558662b393d6b4bb75",
+      "css": "share",
+      "code": 59393,
+      "src": "iconic"
     }
   ]
 }

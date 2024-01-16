@@ -10,12 +10,14 @@ class MainMenu extends StatelessWidget {
     required this.network,
     required this.onReset,
     required this.onRevealKey,
+    required this.onGenerateSSS,
   }) : super(key: key);
 
   final String? address;
   final NetworkType network;
   final GestureTapCallback? onReset;
   final GestureTapCallback? onRevealKey;
+  final GestureTapCallback? onGenerateSSS;
 
   @override
   Widget build(BuildContext context) {
@@ -58,11 +60,19 @@ class MainMenu extends StatelessWidget {
               ),
               onTap: onRevealKey),
           ListTile(
+              title: const Text('Backup wallet'),
+              subtitle: const Text("Using Shamir's Secret Sharing"),
+              trailing: const Icon(
+                WalletIcons.share,
+                color: Colors.orange,
+              ),
+              onTap: onGenerateSSS),
+          ListTile(
               title: const Text('Reset wallet'),
               subtitle: const Text('Wipe all wallet data'),
               trailing: const Icon(
                 WalletIcons.skull,
-                color: Colors.orange,
+                color: Colors.red,
               ),
               onTap: onReset),
         ],

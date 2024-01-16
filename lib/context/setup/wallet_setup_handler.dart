@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:etherwallet/model/wallet_setup.dart';
 import 'package:etherwallet/service/address_service.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:ntcdcrypto/ntcdcrypto.dart';
 
 import 'wallet_setup_state.dart';
 
@@ -51,6 +52,20 @@ class WalletSetupHandler {
 
     _store.dispatch(
         WalletSetupAddError('Invalid mnemonic, it requires 12 words.'));
+
+    return false;
+  }
+
+  Future<bool> importFromSSS(List<String> secrets) async {
+    try {
+      _store.dispatch(WalletSetupStarted());
+
+      final privateKey = SSS().combine(secrets, false);
+
+      return importFromPrivateKey(privateKey);
+    } catch (e) {
+      _store.dispatch(WalletSetupAddError(e.toString()));
+    }
 
     return false;
   }

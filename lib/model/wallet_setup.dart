@@ -7,7 +7,7 @@ enum WalletSetupMethod { fromMnemonic, fromPrivateKey, create }
 
 enum WalletCreateSteps { display, confirm }
 
-enum WalletImportType { mnemonic, privateKey }
+enum WalletImportType { mnemonic, privateKey, sss }
 
 abstract class WalletSetup implements Built<WalletSetup, WalletSetupBuilder> {
   factory WalletSetup([void Function(WalletSetupBuilder)? updates]) =>

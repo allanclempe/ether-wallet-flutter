@@ -1,5 +1,6 @@
 import 'package:etherwallet/components/wallet/balance.dart';
 import 'package:etherwallet/components/wallet/copyable_address.dart';
+import 'package:etherwallet/utils/eth_address_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -21,7 +22,8 @@ class WalletMainPage extends HookWidget {
     final network = store.state.network;
 
     useEffect(() {
-      store.initialise();
+      store.initialize();
+
       return null;
     }, []);
 
@@ -37,7 +39,7 @@ class WalletMainPage extends HookWidget {
         onReset: () => Alert(
             title: 'Warning',
             text:
-                'Without your seed phrase or private key you cannot restore your wallet balance',
+                'Without your seed phrase or private key you cannot restore your wallet balance.',
             actions: [
               TextButton(
                 child: const Text('cancel'),
@@ -63,11 +65,38 @@ class WalletMainPage extends HookWidget {
               TextButton(
                 child: const Text('copy and close'),
                 onPressed: () {
-                  Clipboard.setData(ClipboardData(text: store.getPrivateKey()));
+                  Clipboard.setData(ClipboardData(
+                    text: store.getPrivateKey()!,
+                  ));
                   Navigator.of(context).pop();
                 },
               ),
             ]).show(context),
+        onGenerateSSS: () {
+          final secrets = store.generateSSS(3, 5);
+          final v = secrets.asMap().entries.map((item) =>
+              '${item.key + 1}: ${EthAddressFormatter(item.value).mask()}');
+
+          Alert(
+              title: "Shamir's Secret Sharing",
+              text:
+                  'WARNING: 3 parts of the 5 generated can be used to reveal your private key.\r\n\r\n${v.join('\r\n')}',
+              actions: [
+                TextButton(
+                  child: const Text('close'),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                TextButton(
+                  child: const Text('copy and close'),
+                  onPressed: () {
+                    Clipboard.setData(ClipboardData(
+                      text: secrets.join('\r\n'),
+                    ));
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ]).show(context);
+        },
       ),
       appBar: AppBar(
         title: Text(title),

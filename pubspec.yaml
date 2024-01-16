@@ -30,12 +30,13 @@ dependencies:
   cupertino_icons: ^1.0.5
   web3dart: ^2.6.1
   provider: ^6.0.4
-  qr_flutter: ^4.0.0
+  qr_flutter: ^4.1.0
   # used to generate pneumonic phrase
   bip39: ^1.0.6
   hex: ^0.2.0
   shared_preferences: ^2.0.15
   web_socket_channel: ^2.2.0
+  ntcdcrypto: ^0.2.0
   intl: ^0.17.0
   flutter_spinkit: ^5.1.0
   qr_code_scanner: ^1.0.1
@@ -45,7 +46,7 @@ dependencies:
   flutter_hooks: ^0.18.5+1
   built_value: ^8.3.3
   built_collection: ^5.1.1
-  ed25519_hd_key: ^2.2.0
+  ed25519_hd_key: ^2.2.1
 
 dev_dependencies:
   flutter_test:

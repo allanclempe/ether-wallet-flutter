@@ -24,7 +24,7 @@ class CopyableAddress extends StatelessWidget {
           ),
           if (address != null &&
               (mediaQuery.orientation == Orientation.portrait || kIsWeb))
-            QrImage(
+            QrImageView(
               data: address!,
               size: 150.0,
             ),

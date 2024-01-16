@@ -15,13 +15,11 @@ class CopyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       child: text,
-      onPressed: () {
-        Clipboard.setData(ClipboardData(text: value));
-
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Copied'),
-        ));
-      },
+      onPressed: value != null
+          ? () {
+              Clipboard.setData(ClipboardData(text: value!));
+            }
+          : null,
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:etherwallet/service/address_service.dart';
 import 'package:etherwallet/service/configuration_service.dart';
 import 'package:etherwallet/service/contract_locator.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:ntcdcrypto/ntcdcrypto.dart';
 import 'package:web3dart/web3dart.dart' as web3;
 
 import 'wallet_state.dart';
@@ -25,23 +26,23 @@ class WalletHandler {
 
   Wallet get state => _store.state;
 
-  Future<void> initialise() async {
+  Future<void> initialize() async {
     final entropyMnemonic = _configurationService.getMnemonic();
     final privateKey = _configurationService.getPrivateKey();
 
     if (entropyMnemonic != null && entropyMnemonic.isNotEmpty) {
-      _initialiseFromMnemonic(state.network, entropyMnemonic);
+      _initializeFromMnemonic(state.network, entropyMnemonic);
       return;
     }
     if (privateKey != null && privateKey.isNotEmpty) {
-      _initialiseFromPrivateKey(state.network, privateKey);
+      _initializeFromPrivateKey(state.network, privateKey);
       return;
     }
 
     throw Exception('Wallet could not be initialised.');
   }
 
-  Future<void> _initialiseFromMnemonic(
+  Future<void> _initializeFromMnemonic(
       NetworkType network, String entropyMnemonic) async {
     final mnemonic = _addressService.entropyToMnemonic(entropyMnemonic);
     final privateKey = await _addressService.getPrivateKey(mnemonic);
@@ -52,7 +53,7 @@ class WalletHandler {
     await refreshBalance();
   }
 
-  Future<void> _initialiseFromPrivateKey(
+  Future<void> _initializeFromPrivateKey(
       NetworkType network, String privateKey) async {
     final address = await _addressService.getPublicAddress(privateKey);
 
@@ -116,5 +117,9 @@ class WalletHandler {
 
   String? getPrivateKey() {
     return _configurationService.getPrivateKey();
+  }
+
+  List<String> generateSSS(int minimum, int parts) {
+    return SSS().create(minimum, parts, getPrivateKey()!, false);
   }
 }
